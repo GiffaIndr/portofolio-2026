@@ -11,6 +11,7 @@ import { Skills } from "@/components/sections/Skills";
 import { MoreWorks } from "@/components/sections/MoreWorks";
 import { ScrollParallaxCanvas } from "@/components/layout/ScrollParallaxCanvas";
 import { SerendipityBanner } from "@/components/ui/SerendipityBanner";
+import { MobiusTicker } from "@/components/ui/MobiusTicker";
 
 export default function Home() {
   const [lang, setLang] = useState<"EN" | "ID">("EN");
@@ -42,9 +43,11 @@ export default function Home() {
       <ScrollParallaxCanvas />
       <main className="relative min-h-screen">
         <Hero lang={lang} />
+        <MobiusTicker speed={30} />
         <SerendipityBanner lang={lang} />
         <About lang={lang} />
         <SelectedWork lang={lang} />
+        <MobiusTicker speed={28} reverse />
         <Experience lang={lang} />
         <Skills lang={lang} />
         <MoreWorks lang={lang} />

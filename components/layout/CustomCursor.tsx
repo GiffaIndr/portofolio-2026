@@ -5,13 +5,15 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
   const [cursorText, setCursorText] = useState("");
+  const [cursorColor, setCursorColor] = useState<string | null>(null);
   const [cursorVariant, setCursorVariant] = useState<"default" | "hover">("default");
   const [isVisible, setIsVisible] = useState(false);
 
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 350, mass: 0.3 };
+  // Möbius spring configuration: snappy yet silky
+  const springConfig = { damping: 24, stiffness: 320, mass: 0.28 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
@@ -31,14 +33,17 @@ export function CustomCursor() {
       const target = (e.target as HTMLElement).closest("[data-cursor]");
       if (target) {
         setCursorText(target.getAttribute("data-cursor") || "");
+        setCursorColor(target.getAttribute("data-cursor-color") || null);
         setCursorVariant("hover");
       } else {
         const isClickable = (e.target as HTMLElement).closest("a, button, input, [role='button']");
         if (isClickable) {
           setCursorText("");
+          setCursorColor(null);
           setCursorVariant("hover");
         } else {
           setCursorText("");
+          setCursorColor(null);
           setCursorVariant("default");
         }
       }
@@ -64,27 +69,39 @@ export function CustomCursor() {
       {/* Precision center dot */}
       <motion.div
         aria-hidden="true"
-        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full bg-ink dark:bg-ink-light pointer-events-none z-[10000] -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-ink dark:bg-white pointer-events-none z-[10000] -translate-x-1/2 -translate-y-1/2"
         style={{ x: mouseX, y: mouseY, opacity: cursorText ? 0 : 1 }}
       />
 
-      {/* Outer Follower Ring - NO glassmorphism / NO backdrop-blur for instant snappy speed */}
+      {/* Dynamic Follower Ring & Pill */}
       <motion.div
         aria-hidden="true"
-        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition-colors ${
-          cursorVariant === "hover"
-            ? "border-2 border-ink dark:border-ink-light bg-butter text-ink"
-            : "border border-ink/40 dark:border-ink-light/40 bg-transparent"
+        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition-colors shadow-sm ${
+          cursorVariant === "hover" && !cursorColor
+            ? "border-2 border-ink dark:border-white bg-[#F2D13B] text-[#141412]"
+            : cursorVariant === "default"
+            ? "border border-ink/40 dark:border-white/40 bg-transparent text-transparent"
+            : ""
         }`}
         animate={{
-          width: cursorText ? 68 : cursorVariant === "hover" ? 38 : 24,
-          height: cursorText ? 68 : cursorVariant === "hover" ? 38 : 24,
+          width: cursorText ? 84 : cursorVariant === "hover" ? 42 : 24,
+          height: cursorText ? 36 : cursorVariant === "hover" ? 42 : 24,
+          borderRadius: cursorText ? 18 : 9999,
+          backgroundColor: cursorColor
+            ? cursorColor
+            : cursorVariant === "hover"
+            ? "#F2D13B"
+            : "transparent",
         }}
         transition={{ type: "spring", damping: 25, stiffness: 350 }}
-        style={{ x: smoothX, y: smoothY }}
+        style={{
+          x: smoothX,
+          y: smoothY,
+          color: cursorColor ? "#FFFFFF" : undefined,
+        }}
       >
         {cursorText && (
-          <span className="text-[10px] font-extrabold uppercase select-none px-1 text-center font-sans tracking-tight">
+          <span className="text-[10px] font-black uppercase select-none px-2 text-center font-mono tracking-tight drop-shadow-sm">
             {cursorText}
           </span>
         )}

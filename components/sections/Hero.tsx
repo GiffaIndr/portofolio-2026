@@ -3,8 +3,9 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { SwirlDoodle } from "@/components/ui/PaperCutDoodles";
+import { CardTilt3D } from "@/components/ui/CardTilt3D";
 
 interface HeroProps {
   lang: "EN" | "ID";
@@ -18,7 +19,7 @@ export function Hero({ lang }: HeroProps) {
   });
 
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
-  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "-16%"]);
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
   const photoRotate = useTransform(scrollYProgress, [0, 1], [1.5, -4]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
 
@@ -28,14 +29,17 @@ export function Hero({ lang }: HeroProps) {
       ref={containerRef}
       className="relative min-h-[92vh] flex flex-col justify-between pt-28 sm:pt-32 pb-8 px-4 sm:px-8 md:px-12 overflow-hidden bg-paper dark:bg-paper-dark text-ink dark:text-ink-light"
     >
-      {/* Editorial Folio Header (No generic hairline rules or blinking dots) */}
+      {/* Editorial Folio Header */}
       <div className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-4">
         <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-ink/75 dark:text-ink-light">
-          <span className="text-[#65A30D] dark:text-[#A3E635] font-extrabold">✦</span>
+          <span className="text-[#2563EB] dark:text-[#60A5FA] font-extrabold">✦</span>
           <span>{lang === "EN" ? "FRONT-END & SOFTWARE ENGINEERING" : "REKAYASA PERANGKAT LUNAK"}</span>
         </div>
-        <div className="text-xs font-mono text-ink/60 dark:text-ink-lightDim">
-          IPB University · D4 TRPL · Bogor, ID
+        <div className="flex items-center gap-2 text-xs font-mono text-ink/60 dark:text-ink-lightDim">
+          <span className="px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 font-bold text-ink dark:text-white">
+            IPB University
+          </span>
+          <span>· D4 TRPL · Bogor, ID</span>
         </div>
       </div>
 
@@ -46,17 +50,22 @@ export function Hero({ lang }: HeroProps) {
           style={{ y: titleY, opacity }}
           className="lg:col-span-7 space-y-5 sm:space-y-6"
         >
-          {/* Solid Bespoke Ticket Badge (No transparent background slop) */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-cutout text-xs uppercase tracking-wider shadow-[2px_2px_0px_#84CC16] dark:shadow-[2px_2px_0px_#A3E635]">
-            <span className="text-[#84CC16] dark:text-[#65A30D]">★</span>
-            <span>{lang === "EN" ? "PORTFOLIO ARCHIVE // 2026" : "PORTOFOLIO DIGITAL // 2026"}</span>
+          {/* Solid Bespoke Ticket Badge with UIMaven Saffron Accent */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-xs uppercase tracking-wider shadow-[2px_2px_0px_#F59E0B] dark:shadow-[2px_2px_0px_#FBBF24]">
+              <span className="text-[#F59E0B]">★</span>
+              <span>{lang === "EN" ? "PORTFOLIO ARCHIVE // 2026" : "PORTOFOLIO DIGITAL // 2026"}</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-[1.5px_1.5px_0px_#141412]">
+              <span>✦ D4 TRPL</span>
+            </div>
           </div>
 
           {/* Giant Cutout Title */}
           <div className="space-y-1">
             <h1 className="font-cutout text-[13vw] sm:text-[9vw] lg:text-[5.5rem] leading-[0.96] text-ink dark:text-ink-light tracking-tight">
               HELLO, <br />
-              I'M <span className="text-[#65A30D] dark:text-[#A3E635]">GIFFA.</span>
+              I'M <span className="text-[#2563EB] dark:text-[#60A5FA]">GIFFA.</span>
             </h1>
           </div>
 
@@ -69,8 +78,9 @@ export function Hero({ lang }: HeroProps) {
           <div className="flex flex-wrap items-center gap-3.5 pt-2">
             <a
               href="#work"
-              className="inline-flex items-center gap-2 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-bold text-xs uppercase tracking-wider hover:bg-terracotta dark:hover:bg-butter transition-colors shadow-paper"
+              className="inline-flex items-center gap-2 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-bold text-xs uppercase tracking-wider hover:bg-[#2563EB] dark:hover:bg-[#38BDF8] dark:hover:text-[#141412] transition-colors shadow-paper"
               data-cursor="DISCOVER"
+              data-cursor-color="#2563EB"
             >
               <span>{lang === "EN" ? "Explore Selected Work" : "Jelajahi Karya"}</span>
               <ArrowDown className="w-4 h-4" />
@@ -84,7 +94,7 @@ export function Hero({ lang }: HeroProps) {
           </div>
         </motion.div>
 
-        {/* Right Column: Taped Polaroid & Cutout Portrait of Giffa */}
+        {/* Right Column: Taped Polaroid & Cutout Portrait of Giffa with 3D Tilt */}
         <motion.div
           style={{ y: photoY, rotate: photoRotate }}
           className="lg:col-span-5 flex justify-center lg:justify-end"
@@ -95,52 +105,42 @@ export function Hero({ lang }: HeroProps) {
               <SwirlDoodle className="w-16 h-14" color="#FACC15" />
             </div>
 
-            {/* Taped photo card (Solid paper, no glassmorphism) */}
-            <div className="relative p-3.5 sm:p-5 pb-7 sm:pb-8 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-white/20 shadow-polaroid dark:shadow-polaroidDark transition-transform duration-500">
-              {/* Green washi tape */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-6 sm:h-7 tape-green z-20" />
+            {/* Taped photo card with 3D tilt */}
+            <CardTilt3D maxTilt={7} scaleHover={1.02}>
+              <div className="relative p-3.5 sm:p-5 pb-7 sm:pb-8 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-white/20 shadow-polaroid dark:shadow-polaroidDark transition-transform duration-500">
+                {/* Cobalt washi tape */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-6 sm:h-7 bg-[#2563EB] rounded-xs shadow-xs z-20" />
 
-              {/* Real Giffa portrait image */}
-              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5">
-                <Image
-                  src="/profile/giffa-selfie-cool.jpg"
-                  alt="Syaikhani Giffa Indrawan authentic portrait with glasses"
-                  fill
-                  priority
-                  className="object-cover object-center hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 640px) 85vw, 400px"
-                />
-              </div>
-
-              {/* Caption */}
-              <div className="mt-3.5 sm:mt-4 flex items-center justify-between px-1">
-                <div>
-                  <span className="font-script-brush text-xl sm:text-2xl text-ink dark:text-ink-light block">
-                    Syaikhani Giffa
-                  </span>
-                  <span className="text-[11px] sm:text-xs text-ink/70 dark:text-ink-lightDim font-medium">
-                    Software Engineering Tech · Bogor
-                  </span>
+                {/* Real Giffa portrait image */}
+                <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5">
+                  <Image
+                    src="/profile/giffa-selfie-cool.jpg"
+                    alt="Syaikhani Giffa Indrawan authentic portrait with glasses"
+                    fill
+                    priority
+                    className="object-cover object-center hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 640px) 85vw, 400px"
+                  />
                 </div>
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-butter text-ink flex items-center justify-center font-bold text-xs shadow-sm rotate-6">
-                  2026
+
+                {/* Caption */}
+                <div className="mt-3.5 sm:mt-4 flex items-center justify-between px-1">
+                  <div>
+                    <span className="font-script-brush text-xl sm:text-2xl text-ink dark:text-ink-light block">
+                      Syaikhani Giffa
+                    </span>
+                    <span className="text-[11px] sm:text-xs text-ink/70 dark:text-ink-lightDim font-medium">
+                      Bogor, West Java · TRPL
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB] text-white text-[11px] font-mono font-bold uppercase tracking-wider shadow-sm">
+                    <span>Active 2026</span>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Yellow pill sticker at bottom */}
-            <div className="absolute -bottom-3 -left-3 sm:-left-5 px-3.5 py-1.5 bg-butter text-ink rounded-full font-cutout text-[11px] sm:text-xs shadow-paper -rotate-2 border border-black/20 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-terracotta" />
-              <span>CRAFT &amp; CODE</span>
-            </div>
+            </CardTilt3D>
           </div>
         </motion.div>
-      </div>
-
-      {/* Bottom Editorial Masthead Bar (Clean solid strip, no random dividing line) */}
-      <div className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between pt-4 gap-2 text-xs font-mono text-ink/65 dark:text-ink-lightDim">
-        <div>COORDINATES: 6.5971° S, 106.8060° E</div>
-        <div>BOGOR · ELEVATION 265 M · IPB UNIVERSITY</div>
       </div>
     </section>
   );

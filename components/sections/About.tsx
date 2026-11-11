@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { profile } from "@/content/profile";
 import { Award, Briefcase, GraduationCap, Terminal } from "lucide-react";
 import { StarburstCutout } from "@/components/ui/PaperCutDoodles";
+import { CardTilt3D } from "@/components/ui/CardTilt3D";
 
 interface AboutProps {
   lang: "EN" | "ID";
@@ -18,8 +19,14 @@ export function About({ lang }: AboutProps) {
     offset: ["start end", "end start"],
   });
 
-  const photoY = useTransform(scrollYProgress, [0, 1], [-20, 30]);
+  const photoY = useTransform(scrollYProgress, [0, 1], [-25, 35]);
   const tapeRotate = useTransform(scrollYProgress, [0, 1], [-3, 4]);
+
+  const statAccents = [
+    { border: "border-b-4 border-b-[#2563EB]", text: "text-[#2563EB] dark:text-[#60A5FA]" },
+    { border: "border-b-4 border-b-[#059669]", text: "text-[#059669] dark:text-[#34D399]" },
+    { border: "border-b-4 border-b-[#F59E0B]", text: "text-[#F59E0B] dark:text-[#FBBF24]" },
+  ];
 
   return (
     <section
@@ -28,14 +35,14 @@ export function About({ lang }: AboutProps) {
       className="relative w-full py-20 sm:py-28 bg-surface dark:bg-[#1A1A17] text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
-        {/* Section Header (No generic hairline dividing lines) */}
+        {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 gap-3">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-[11px] font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#84CC16] dark:shadow-[2px_2px_0px_#A3E635]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-[11px] font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#2563EB] dark:shadow-[2px_2px_0px_#60A5FA]">
               <span>[ 01 // INTRODUCTION ]</span>
             </div>
             <h2 className="font-cutout text-3xl sm:text-5xl text-ink dark:text-ink-light tracking-tight">
-              ABOUT <span className="text-[#65A30D] dark:text-[#A3E635]">SYAIKHANI.</span>
+              ABOUT <span className="text-[#2563EB] dark:text-[#60A5FA]">SYAIKHANI.</span>
             </h2>
           </div>
           <div className="text-xs font-mono font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
@@ -82,15 +89,15 @@ export function About({ lang }: AboutProps) {
                       Bogor, West Java, Indonesia
                     </span>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412]">
+                  <span className="text-xs font-bold px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono">
                     D4 TRPL
                   </span>
                 </div>
               </div>
 
-              {/* Engineering Philosophy Sticky Note (Solid crisp card) */}
-              <div className="mt-5 p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[2.5px_2.5px_0px_#141412] dark:shadow-[2.5px_2.5px_0px_rgba(255,255,255,0.12)] space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#65A30D] dark:text-[#A3E635]">
+              {/* Engineering Philosophy Sticky Note */}
+              <div className="mt-5 p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[2.5px_2.5px_0px_#2563EB] dark:shadow-[2.5px_2.5px_0px_#60A5FA] space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA]">
                   <Terminal className="w-3.5 h-3.5" />
                   <span>{lang === "EN" ? "Engineering Values" : "Prinsip Rekayasa"}</span>
                 </div>
@@ -118,35 +125,39 @@ export function About({ lang }: AboutProps) {
               ))}
             </div>
 
-            {/* Verified Metrics Cards (Solid Crisp Paper Surfaces) */}
+            {/* Verified Metrics Cards with Möbius CardTilt & UIMaven Accents */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-2">
-              {profile.about.stats.map((st, i) => (
-                <div
-                  key={i}
-                  className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.1)]"
-                >
-                  <span className="font-cutout text-2xl sm:text-3xl text-ink dark:text-ink-light block">
-                    {st.value}
-                  </span>
-                  <span className="text-xs font-bold text-ink/75 dark:text-[#FAF7F2] uppercase tracking-wide block mt-1">
-                    {st.label}
-                  </span>
-                </div>
-              ))}
+              {profile.about.stats.map((st, i) => {
+                const acc = statAccents[i % statAccents.length];
+                return (
+                  <CardTilt3D key={i} maxTilt={5} scaleHover={1.02}>
+                    <div
+                      className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] ${acc.border} shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.1)]`}
+                    >
+                      <span className={`font-cutout text-2xl sm:text-3xl block ${acc.text}`}>
+                        {st.value}
+                      </span>
+                      <span className="text-xs font-bold text-ink/75 dark:text-[#FAF7F2] uppercase tracking-wide block mt-1">
+                        {st.label}
+                      </span>
+                    </div>
+                  </CardTilt3D>
+                );
+              })}
             </div>
 
-            {/* Key Verified Credentials (Solid Crisp Paper Tickets) */}
+            {/* Key Verified Credentials (UIMaven Colorful Tickets) */}
             <div className="pt-2 flex flex-wrap gap-2.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#84CC16] text-xs font-bold text-ink dark:text-white">
-                <Award className="w-3.5 h-3.5 text-[#65A30D] dark:text-[#A3E635]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#2563EB] text-xs font-bold text-ink dark:text-white">
+                <Award className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
                 <span>Certiport IT Specialist (HTML &amp; CSS)</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#FACC15] text-xs font-bold text-ink dark:text-white">
-                <Briefcase className="w-3.5 h-3.5 text-[#D9622B] dark:text-[#FB923C]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#EA580C] text-xs font-bold text-ink dark:text-white">
+                <Briefcase className="w-3.5 h-3.5 text-[#EA580C] dark:text-[#FB923C]" />
                 <span>PT Hexaon Developer Intern</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#141412] text-xs font-bold text-ink dark:text-white">
-                <GraduationCap className="w-3.5 h-3.5 text-[#1F75B8] dark:text-[#38BDF8]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#059669] text-xs font-bold text-ink dark:text-white">
+                <GraduationCap className="w-3.5 h-3.5 text-[#059669] dark:text-[#34D399]" />
                 <span>SMK Wikrama Bogor Alum</span>
               </div>
             </div>
