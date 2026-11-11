@@ -15,8 +15,8 @@ export function Skills({ lang }: SkillsProps) {
     offset: ["start end", "end start"],
   });
 
-  const track1X = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const track2X = useTransform(scrollYProgress, [0, 1], ["-20%", "0%"]);
+  const track1X = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
+  const track2X = useTransform(scrollYProgress, [0, 1], ["-18%", "0%"]);
 
   const skillsRow1 = [
     "Angular",
@@ -46,19 +46,19 @@ export function Skills({ lang }: SkillsProps) {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative w-full py-24 sm:py-32 bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
+      className="relative w-full py-20 sm:py-28 bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/15 dark:border-white/15 gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 gap-3">
           <div>
-            <div className="inline-block px-3 py-1 rounded bg-[#D9622B]/20 dark:bg-[#D9622B]/30 text-terracotta dark:text-[#FB923C] font-bold text-xs uppercase mb-2">
-              {lang === "EN" ? "CAPABILITIES" : "KEAHLIAN TEKNIS"}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-[11px] font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#D9622B] dark:shadow-[2px_2px_0px_#FB923C]">
+              <span>[ 04 // CORE TOOLBOX ]</span>
             </div>
             <h2 className="font-cutout text-3xl sm:text-5xl text-ink dark:text-ink-light tracking-tight">
               CORE <span className="text-terracotta dark:text-[#FB923C]">TOOLBOX.</span>
             </h2>
           </div>
-          <span className="text-xs uppercase font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
+          <span className="text-xs font-mono font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
             Verified Stack &amp; Frameworks
           </span>
         </div>
@@ -100,22 +100,22 @@ export function Skills({ lang }: SkillsProps) {
         ))}
       </motion.div>
 
-      {/* Categorized Detailed Matrix */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 pt-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Categorized Detailed Matrix (Solid Paper Cards) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-12 sm:pt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {profile.skills.map((group, gi) => (
             <div
               key={gi}
-              className="p-6 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-4"
+              className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-3.5"
             >
-              <h3 className="font-cutout text-base text-ink dark:text-white uppercase tracking-wider pb-2 border-b border-black/10 dark:border-white/10">
+              <h3 className="font-cutout text-sm sm:text-base text-ink dark:text-white uppercase tracking-wider pb-2 border-b border-black/10 dark:border-white/10">
                 {group.category}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((it, ii) => (
                   <span
                     key={ii}
-                    className="text-xs px-3 py-1 rounded-full bg-surface/70 dark:bg-[#2C2C27] border border-black/10 dark:border-white/15 text-ink dark:text-[#FAF7F2] font-medium"
+                    className="text-xs px-2.5 py-1 rounded-md bg-white dark:bg-[#2C2C27] border border-black/15 dark:border-white/15 text-ink dark:text-[#FAF7F2] font-medium shadow-[1px_1px_0px_#141412] dark:shadow-[1px_1px_0px_rgba(255,255,255,0.1)]"
                   >
                     {it}
                   </span>

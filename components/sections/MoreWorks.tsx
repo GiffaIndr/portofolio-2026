@@ -50,13 +50,13 @@ export function MoreWorks({ lang }: MoreWorksProps) {
   ];
 
   return (
-    <section className="relative w-full py-24 sm:py-32 bg-surface dark:bg-[#1A1A17] text-ink dark:text-ink-light transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/15 dark:border-white/15 gap-4">
+    <section className="relative w-full py-20 sm:py-28 bg-surface dark:bg-[#1A1A17] text-ink dark:text-ink-light transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+        {/* Section Header (No generic hairline dividing lines) */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 gap-3">
           <div>
-            <div className="inline-block px-3 py-1 rounded bg-[#84CC16]/20 dark:bg-[#84CC16]/30 text-[#4D7C0F] dark:text-[#A3E635] font-bold text-xs uppercase mb-2">
-              {lang === "EN" ? "ARCHIVE" : "ARSIP REPOSITORI"}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-[11px] font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#84CC16] dark:shadow-[2px_2px_0px_#A3E635]">
+              <span>[ 05 // REPOSITORIES ]</span>
             </div>
             <h2 className="font-cutout text-3xl sm:text-5xl text-ink dark:text-ink-light tracking-tight">
               MORE <span className="text-[#65A30D] dark:text-[#A3E635]">REPOSITORIES.</span>
@@ -66,7 +66,7 @@ export function MoreWorks({ lang }: MoreWorksProps) {
             href="https://github.com/GiffaIndr?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink/75 dark:text-ink-light hover:text-[#65A30D] dark:hover:text-[#A3E635] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-ink/75 dark:text-ink-light hover:text-[#65A30D] dark:hover:text-[#A3E635] transition-colors"
           >
             <span>View All 69 Repositories on GitHub</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -74,26 +74,26 @@ export function MoreWorks({ lang }: MoreWorksProps) {
         </div>
 
         {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pt-4 sm:pt-6">
           {secondaryProjects.map((item, idx) => (
             <a
               key={idx}
               href={"links" in item ? item.links.repo : item.repo}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-7 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] hover:border-[#65A30D] dark:hover:border-[#A3E635] transition-all duration-300 flex flex-col justify-between"
+              className="group p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] hover:border-[#65A30D] dark:hover:border-[#A3E635] transition-all duration-300 flex flex-col justify-between"
               data-cursor="REPO"
             >
               <div>
                 <div className="flex justify-between items-center text-xs text-ink/70 dark:text-ink-lightDim mb-4">
-                  <span className="flex items-center gap-1.5 text-[#65A30D] dark:text-[#A3E635] font-bold">
+                  <span className="flex items-center gap-1.5 text-[#65A30D] dark:text-[#A3E635] font-bold font-mono">
                     <Folder className="w-3.5 h-3.5" />
                     {item.category}
                   </span>
-                  <span>{item.year}</span>
+                  <span className="font-mono">{item.year}</span>
                 </div>
 
-                <h3 className="font-cutout text-xl text-ink dark:text-white group-hover:text-[#65A30D] dark:group-hover:text-[#A3E635] transition-colors mb-2">
+                <h3 className="font-cutout text-lg sm:text-xl text-ink dark:text-white group-hover:text-[#65A30D] dark:group-hover:text-[#A3E635] transition-colors mb-2">
                   {item.title}
                 </h3>
                 <p className="text-sm text-ink/80 dark:text-[#E2DEC9] leading-relaxed line-clamp-2">
@@ -101,12 +101,12 @@ export function MoreWorks({ lang }: MoreWorksProps) {
                 </p>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
+              <div className="pt-5 mt-5 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
                 <div className="flex flex-wrap gap-1.5">
                   {item.stack.slice(0, 3).map((st) => (
                     <span
                       key={st}
-                      className="text-[11px] px-2.5 py-0.5 rounded-full bg-surface/70 dark:bg-[#2C2C27] border border-black/10 dark:border-white/15 text-ink dark:text-[#FAF7F2] font-medium"
+                      className="text-[11px] px-2.5 py-0.5 rounded-md bg-surface/70 dark:bg-[#2C2C27] border border-black/10 dark:border-white/15 text-ink dark:text-[#FAF7F2] font-medium"
                     >
                       {st}
                     </span>

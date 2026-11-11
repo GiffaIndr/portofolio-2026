@@ -23,30 +23,30 @@ export function Experience({ lang }: ExperienceProps) {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative w-full py-24 sm:py-32 bg-surface dark:bg-[#1A1A17] text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
+      className="relative w-full py-20 sm:py-28 bg-surface dark:bg-[#1A1A17] text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/15 dark:border-white/15 gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+        {/* Section Header (No generic hairline dividing lines) */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 gap-3">
           <div>
-            <div className="inline-block px-3 py-1 rounded bg-[#FACC15]/25 text-[#713F12] dark:text-[#FDE047] font-bold text-xs uppercase mb-2">
-              {lang === "EN" ? "CHRONOLOGY" : "RIWAYAT KARIR & STUDI"}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-[11px] font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#FACC15] dark:shadow-[2px_2px_0px_#FACC15]">
+              <span>[ 03 // TRAJECTORY ]</span>
             </div>
             <h2 className="font-cutout text-3xl sm:text-5xl text-ink dark:text-ink-light tracking-tight">
               EDUCATION &amp; <span className="text-[#65A30D] dark:text-[#A3E635]">TRAJECTORY.</span>
             </h2>
           </div>
-          <div className="text-xs uppercase font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
+          <div className="text-xs font-mono font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
             2021 — 2026 Present · Bogor &amp; Jakarta
           </div>
         </div>
 
         {/* Balanced 2-Column Grid (Zero Empty Space) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pt-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pt-6 sm:pt-10 items-start">
           {/* Left Column: Academic Foundation + Certifications + Polaroid */}
-          <div className="lg:col-span-6 space-y-10">
+          <div className="lg:col-span-6 space-y-8 sm:space-y-10">
             {/* 1. Academic Foundation */}
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#4D7C0F] dark:text-[#A3E635]">
                 <GraduationCap className="w-4 h-4" />
                 <span>{lang === "EN" ? "Academic Foundation" : "Pendidikan Formal"}</span>
@@ -56,7 +56,7 @@ export function Experience({ lang }: ExperienceProps) {
                 {profile.education.map((edu, idx) => (
                   <div
                     key={idx}
-                    className="p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-2.5 transition-transform hover:-translate-y-0.5"
+                    className="p-5 sm:p-7 rounded-3xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-2.5 transition-transform hover:-translate-y-0.5"
                   >
                     <div className="flex justify-between items-center text-xs text-terracotta dark:text-[#FB923C] font-bold">
                       <span>{edu.period}</span>
@@ -72,7 +72,7 @@ export function Experience({ lang }: ExperienceProps) {
                       {edu.program}
                     </p>
                     <div className="pt-1">
-                      <span className="inline-block px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 text-xs font-semibold text-ink dark:text-ink-light">
+                      <span className="inline-block px-3 py-1 rounded-md bg-surface/70 dark:bg-[#2C2C27] border border-black/10 dark:border-white/10 text-xs font-semibold text-ink dark:text-ink-light">
                         {edu.status}
                       </span>
                     </div>
@@ -81,22 +81,22 @@ export function Experience({ lang }: ExperienceProps) {
               </div>
             </div>
 
-            {/* 2. Professional Certifications (Moved to Left to perfectly balance the layout) */}
-            <div className="space-y-5">
+            {/* 2. Professional Certifications */}
+            <div className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#65A30D] dark:text-[#A3E635]">
                 <Award className="w-4 h-4" />
                 <span>{lang === "EN" ? "Certifications & Credentials" : "Sertifikasi & Kredensial Resmi"}</span>
               </div>
 
-              <div className="space-y-3.5">
+              <div className="space-y-3">
                 {profile.certifications.map((cert, ci) => (
                   <div
                     key={ci}
-                    className="p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-sm space-y-1.5 transition-transform hover:-translate-y-0.5"
+                    className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.1)] space-y-1.5 transition-transform hover:-translate-y-0.5"
                   >
                     <div className="flex justify-between items-center text-[11px] font-bold">
                       <span className="text-terracotta dark:text-[#FB923C]">{cert.date}</span>
-                      <span className="text-ink/60 dark:text-ink-lightDim uppercase text-[10px] tracking-wider">Verified Pearson / VUE</span>
+                      <span className="text-ink/60 dark:text-ink-lightDim uppercase text-[10px] tracking-wider font-mono">Pearson / VUE</span>
                     </div>
                     <h4 className="font-cutout text-sm sm:text-base text-ink dark:text-white leading-snug">
                       {cert.title}
@@ -112,9 +112,9 @@ export function Experience({ lang }: ExperienceProps) {
             {/* 3. Parallax Taped Photo: Giffa in Lab */}
             <motion.div
               style={{ y: photoParallax }}
-              className="relative p-4 pb-7 rounded-3xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-polaroid dark:shadow-polaroidDark rotate-1"
+              className="relative p-3.5 sm:p-4 pb-6 sm:pb-7 rounded-3xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-polaroid dark:shadow-polaroidDark rotate-1"
             >
-              <div className="absolute -top-3.5 right-10 w-24 h-6 tape-green z-20" />
+              <div className="absolute -top-3.5 right-8 sm:right-10 w-24 h-6 tape-green z-20" />
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5">
                 <Image
                   src="/profile/giffa-lab-coding.jpg"
@@ -125,7 +125,7 @@ export function Experience({ lang }: ExperienceProps) {
                 />
               </div>
               <div className="mt-3 px-1 flex justify-between items-center text-xs">
-                <span className="font-script-brush text-xl text-ink dark:text-ink-light">
+                <span className="font-script-brush text-lg sm:text-xl text-ink dark:text-ink-light">
                   Software Engineering Session
                 </span>
                 <span className="text-ink/65 dark:text-ink-lightDim font-medium">IPB Lab · Bogor</span>
@@ -144,14 +144,14 @@ export function Experience({ lang }: ExperienceProps) {
               {profile.experience.map((exp, idx) => (
                 <div
                   key={idx}
-                  className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-4 transition-transform hover:-translate-y-0.5"
+                  className="p-5 sm:p-8 rounded-3xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-4 transition-transform hover:-translate-y-0.5"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-1 rounded-full bg-[#84CC16]/20 text-[#4D7C0F] dark:text-[#A3E635] font-bold text-[11px]">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#141412] text-[#84CC16] dark:bg-[#FAF7F2] dark:text-[#2B6E3F] font-bold text-[10px] uppercase tracking-wider">
                         {exp.type}
                       </span>
-                      <span className="text-terracotta dark:text-[#FB923C] font-bold">{exp.period}</span>
+                      <span className="text-terracotta dark:text-[#FB923C] font-bold font-mono">{exp.period}</span>
                     </div>
                     <span className="text-ink/65 dark:text-ink-lightDim text-[11px] font-semibold">
                       {exp.verified ? "Verified Industry Track" : ""}
