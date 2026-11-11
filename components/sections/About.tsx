@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { profile } from "@/content/profile";
-import { ArrowUpRight, Award, Briefcase, GraduationCap } from "lucide-react";
+import { ArrowUpRight, Award, Briefcase, GraduationCap, Sparkles, Terminal } from "lucide-react";
 import { StarburstCutout } from "@/components/ui/PaperCutDoodles";
 
 interface AboutProps {
@@ -18,7 +18,7 @@ export function About({ lang }: AboutProps) {
     offset: ["start end", "end start"],
   });
 
-  const photoY = useTransform(scrollYProgress, [0, 1], [-30, 40]);
+  const photoY = useTransform(scrollYProgress, [0, 1], [-25, 35]);
   const tapeRotate = useTransform(scrollYProgress, [0, 1], [-4, 5]);
 
   return (
@@ -44,11 +44,11 @@ export function About({ lang }: AboutProps) {
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pt-14 items-start">
-          {/* Left Column: Parallax Taped Polaroid of Giffa in Suit */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pt-14 items-start">
+          {/* Left Column: Parallax Taped Polaroid of Giffa in Suit + Engineering Manifesto */}
           <motion.div
             style={{ y: photoY }}
-            className="lg:col-span-5 flex justify-center lg:justify-start"
+            className="lg:col-span-5 flex flex-col items-center lg:items-start"
           >
             <div className="relative w-full max-w-sm sm:max-w-md">
               {/* Starburst badge floating top-left */}
@@ -56,7 +56,7 @@ export function About({ lang }: AboutProps) {
                 <StarburstCutout className="w-14 h-14" color="#FACC15" />
               </div>
 
-              <div className="p-4 sm:p-5 pb-8 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-white/20 shadow-polaroid dark:shadow-polaroidDark">
+              <div className="p-4 sm:p-5 pb-7 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-white/20 shadow-polaroid dark:shadow-polaroidDark">
                 {/* Yellow washi tape */}
                 <motion.div
                   style={{ rotate: tapeRotate }}
@@ -87,16 +87,29 @@ export function About({ lang }: AboutProps) {
                   </span>
                 </div>
               </div>
+
+              {/* Engineering Philosophy Sticky Note (Eliminates empty space, adds editorial depth) */}
+              <div className="mt-6 p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-sm space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#65A30D] dark:text-[#A3E635]">
+                  <Terminal className="w-3.5 h-3.5" />
+                  <span>{lang === "EN" ? "Engineering Values" : "Prinsip Rekayasa"}</span>
+                </div>
+                <p className="text-xs sm:text-sm text-ink/80 dark:text-[#E2DEC9] leading-relaxed">
+                  {lang === "EN"
+                    ? "Prioritizing strict architectural modularity, real-time responsive performance, and empathetic human interfaces without framework bloat."
+                    : "Mengutamakan modularitas arsitektur yang solid, performa waktu-nyata, dan antarmuka humanis tanpa beban kognitif berlebih."}
+                </p>
+              </div>
             </div>
           </motion.div>
 
           {/* Right Column: Bio Narrative & Verified Metrics */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-7">
             <h3 className="font-cutout text-2xl sm:text-4xl text-ink dark:text-ink-light leading-snug">
               Building software that balances functional rigor with human character.
             </h3>
 
-            <div className="space-y-5 text-base sm:text-lg text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
+            <div className="space-y-4 text-base sm:text-lg text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
               <p className="font-medium text-ink dark:text-ink-light text-lg sm:text-xl leading-snug">
                 {profile.about.lead}
               </p>
@@ -106,7 +119,7 @@ export function About({ lang }: AboutProps) {
             </div>
 
             {/* Verified Metrics Cards */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-5 pt-4">
+            <div className="grid grid-cols-3 gap-3 sm:gap-5 pt-3">
               {profile.about.stats.map((st, i) => (
                 <div
                   key={i}

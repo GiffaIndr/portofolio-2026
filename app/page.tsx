@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
-import { Preloader } from "@/components/sections/Preloader";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { SelectedWork } from "@/components/sections/SelectedWork";
@@ -16,7 +15,6 @@ import { SerendipityBanner } from "@/components/ui/SerendipityBanner";
 export default function Home() {
   const [lang, setLang] = useState<"EN" | "ID">("EN");
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("giffa_theme") as "light" | "dark" | null;
@@ -35,7 +33,6 @@ export default function Home() {
 
   return (
     <>
-      <Preloader onComplete={() => setIsReady(true)} />
       <Navigation
         lang={lang}
         setLang={setLang}
