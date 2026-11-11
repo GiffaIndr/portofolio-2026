@@ -4,9 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { profile } from "@/content/profile";
-import { Award, Briefcase, GraduationCap, Terminal } from "lucide-react";
-import { StarburstCutout } from "@/components/ui/PaperCutDoodles";
-import { CardTilt3D } from "@/components/ui/CardTilt3D";
+import { Award, Briefcase, GraduationCap } from "lucide-react";
 
 interface AboutProps {
   lang: "EN" | "ID";
@@ -19,58 +17,40 @@ export function About({ lang }: AboutProps) {
     offset: ["start end", "end start"],
   });
 
-  const photoY = useTransform(scrollYProgress, [0, 1], [-25, 35]);
-  const tapeRotate = useTransform(scrollYProgress, [0, 1], [-3, 4]);
-
-  const statAccents = [
-    { border: "border-b-4 border-b-[#2563EB]", text: "text-[#2563EB] dark:text-[#60A5FA]" },
-    { border: "border-b-4 border-b-[#059669]", text: "text-[#059669] dark:text-[#34D399]" },
-    { border: "border-b-4 border-b-[#F59E0B]", text: "text-[#F59E0B] dark:text-[#FBBF24]" },
-  ];
+  const photoY = useTransform(scrollYProgress, [0, 1], [-15, 20]);
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full py-20 sm:py-28 bg-surface dark:bg-[#1A1A17] text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
+      className="relative w-full py-20 sm:py-28 bg-surface dark:bg-[#181816] text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 border-b border-black/10 dark:border-white/10 gap-3">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono text-[11px] font-bold uppercase tracking-wider mb-2 shadow-[2px_2px_0px_#2563EB] dark:shadow-[2px_2px_0px_#60A5FA]">
-              <span>[ 01 // INTRODUCTION ]</span>
-            </div>
-            <h2 className="font-cutout text-3xl sm:text-5xl text-ink dark:text-ink-light tracking-tight">
-              ABOUT <span className="text-[#2563EB] dark:text-[#60A5FA]">SYAIKHANI.</span>
+            <span className="text-xs font-mono font-medium tracking-wider text-ink/60 dark:text-ink-lightDim uppercase block mb-2">
+              [ 01 // INTRODUCTION ]
+            </span>
+            <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
+              About <span className="italic text-[#2D4A34] dark:text-[#A3E635]">Syaikhani.</span>
             </h2>
           </div>
-          <div className="text-xs font-mono font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
+          <div className="text-xs font-mono text-ink/60 dark:text-ink-lightDim">
             IPB University · D4 TRPL · Bogor
           </div>
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 pt-8 sm:pt-12 items-start">
-          {/* Left Column: Parallax Taped Polaroid of Giffa in Suit + Engineering Manifesto */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pt-10 sm:pt-14 items-start">
+          {/* Left Column: Authentic Portrait */}
           <motion.div
             style={{ y: photoY }}
             className="lg:col-span-5 flex flex-col items-center lg:items-start"
           >
             <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
-              {/* Starburst badge floating top-left */}
-              <div className="absolute -top-6 -left-4 z-30">
-                <StarburstCutout className="w-12 h-12 sm:w-14 sm:h-14" color="#FACC15" />
-              </div>
-
-              <div className="p-3.5 sm:p-5 pb-7 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-white/20 shadow-polaroid dark:shadow-polaroidDark">
-                {/* Yellow washi tape */}
-                <motion.div
-                  style={{ rotate: tapeRotate }}
-                  className="absolute -top-3 left-12 w-24 sm:w-28 h-6 sm:h-7 tape-yellow z-20"
-                />
-
-                <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5">
+              <div className="p-3.5 sm:p-4 pb-6 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm">
+                <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-black/5 dark:bg-white/5">
                   <Image
                     src="/profile/giffa-suit-formal.jpg"
                     alt="Syaikhani Giffa Indrawan in formal suit"
@@ -80,43 +60,42 @@ export function About({ lang }: AboutProps) {
                   />
                 </div>
 
-                <div className="mt-3.5 px-1 flex justify-between items-center">
+                <div className="mt-4 px-1.5 flex justify-between items-center">
                   <div>
-                    <span className="font-script-brush text-xl sm:text-2xl text-ink dark:text-ink-light block">
-                      Formal &amp; Engineering
+                    <span className="font-serif text-base text-ink dark:text-ink-light block">
+                      Formal &amp; Academic
                     </span>
-                    <span className="text-[11px] sm:text-xs text-ink/70 dark:text-ink-lightDim font-medium">
-                      Bogor, West Java, Indonesia
+                    <span className="text-xs text-ink/60 dark:text-ink-lightDim font-sans">
+                      Bogor, West Java, ID
                     </span>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] font-mono">
+                  <span className="text-xs font-mono px-2.5 py-1 rounded bg-black/5 dark:bg-white/10 text-ink dark:text-ink-light">
                     D4 TRPL
                   </span>
                 </div>
               </div>
 
-              {/* Engineering Philosophy Sticky Note */}
-              <div className="mt-5 p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[2.5px_2.5px_0px_#2563EB] dark:shadow-[2.5px_2.5px_0px_#60A5FA] space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA]">
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>{lang === "EN" ? "Engineering Values" : "Prinsip Rekayasa"}</span>
-                </div>
-                <p className="text-xs sm:text-sm text-ink/80 dark:text-[#E2DEC9] leading-relaxed">
+              {/* Engineering Values Statement */}
+              <div className="mt-5 p-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+                <span className="text-xs font-mono font-medium uppercase tracking-wider text-[#2D4A34] dark:text-[#A3E635] block">
+                  {lang === "EN" ? "Engineering Philosophy" : "Prinsip Rekayasa"}
+                </span>
+                <p className="text-xs sm:text-sm text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans">
                   {lang === "EN"
-                    ? "Prioritizing strict architectural modularity, real-time responsive performance, and empathetic human interfaces without framework bloat."
+                    ? "Prioritizing strict architectural modularity, real-time responsive performance, and empathetic human interfaces without unnecessary framework bloat."
                     : "Mengutamakan modularitas arsitektur yang solid, performa waktu-nyata, dan antarmuka humanis tanpa beban kognitif berlebih."}
                 </p>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Bio Narrative & Verified Metrics */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-7">
-            <h3 className="font-cutout text-2xl sm:text-3xl lg:text-4xl text-ink dark:text-ink-light leading-snug">
+          {/* Right Column: Narrative & Metrics */}
+          <div className="lg:col-span-7 space-y-7">
+            <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink dark:text-ink-light font-normal leading-snug">
               Building software that balances functional rigor with human character.
             </h3>
 
-            <div className="space-y-4 text-base sm:text-lg text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
+            <div className="space-y-4 text-base sm:text-lg text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
               <p className="font-medium text-ink dark:text-ink-light text-lg sm:text-xl leading-snug">
                 {profile.about.lead}
               </p>
@@ -125,39 +104,35 @@ export function About({ lang }: AboutProps) {
               ))}
             </div>
 
-            {/* Verified Metrics Cards with Möbius CardTilt & UIMaven Accents */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-2">
-              {profile.about.stats.map((st, i) => {
-                const acc = statAccents[i % statAccents.length];
-                return (
-                  <CardTilt3D key={i} maxTilt={5} scaleHover={1.02}>
-                    <div
-                      className={`p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] ${acc.border} shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.1)]`}
-                    >
-                      <span className={`font-cutout text-2xl sm:text-3xl block ${acc.text}`}>
-                        {st.value}
-                      </span>
-                      <span className="text-xs font-bold text-ink/75 dark:text-[#FAF7F2] uppercase tracking-wide block mt-1">
-                        {st.label}
-                      </span>
-                    </div>
-                  </CardTilt3D>
-                );
-              })}
+            {/* Verified Metrics Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              {profile.about.stats.map((st, i) => (
+                <div
+                  key={i}
+                  className="p-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm"
+                >
+                  <span className="font-serif text-3xl sm:text-4xl text-ink dark:text-white font-normal block">
+                    {st.value}
+                  </span>
+                  <span className="text-xs font-sans text-ink/60 dark:text-ink-lightDim uppercase tracking-wide block mt-1">
+                    {st.label}
+                  </span>
+                </div>
+              ))}
             </div>
 
-            {/* Key Verified Credentials (UIMaven Colorful Tickets) */}
-            <div className="pt-2 flex flex-wrap gap-2.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#2563EB] text-xs font-bold text-ink dark:text-white">
-                <Award className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
+            {/* Key Verified Credentials */}
+            <div className="pt-2 flex flex-wrap gap-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 text-xs text-ink dark:text-white shadow-sm">
+                <Award className="w-3.5 h-3.5 text-[#2D4A34] dark:text-[#A3E635]" />
                 <span>Certiport IT Specialist (HTML &amp; CSS)</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#EA580C] text-xs font-bold text-ink dark:text-white">
-                <Briefcase className="w-3.5 h-3.5 text-[#EA580C] dark:text-[#FB923C]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 text-xs text-ink dark:text-white shadow-sm">
+                <Briefcase className="w-3.5 h-3.5 text-[#2D4A34] dark:text-[#A3E635]" />
                 <span>PT Hexaon Developer Intern</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white dark:bg-[#22221E] border border-black/15 dark:border-[#3E3D36] shadow-[1.5px_1.5px_0px_#059669] text-xs font-bold text-ink dark:text-white">
-                <GraduationCap className="w-3.5 h-3.5 text-[#059669] dark:text-[#34D399]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 text-xs text-ink dark:text-white shadow-sm">
+                <GraduationCap className="w-3.5 h-3.5 text-[#2D4A34] dark:text-[#A3E635]" />
                 <span>SMK Wikrama Bogor Alum</span>
               </div>
             </div>

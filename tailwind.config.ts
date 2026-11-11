@@ -46,6 +46,7 @@ const config: Config = {
         },
       },
       fontFamily: {
+        serif: ["var(--font-serif)", "Georgia", "serif"],
         cutout: ["var(--font-dela)", "var(--font-syne)", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         script: ["var(--font-caveat)", "cursive"],
