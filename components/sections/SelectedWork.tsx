@@ -11,6 +11,54 @@ interface SelectedWorkProps {
   lang: "EN" | "ID";
 }
 
+// UIMaven-inspired chromatic signatures for each project
+const PROJECT_THEMES: Record<
+  string,
+  {
+    primary: string;
+    tapeBg: string;
+    categoryLabel: string;
+    accentBadge: string;
+    shadowColor: string;
+  }
+> = {
+  "rfid-absence-system": {
+    primary: "#2563EB", // Electric Cobalt
+    tapeBg: "bg-[#2563EB]",
+    categoryLabel: "IOT & RFID SECURITY GATE",
+    accentBadge: "text-[#2563EB] dark:text-[#60A5FA]",
+    shadowColor: "#2563EB",
+  },
+  "akseskota": {
+    primary: "#059669", // Transit Emerald
+    tapeBg: "bg-[#10B981]",
+    categoryLabel: "WEBGIS & ACCESSIBILITY DIRECTORY",
+    accentBadge: "text-[#059669] dark:text-[#34D399]",
+    shadowColor: "#10B981",
+  },
+  "railuma": {
+    primary: "#EA580C", // Locomotive Terracotta
+    tapeBg: "bg-[#F97316]",
+    categoryLabel: "AI COMPUTER VISION & BRAILLE OCR",
+    accentBadge: "text-[#EA580C] dark:text-[#FB923C]",
+    shadowColor: "#EA580C",
+  },
+  "sadar-edu": {
+    primary: "#0891B2", // Digital Cyan
+    tapeBg: "bg-[#06B6D4]",
+    categoryLabel: "3D SPATIAL GEO-ANALYTICS",
+    accentBadge: "text-[#0891B2] dark:text-[#38BDF8]",
+    shadowColor: "#0891B2",
+  },
+  "one-percent-mobile": {
+    primary: "#7C3AED", // Royal Orchid Violet
+    tapeBg: "bg-[#A855F7]",
+    categoryLabel: "NATIVE ANDROID HABIT SYSTEM",
+    accentBadge: "text-[#7C3AED] dark:text-[#C084FC]",
+    shadowColor: "#7C3AED",
+  },
+};
+
 function ProjectCard({
   project,
   index,
@@ -28,26 +76,41 @@ function ProjectCard({
     offset: ["start end", "end start"],
   });
 
-  // Calm internal image scroll parallax
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+  // Deep internal image scroll parallax
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  const theme = PROJECT_THEMES[project.slug] || {
+    primary: "#141412",
+    tapeBg: "bg-[#2563EB]",
+    categoryLabel: project.category,
+    accentBadge: "text-[#2563EB]",
+    shadowColor: "#2563EB",
+  };
 
   return (
     <div
       ref={cardRef}
       className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-8 sm:p-10 md:p-12 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm transition-all duration-300"
     >
+      {/* Signature Colorful Washi Tape */}
+      <div
+        className={`absolute -top-3 left-8 sm:left-14 w-24 sm:w-28 h-5 sm:h-6 ${theme.tapeBg} z-20 pointer-events-none rounded-xs opacity-90 shadow-xs rotate-[-1deg]`}
+      />
+
       {/* Left Column: Editorial Information */}
       <div className="lg:col-span-5 space-y-5 order-2 lg:order-1">
-        <div className="flex items-center justify-between text-xs font-mono text-ink/60 dark:text-ink-lightDim">
-          <span>0{index + 1} // {project.category.toUpperCase()}</span>
-          <span>{project.year}</span>
+        <div className="flex items-center justify-between text-xs font-mono">
+          <span className={`font-bold tracking-wider ${theme.accentBadge}`}>
+            0{index + 1} // {theme.categoryLabel}
+          </span>
+          <span className="text-ink/60 dark:text-ink-lightDim">{project.year}</span>
         </div>
 
         <div>
-          <h3 className="font-serif text-3xl sm:text-4xl text-ink dark:text-white font-normal leading-snug group-hover:text-[#2D4A34] dark:group-hover:text-[#A3E635] transition-colors">
+          <h3 className="font-serif text-3xl sm:text-4xl text-ink dark:text-white font-normal leading-snug group-hover:text-[#2563EB] dark:group-hover:text-[#60A5FA] transition-colors">
             {project.title}
           </h3>
-          <p className="mt-2 text-base text-[#2D4A34] dark:text-[#A3E635] font-serif italic">
+          <p className="mt-2 text-base font-serif italic text-ink/75 dark:text-ink-lightMuted">
             "{project.tagline}"
           </p>
         </div>
@@ -56,12 +119,12 @@ function ProjectCard({
           {project.problem}
         </p>
 
-        {/* Tech Stack (Quiet Monospace Tags) */}
+        {/* Tech Stack Chips */}
         <div className="flex flex-wrap gap-2 pt-1">
           {project.stack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-mono text-ink/80 dark:text-ink-light"
+              className="text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-mono text-ink/80 dark:text-ink-light hover:border-black dark:hover:border-white transition-colors"
             >
               {tech}
             </span>
@@ -72,7 +135,8 @@ function ProjectCard({
         <div className="flex flex-wrap items-center gap-4 pt-3">
           <button
             onClick={() => onOpenModal(project)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] hover:bg-[#2D4A34] dark:hover:bg-[#A3E635] dark:hover:text-[#141412] transition-colors text-xs font-medium uppercase tracking-wider"
+            style={{ backgroundColor: theme.primary }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-xs font-mono font-medium uppercase tracking-wider hover:opacity-90 transition-all shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
           >
             <span>{lang === "EN" ? "View Case Study" : "Buka Studi Kasus"}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -83,7 +147,7 @@ function ProjectCard({
               href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-3 text-xs font-medium uppercase tracking-wider text-ink/80 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-3 text-xs font-mono font-medium uppercase tracking-wider text-ink/80 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors"
             >
               <span>Visit Live</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
@@ -102,14 +166,14 @@ function ProjectCard({
         </div>
       </div>
 
-      {/* Right Column: Visual Frame with Subtle Parallax */}
+      {/* Right Column: Visual Frame with Deep Scroll Parallax */}
       <div
         className="lg:col-span-7 order-1 lg:order-2 cursor-pointer"
         onClick={() => onOpenModal(project)}
       >
         <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 shadow-sm">
           <motion.div
-            style={{ y: imgY, scale: 1.08 }}
+            style={{ y: imgY, scale: 1.12 }}
             className="relative w-full h-full will-change-transform"
           >
             <Image
@@ -157,7 +221,7 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
               [ 02 // SELECTED WORKS ]
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
-              Selected <span className="italic text-[#2D4A34] dark:text-[#A3E635]">Projects.</span>
+              Selected <span className="italic text-[#2563EB] dark:text-[#60A5FA]">Projects.</span>
             </h2>
           </div>
           <p className="max-w-md text-sm sm:text-base text-ink/70 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
@@ -167,7 +231,7 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
           </p>
         </div>
 
-        {/* Quiet Editorial Category Filter Tabs */}
+        {/* Category Filter Tabs */}
         <div className="flex flex-wrap items-center gap-6 pt-6 pb-12 text-sm font-medium">
           {filters.map((filter) => {
             const isActive = selectedFilter === filter.id;
@@ -185,7 +249,7 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
                 {isActive && (
                   <motion.div
                     layoutId="editorialTabUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2D4A34] dark:bg-[#A3E635]"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2563EB] dark:bg-[#60A5FA]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -194,14 +258,14 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
           })}
         </div>
 
-        {/* Project List */}
+        {/* Project List with Smooth Animations */}
         <motion.div layout className="space-y-12 sm:space-y-16">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => (
               <motion.div
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}

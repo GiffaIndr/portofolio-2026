@@ -10,6 +10,18 @@ interface ExperienceProps {
   lang: "EN" | "ID";
 }
 
+const certColors = [
+  { borderLeft: "border-l-4 border-l-[#2563EB]", badge: "bg-[#2563EB] text-white" },
+  { borderLeft: "border-l-4 border-l-[#EA580C]", badge: "bg-[#EA580C] text-white" },
+  { borderLeft: "border-l-4 border-l-[#059669]", badge: "bg-[#059669] text-white" },
+];
+
+const expColors = [
+  { borderTop: "border-t-4 border-t-[#0284C7]", badge: "bg-[#0284C7] text-white" },
+  { borderTop: "border-t-4 border-t-[#F59E0B]", badge: "bg-[#F59E0B] text-[#141412]" },
+  { borderTop: "border-t-4 border-t-[#EA580C]", badge: "bg-[#EA580C] text-white" },
+];
+
 export function Experience({ lang }: ExperienceProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -17,7 +29,7 @@ export function Experience({ lang }: ExperienceProps) {
     offset: ["start end", "end start"],
   });
 
-  const photoParallax = useTransform(scrollYProgress, [0, 1], [-15, 15]);
+  const photoParallax = useTransform(scrollYProgress, [0, 1], [-20, 20]);
 
   return (
     <section
@@ -33,7 +45,7 @@ export function Experience({ lang }: ExperienceProps) {
               [ 03 // TRAJECTORY ]
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
-              Education &amp; <span className="italic text-[#2D4A34] dark:text-[#A3E635]">Trajectory.</span>
+              Education &amp; <span className="italic text-[#059669] dark:text-[#34D399]">Trajectory.</span>
             </h2>
           </div>
           <div className="text-xs font-mono text-ink/60 dark:text-ink-lightDim">
@@ -47,8 +59,8 @@ export function Experience({ lang }: ExperienceProps) {
           <div className="lg:col-span-6 space-y-10">
             {/* 1. Academic Foundation */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-ink/60 dark:text-ink-lightDim">
-                <GraduationCap className="w-4 h-4 text-[#2D4A34] dark:text-[#A3E635]" />
+              <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[#059669] dark:text-[#34D399]">
+                <GraduationCap className="w-4 h-4" />
                 <span>{lang === "EN" ? "Academic Foundation" : "Pendidikan Formal"}</span>
               </div>
 
@@ -56,7 +68,7 @@ export function Experience({ lang }: ExperienceProps) {
                 {profile.education.map((edu, idx) => (
                   <div
                     key={idx}
-                    className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-2.5 transition-all"
+                    className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-2.5 transition-transform hover:-translate-y-0.5"
                   >
                     <div className="flex justify-between items-center text-xs text-ink/60 dark:text-ink-lightDim font-mono">
                       <span>{edu.period}</span>
@@ -81,36 +93,43 @@ export function Experience({ lang }: ExperienceProps) {
               </div>
             </div>
 
-            {/* 2. Professional Certifications */}
+            {/* 2. Professional Certifications (Colorful Badges) */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-ink/60 dark:text-ink-lightDim">
-                <Award className="w-4 h-4 text-[#2D4A34] dark:text-[#A3E635]" />
+              <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA]">
+                <Award className="w-4 h-4" />
                 <span>{lang === "EN" ? "Certifications & Credentials" : "Sertifikasi & Kredensial Resmi"}</span>
               </div>
 
               <div className="space-y-3">
-                {profile.certifications.map((cert, ci) => (
-                  <div
-                    key={ci}
-                    className="p-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-1.5 transition-all"
-                  >
-                    <div className="flex justify-between items-center text-xs font-mono text-ink/60 dark:text-ink-lightDim">
-                      <span>{cert.date}</span>
-                      <span className="uppercase text-[11px] tracking-wider">Pearson / VUE</span>
+                {profile.certifications.map((cert, ci) => {
+                  const style = certColors[ci % certColors.length];
+                  return (
+                    <div
+                      key={ci}
+                      className={`p-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 ${style.borderLeft} shadow-sm space-y-1.5 transition-transform hover:-translate-y-0.5`}
+                    >
+                      <div className="flex justify-between items-center text-xs font-mono">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${style.badge}`}>
+                          {cert.date}
+                        </span>
+                        <span className="uppercase text-[11px] text-ink/50 dark:text-ink-lightDim tracking-wider">
+                          Pearson / VUE
+                        </span>
+                      </div>
+                      <h4 className="font-serif text-base sm:text-lg text-ink dark:text-white font-normal">
+                        {cert.title}
+                      </h4>
+                      <div className="flex justify-between text-xs text-ink/60 dark:text-ink-lightDim font-mono">
+                        <span>{cert.issuer}</span>
+                        <span className="text-[#059669] dark:text-[#34D399] font-medium">Verified ✓</span>
+                      </div>
                     </div>
-                    <h4 className="font-serif text-base sm:text-lg text-ink dark:text-white font-normal">
-                      {cert.title}
-                    </h4>
-                    <div className="flex justify-between text-xs text-ink/60 dark:text-ink-lightDim font-mono">
-                      <span>{cert.issuer}</span>
-                      <span className="text-[#2D4A34] dark:text-[#A3E635] font-medium">Verified ✓</span>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
-            {/* 3. Authentic Laboratory Photo */}
+            {/* 3. Authentic Laboratory Photo with Subtle Parallax */}
             <motion.div
               style={{ y: photoParallax }}
               className="p-4 pb-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm w-full max-w-sm mx-auto"
@@ -137,51 +156,56 @@ export function Experience({ lang }: ExperienceProps) {
 
           {/* Right Column: Work Experience */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-ink/60 dark:text-ink-lightDim">
-              <Briefcase className="w-4 h-4 text-[#2D4A34] dark:text-[#A3E635]" />
+            <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[#EA580C] dark:text-[#FB923C]">
+              <Briefcase className="w-4 h-4" />
               <span>{lang === "EN" ? "Industry Experience" : "Pengalaman Kerja & Magang"}</span>
             </div>
 
             <div className="space-y-6">
-              {profile.experience.map((exp, idx) => (
-                <div
-                  key={idx}
-                  className="p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-4 transition-all"
-                >
-                  <div className="flex flex-wrap justify-between items-center gap-2 text-xs font-mono text-ink/60 dark:text-ink-lightDim">
-                    <span>{exp.period}</span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
-                      <span>Bogor &amp; Jakarta</span>
-                    </span>
-                  </div>
+              {profile.experience.map((exp, idx) => {
+                const style = expColors[idx % expColors.length];
+                return (
+                  <div
+                    key={idx}
+                    className={`p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 ${style.borderTop} shadow-sm space-y-4 transition-transform hover:-translate-y-0.5`}
+                  >
+                    <div className="flex flex-wrap justify-between items-center gap-2 text-xs font-mono">
+                      <span className={`px-2.5 py-1 rounded text-xs font-bold ${style.badge}`}>
+                        {exp.period}
+                      </span>
+                      <span className="flex items-center gap-1 text-ink/60 dark:text-ink-lightDim">
+                        <MapPin className="w-3 h-3" />
+                        <span>Bogor &amp; Jakarta</span>
+                      </span>
+                    </div>
 
-                  <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl text-ink dark:text-white font-normal leading-snug">
-                      {exp.role}
-                    </h3>
-                    <p className="font-sans text-xs text-ink/60 dark:text-ink-lightDim font-medium mt-1">
-                      @ {exp.org}
+                    <div>
+                      <h3 className="font-serif text-2xl sm:text-3xl text-ink dark:text-white font-normal leading-snug">
+                        {exp.role}
+                      </h3>
+                      <p className="font-sans text-xs text-ink/60 dark:text-ink-lightDim font-medium mt-1">
+                        @ {exp.org}
+                      </p>
+                    </div>
+
+                    <p className="text-sm text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
+                      {exp.summary}
                     </p>
-                  </div>
 
-                  <p className="text-sm text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
-                    {exp.summary}
-                  </p>
-
-                  <div className="space-y-2 pt-3 border-t border-black/10 dark:border-white/10">
-                    <span className="text-xs font-mono uppercase tracking-wider text-ink/50 dark:text-ink-lightDim block">
-                      Key Deliverables:
-                    </span>
-                    {exp.deliverables.map((h, hi) => (
-                      <div key={hi} className="flex items-start gap-2 text-xs sm:text-sm text-ink/75 dark:text-[#FAF7F2]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#2D4A34] dark:text-[#A3E635] shrink-0 mt-0.5" />
-                        <span>{h}</span>
-                      </div>
-                    ))}
+                    <div className="space-y-2 pt-3 border-t border-black/10 dark:border-white/10">
+                      <span className="text-xs font-mono uppercase tracking-wider text-ink/50 dark:text-ink-lightDim block">
+                        Key Deliverables:
+                      </span>
+                      {exp.deliverables.map((h, hi) => (
+                        <div key={hi} className="flex items-start gap-2 text-xs sm:text-sm text-ink/75 dark:text-[#FAF7F2]">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#059669] dark:text-[#34D399] shrink-0 mt-0.5" />
+                          <span>{h}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
