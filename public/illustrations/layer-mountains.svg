@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 600" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="mountGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#557C9E" />
+      <stop offset="100%" stop-color="#7B9BB7" />
+    </linearGradient>
+  </defs>
+  <!-- Majestic jagged ridge peaks -->
+  <polygon points="0,600 0,420 120,380 280,310 390,360 480,260 560,330 670,220 780,290 890,190 980,280 1110,210 1240,320 1380,240 1520,340 1680,280 1820,360 1920,310 1920,600" fill="url(#mountGrad)" opacity="0.85" />
+  <!-- Secondary ridge in front with lighter contrast highlights -->
+  <polygon points="0,600 0,460 180,410 340,430 520,350 690,400 840,320 1020,390 1210,340 1410,410 1590,360 1780,420 1920,380 1920,600" fill="#6B8DAA" opacity="0.9" />
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 300" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="roadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C2B8A3" />
+      <stop offset="100%" stop-color="#A99E88" />
+    </linearGradient>
+  </defs>
+
+  <!-- Gravel path -->
+  <path d="M 0 300 L 0 160 Q 640 180 1200 150 Q 1620 130 1920 140 L 1920 300 Z" fill="url(#roadGrad)" />
+  
+  <!-- Flower speckles on gravel margin -->
+  <g fill="#F2D13B" opacity="0.9">
+    <circle cx="120" cy="220" r="3" /><circle cx="180" cy="240" r="4" /><circle cx="290" cy="210" r="3" />
+    <circle cx="450" cy="250" r="4" /><circle cx="610" cy="230" r="3" /><circle cx="820" cy="260" r="4" />
+    <circle cx="1120" cy="240" r="4" /><circle cx="1340" cy="220" r="3" /><circle cx="1580" cy="250" r="4" />
+    <circle cx="1820" cy="230" r="3" />
+  </g>
+  <g fill="#FFFFFF" opacity="0.8">
+    <circle cx="140" cy="230" r="2.5" /><circle cx="320" cy="220" r="3" /><circle cx="640" cy="240" r="3" />
+    <circle cx="1150" cy="230" r="2.5" /><circle cx="1620" cy="240" r="3" />
+  </g>
+
+  <!-- Cyclist traveling with HUD target beacon at x=960, y=90 -->
+  <g transform="translate(930, 70)" class="cyclist-hud">
+    <!-- Concentric HUD rings -->
+    <circle cx="40" cy="50" r="48" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.75" />
+    <circle cx="40" cy="50" r="38" fill="rgba(255,255,255,0.08)" stroke="#F2D13B" stroke-width="1" opacity="0.8" />
+    <!-- Cyclist silhouette -->
+    <!-- Wheels -->
+    <circle cx="14" cy="68" r="16" fill="none" stroke="#1B1A17" stroke-width="3" />
+    <circle cx="66" cy="68" r="16" fill="none" stroke="#1B1A17" stroke-width="3" />
+    <!-- Frame -->
+    <polyline points="14,68 36,68 56,44 26,44 14,68" fill="none" stroke="#1B1A17" stroke-width="2.5" />
+    <line x1="36" y1="68" x2="26" y2="34" stroke="#1B1A17" stroke-width="2.5" />
+    <line x1="66" y1="68" x2="52" y2="30" stroke="#1B1A17" stroke-width="2.5" />
+    <!-- Handlebar & Saddle -->
+    <line x1="48" y1="28" x2="56" y2="28" stroke="#1B1A17" stroke-width="3" stroke-linecap="round" />
+    <line x1="22" y1="34" x2="30" y2="34" stroke="#1B1A17" stroke-width="3" stroke-linecap="round" />
+    <!-- Rider body -->
+    <circle cx="40" cy="12" r="7" fill="#1B1A17" />
+    <path d="M 40 19 L 36 38 L 48 56" fill="none" stroke="#8C2B1D" stroke-width="4.5" stroke-linecap="round" />
+    <polyline points="38,24 48,32 52,28" fill="none" stroke="#1B1A17" stroke-width="2.5" stroke-linecap="round" />
+    <polyline points="36,38 28,52 36,66" fill="none" stroke="#1B1A17" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Foreground tall grass blades hugging the bottom rim -->
+  <path d="M 0 300 L 0 250 Q 80 230 160 260 Q 240 220 320 270 Q 480 230 640 265 Q 820 225 1000 270 Q 1200 230 1400 265 Q 1600 230 1800 260 Q 1860 240 1920 255 L 1920 300 Z" fill="#244D1C" />
+</svg>

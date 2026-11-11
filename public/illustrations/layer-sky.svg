@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3484C8" />
+      <stop offset="65%" stop-color="#60A5DC" />
+      <stop offset="100%" stop-color="#A7D4F2" />
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#skyGrad)" />
+  <!-- Distant subtle wispy clouds -->
+  <path d="M 200 180 Q 280 150 360 180 Q 440 210 520 180 Q 600 150 680 190 Q 640 230 500 220 Q 320 220 200 180 Z" fill="#FFFFFF" opacity="0.45" />
+  <path d="M 1200 120 Q 1320 90 1440 120 Q 1560 150 1680 120 Q 1600 170 1400 160 Q 1280 160 1200 120 Z" fill="#FFFFFF" opacity="0.35" />
+  <path d="M 850 240 Q 950 220 1050 240 Q 1150 260 1250 240 Q 1150 280 980 270 Q 890 270 850 240 Z" fill="#FFFFFF" opacity="0.25" />
+</svg>

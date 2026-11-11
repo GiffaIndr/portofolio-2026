@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 500" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="hillBackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4C7B43" />
+      <stop offset="100%" stop-color="#345B2D" />
+    </linearGradient>
+  </defs>
+  <!-- Deep rolling hills curve -->
+  <path d="M 0 500 L 0 280 Q 320 210 680 290 Q 1050 370 1420 240 Q 1680 160 1920 220 L 1920 500 Z" fill="url(#hillBackGrad)" />
+  <!-- Distant tree clusters -->
+  <g fill="#2D4D27" opacity="0.7">
+    <circle cx="280" cy="245" r="14" /><circle cx="300" cy="240" r="18" /><circle cx="320" cy="248" r="14" />
+    <circle cx="620" cy="280" r="16" /><circle cx="640" cy="275" r="20" /><circle cx="665" cy="282" r="15" />
+    <circle cx="1380" cy="240" r="18" /><circle cx="1405" cy="235" r="22" /><circle cx="1430" cy="242" r="16" />
+    <circle cx="1620" cy="180" r="15" /><circle cx="1640" cy="175" r="19" />
+  </g>
+</svg>

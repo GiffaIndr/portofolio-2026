@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #F3EBDD;
+  --ink: #1B1A17;
+  --sky: #3F8FD2;
+  --sky-deep: #1F5E9E;
+  --meadow: #3E7D2F;
+  --meadow-deep: #1F3D1A;
+  --butter: #F2D13B;
+  --terracotta: #D9622B;
+  --paper-shadow: rgba(27, 26, 23, 0.08);
+  --selection-bg: #F2D13B;
+  --selection-color: #1B1A17;
+}
+
+:root[data-theme="dark"] {
+  --cream: #12110E;
+  --ink: #F3EBDD;
+  --paper-shadow: rgba(0, 0, 0, 0.5);
+  --selection-bg: #D9622B;
+  --selection-color: #F3EBDD;
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+html {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  scroll-behavior: auto; /* Managed by Lenis */
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Editorial display typography utilities */
+.font-display-condensed {
+  font-family: var(--font-bodoni), "Playfair Display", serif;
+  letter-spacing: -0.02em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.font-editorial-italic {
+  font-family: var(--font-instrument), "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-handwriting {
+  font-family: var(--font-caveat), cursive;
+}
+
+.font-hud {
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+}
+
+/* Highlighting marker effect (Serendipity aesthetic) */
+.marker-butter {
+  background: linear-gradient(104deg, rgba(242, 209, 59, 0) 0.9%, rgba(242, 209, 59, 0.85) 2.4%, rgba(242, 209, 59, 0.5) 5.8%, rgba(242, 209, 59, 0.1) 93%, rgba(242, 209, 59, 0.7) 96%, rgba(242, 209, 59, 0) 98%);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* Vintage Rearview Mirror mask (Reference #4) */
+.mask-rearview {
+  clip-path: inset(0% 0% 0% 0% round 42% 42% 36% 36% / 46% 46% 38% 38%);
+}
+
+.mask-polaroid {
+  box-shadow: 0 12px 36px rgba(27, 26, 23, 0.12), 0 2px 6px rgba(27, 26, 23, 0.06);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  opacity: 0.2;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--terracotta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
