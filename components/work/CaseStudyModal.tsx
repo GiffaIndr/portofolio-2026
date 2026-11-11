@@ -51,7 +51,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
         >
           {/* Header Bar */}
           <div className="sticky top-0 z-20 flex items-center justify-between px-6 sm:px-10 py-5 bg-white dark:bg-[#1E1E1B] border-b border-black/10 dark:border-white/10">
-            <div className="flex items-center gap-3 text-xs font-mono">
+            <div className="flex items-center gap-3 text-xs font-sans font-medium">
               <span className="px-2.5 py-1 rounded bg-black/5 dark:bg-white/10 text-ink dark:text-white uppercase">
                 {project.category}
               </span>
@@ -87,7 +87,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                     href={project.links.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#141412] text-white dark:bg-white dark:text-[#141412] text-xs font-mono font-medium uppercase tracking-wider hover:bg-[#2D4A34] dark:hover:bg-[#A3E635] transition-colors"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#141412] text-white dark:bg-white dark:text-[#141412] text-xs font-sans font-semibold uppercase tracking-wider hover:bg-[#2D4A34] dark:hover:bg-[#A3E635] transition-colors"
                   >
                     <span>{lang === "EN" ? "Open Live Demo" : "Buka Demo Live"}</span>
                     <ExternalLink className="w-4 h-4" />
@@ -97,7 +97,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                   href={project.links.repo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-black/20 dark:border-white/20 text-ink dark:text-ink-light hover:border-black dark:hover:border-white text-xs font-mono font-medium uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-black/20 dark:border-white/20 text-ink dark:text-ink-light hover:border-black dark:hover:border-white text-xs font-sans font-semibold uppercase tracking-wider transition-colors"
                 >
                   <Github className="w-4 h-4" />
                   <span>GitHub Repository</span>
@@ -119,8 +119,8 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
             {/* Problem & Solution */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
               <div className="p-7 rounded-2xl bg-black/5 dark:bg-white/5 space-y-3">
-                <span className="font-mono text-xs uppercase tracking-wider text-ink/60 dark:text-ink-lightDim block">
-                  01 // The Problem
+                <span className="font-sans font-semibold text-xs uppercase tracking-wider text-ink/60 dark:text-ink-lightDim block">
+                  01. The Problem
                 </span>
                 <p className="text-sm sm:text-base text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
                   {project.problem}
@@ -128,8 +128,8 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
               </div>
 
               <div className="p-7 rounded-2xl bg-black/5 dark:bg-white/5 space-y-3">
-                <span className="font-mono text-xs uppercase tracking-wider text-[#2D4A34] dark:text-[#A3E635] block">
-                  02 // Engineering Solution
+                <span className="font-sans font-semibold text-xs uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA] block">
+                  02. Engineering Solution
                 </span>
                 <p className="text-sm sm:text-base text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
                   {project.solution}
@@ -166,7 +166,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                 {project.stack.map((t) => (
                   <span
                     key={t}
-                    className="text-xs px-3 py-1.5 rounded bg-black/5 dark:bg-white/10 font-mono text-ink dark:text-ink-light"
+                    className="text-xs px-3 py-1.5 rounded bg-black/5 dark:bg-white/10 font-sans font-medium text-ink dark:text-ink-light"
                   >
                     {t}
                   </span>

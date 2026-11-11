@@ -99,9 +99,9 @@ function ProjectCard({
 
       {/* Left Column: Editorial Information */}
       <div className="lg:col-span-5 space-y-5 order-2 lg:order-1">
-        <div className="flex items-center justify-between text-xs font-mono">
-          <span className={`font-bold tracking-wider ${theme.accentBadge}`}>
-            0{index + 1} // {theme.categoryLabel}
+        <div className="flex items-center justify-between text-xs font-sans">
+          <span className={`font-semibold tracking-wider ${theme.accentBadge}`}>
+            0{index + 1}. {theme.categoryLabel}
           </span>
           <span className="text-ink/60 dark:text-ink-lightDim">{project.year}</span>
         </div>
@@ -124,7 +124,7 @@ function ProjectCard({
           {project.stack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-mono text-ink/80 dark:text-ink-light hover:border-black dark:hover:border-white transition-colors"
+              className="text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-sans font-medium text-ink/80 dark:text-ink-light hover:border-black dark:hover:border-white transition-colors"
             >
               {tech}
             </span>
@@ -136,7 +136,7 @@ function ProjectCard({
           <button
             onClick={() => onOpenModal(project)}
             style={{ backgroundColor: theme.primary }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-xs font-mono font-medium uppercase tracking-wider hover:opacity-90 transition-all shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-xs font-sans font-semibold uppercase tracking-wider hover:opacity-90 transition-all shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
           >
             <span>{lang === "EN" ? "View Case Study" : "Buka Studi Kasus"}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -147,7 +147,7 @@ function ProjectCard({
               href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-3 text-xs font-mono font-medium uppercase tracking-wider text-ink/80 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-3 text-xs font-sans font-semibold uppercase tracking-wider text-ink/80 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors"
             >
               <span>Visit Live</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
@@ -217,8 +217,8 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 border-b border-black/10 dark:border-white/10 gap-4">
           <div>
-            <span className="text-xs font-mono font-medium tracking-wider text-ink/60 dark:text-ink-lightDim uppercase block mb-2">
-              [ 02 // SELECTED WORKS ]
+            <span className="text-xs font-sans font-semibold tracking-wider text-[#2563EB] dark:text-[#60A5FA] uppercase block mb-2">
+              02. Selected Works
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
               Selected <span className="italic text-[#2563EB] dark:text-[#60A5FA]">Projects.</span>

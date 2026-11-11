@@ -41,8 +41,8 @@ export function SerendipityBanner({ lang }: { lang: "EN" | "ID" }) {
           style={{ y: textY }}
           className="relative z-10 px-6 max-w-2xl mx-auto space-y-3 sm:space-y-4"
         >
-          <span className="text-[#EBD59B] text-xs font-mono tracking-[0.25em] uppercase block">
-            [ {lang === "EN" ? "Our destiny has been set" : "Sebuah takdir yang dirajut"} ]
+          <span className="text-[#FDE68A] text-xs font-sans font-semibold tracking-[0.2em] uppercase block">
+            {lang === "EN" ? "Our destiny has been set" : "Sebuah takdir yang dirajut"}
           </span>
 
           <h2 className="font-serif italic text-white text-6xl sm:text-8xl md:text-9xl leading-[0.95] drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] select-none font-normal">
@@ -53,7 +53,7 @@ export function SerendipityBanner({ lang }: { lang: "EN" | "ID" }) {
             {lang === "EN" ? "All this is not a coincidence." : "Semua ini bukanlah suatu kebetulan."}
           </p>
 
-          <div className="pt-2 text-xs font-mono text-white/80 uppercase tracking-widest">
+          <div className="pt-2 text-xs font-sans font-medium text-white/80 uppercase tracking-wider">
             Syaikhani Giffa Indrawan · D4 TRPL · Bogor 2026
           </div>
         </motion.div>

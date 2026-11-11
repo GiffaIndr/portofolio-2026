@@ -62,8 +62,8 @@ export function MoreWorks({ lang }: MoreWorksProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/10 dark:border-white/10 gap-3">
           <div>
-            <span className="text-xs font-mono font-medium tracking-wider text-ink/60 dark:text-ink-lightDim uppercase block mb-2">
-              [ 05 // REPOSITORIES ]
+            <span className="text-xs font-sans font-semibold tracking-wider text-[#2563EB] dark:text-[#60A5FA] uppercase block mb-2">
+              05. Public Repositories
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
               Selected <span className="italic text-[#2563EB] dark:text-[#60A5FA]">Archives.</span>
@@ -73,7 +73,7 @@ export function MoreWorks({ lang }: MoreWorksProps) {
             href="https://github.com/GiffaIndr?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium uppercase tracking-wider text-ink/75 dark:text-ink-light hover:text-[#2563EB] dark:hover:text-[#60A5FA] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold uppercase tracking-wider text-ink/75 dark:text-ink-light hover:text-[#2563EB] dark:hover:text-[#60A5FA] transition-colors"
           >
             <span>View All 69 Repositories on GitHub</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -96,7 +96,7 @@ export function MoreWorks({ lang }: MoreWorksProps) {
                 className="group p-7 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm hover:border-black dark:hover:border-white transition-all duration-300 flex flex-col justify-between h-full hover:-translate-y-1"
               >
                 <div>
-                  <div className="flex justify-between items-center text-xs text-ink/60 dark:text-ink-lightDim mb-4 font-mono">
+                  <div className="flex justify-between items-center text-xs text-ink/60 dark:text-ink-lightDim mb-4 font-sans font-medium">
                     <span className={`flex items-center gap-1.5 font-bold ${style.text}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${style.dot}`} />
                       {item.category}
@@ -117,7 +117,7 @@ export function MoreWorks({ lang }: MoreWorksProps) {
                     {item.stack.slice(0, 3).map((st) => (
                       <span
                         key={st}
-                        className="text-xs px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 font-mono text-ink/70 dark:text-ink-light"
+                        className="text-xs px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 font-sans font-medium text-ink/70 dark:text-ink-light"
                       >
                         {st}
                       </span>

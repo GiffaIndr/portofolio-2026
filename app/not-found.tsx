@@ -5,9 +5,9 @@ import { ArrowLeft, Compass } from "lucide-react";
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-cream text-ink flex flex-col justify-between p-8 sm:p-14 select-none">
-      <div className="flex justify-between items-center font-hud text-xs opacity-60">
-        <span>404 ERROR // ROUTE NOT FOUND</span>
-        <span>BOGOR HIGHLANDS TRAILHEAD</span>
+      <div className="flex justify-between items-center font-sans text-xs opacity-60">
+        <span>404 Error · Route Not Found</span>
+        <span>Bogor, West Java, Indonesia</span>
       </div>
 
       <div className="max-w-xl mx-auto text-center space-y-6 my-auto">
@@ -26,7 +26,7 @@ export default function NotFound() {
         <div className="pt-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-ink text-cream hover:bg-terracotta transition-colors font-hud text-xs font-semibold"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-ink text-cream hover:bg-terracotta transition-colors font-sans text-xs font-semibold"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>RETURN TO EXPEDITION BASE</span>

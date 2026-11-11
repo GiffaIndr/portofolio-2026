@@ -41,14 +41,14 @@ export function Experience({ lang }: ExperienceProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/10 dark:border-white/10 gap-3">
           <div>
-            <span className="text-xs font-mono font-medium tracking-wider text-ink/60 dark:text-ink-lightDim uppercase block mb-2">
-              [ 03 // TRAJECTORY ]
+            <span className="text-xs font-sans font-semibold tracking-wider text-[#059669] dark:text-[#34D399] uppercase block mb-2">
+              03. Education &amp; Trajectory
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
               Education &amp; <span className="italic text-[#059669] dark:text-[#34D399]">Trajectory.</span>
             </h2>
           </div>
-          <div className="text-xs font-mono text-ink/60 dark:text-ink-lightDim">
+          <div className="text-xs font-sans text-ink/60 dark:text-ink-lightDim">
             2021 — 2026 Present · Bogor &amp; Jakarta
           </div>
         </div>
@@ -59,7 +59,7 @@ export function Experience({ lang }: ExperienceProps) {
           <div className="lg:col-span-6 space-y-10">
             {/* 1. Academic Foundation */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[#059669] dark:text-[#34D399]">
+              <div className="flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-wider text-[#059669] dark:text-[#34D399]">
                 <GraduationCap className="w-4 h-4" />
                 <span>{lang === "EN" ? "Academic Foundation" : "Pendidikan Formal"}</span>
               </div>
@@ -70,7 +70,7 @@ export function Experience({ lang }: ExperienceProps) {
                     key={idx}
                     className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-2.5 transition-transform hover:-translate-y-0.5"
                   >
-                    <div className="flex justify-between items-center text-xs text-ink/60 dark:text-ink-lightDim font-mono">
+                    <div className="flex justify-between items-center text-xs text-ink/60 dark:text-ink-lightDim font-sans font-medium">
                       <span>{edu.period}</span>
                       <span className="flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
@@ -84,7 +84,7 @@ export function Experience({ lang }: ExperienceProps) {
                       {edu.program}
                     </p>
                     <div className="pt-1">
-                      <span className="inline-block px-3 py-1 rounded bg-black/5 dark:bg-white/5 text-xs font-mono text-ink/75 dark:text-ink-light">
+                      <span className="inline-block px-3 py-1 rounded bg-black/5 dark:bg-white/5 text-xs font-sans font-medium text-ink/75 dark:text-ink-light">
                         {edu.status}
                       </span>
                     </div>
@@ -95,7 +95,7 @@ export function Experience({ lang }: ExperienceProps) {
 
             {/* 2. Professional Certifications (Colorful Badges) */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA]">
+              <div className="flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA]">
                 <Award className="w-4 h-4" />
                 <span>{lang === "EN" ? "Certifications & Credentials" : "Sertifikasi & Kredensial Resmi"}</span>
               </div>
@@ -108,7 +108,7 @@ export function Experience({ lang }: ExperienceProps) {
                       key={ci}
                       className={`p-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 ${style.borderLeft} shadow-sm space-y-1.5 transition-transform hover:-translate-y-0.5`}
                     >
-                      <div className="flex justify-between items-center text-xs font-mono">
+                      <div className="flex justify-between items-center text-xs font-sans font-medium">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${style.badge}`}>
                           {cert.date}
                         </span>
@@ -119,7 +119,7 @@ export function Experience({ lang }: ExperienceProps) {
                       <h4 className="font-serif text-base sm:text-lg text-ink dark:text-white font-normal">
                         {cert.title}
                       </h4>
-                      <div className="flex justify-between text-xs text-ink/60 dark:text-ink-lightDim font-mono">
+                      <div className="flex justify-between text-xs text-ink/60 dark:text-ink-lightDim font-sans font-medium">
                         <span>{cert.issuer}</span>
                         <span className="text-[#059669] dark:text-[#34D399] font-medium">Verified ✓</span>
                       </div>
@@ -147,8 +147,8 @@ export function Experience({ lang }: ExperienceProps) {
                 <span className="font-serif text-base text-ink dark:text-white block font-normal">
                   Software Engineering Laboratory · IPB TRPL
                 </span>
-                <span className="text-[11px] font-mono text-ink/50 dark:text-ink-lightDim uppercase tracking-wider block mt-0.5">
-                  Giffa Indrawan // Hands-on Engineering
+                <span className="text-xs font-sans text-ink/60 dark:text-ink-lightDim block mt-0.5">
+                  Giffa Indrawan · Hands-on Engineering
                 </span>
               </div>
             </motion.div>
@@ -156,7 +156,7 @@ export function Experience({ lang }: ExperienceProps) {
 
           {/* Right Column: Work Experience */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[#EA580C] dark:text-[#FB923C]">
+            <div className="flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-wider text-[#EA580C] dark:text-[#FB923C]">
               <Briefcase className="w-4 h-4" />
               <span>{lang === "EN" ? "Industry Experience" : "Pengalaman Kerja & Magang"}</span>
             </div>
@@ -169,7 +169,7 @@ export function Experience({ lang }: ExperienceProps) {
                     key={idx}
                     className={`p-7 sm:p-8 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 ${style.borderTop} shadow-sm space-y-4 transition-transform hover:-translate-y-0.5`}
                   >
-                    <div className="flex flex-wrap justify-between items-center gap-2 text-xs font-mono">
+                    <div className="flex flex-wrap justify-between items-center gap-2 text-xs font-sans font-medium">
                       <span className={`px-2.5 py-1 rounded text-xs font-bold ${style.badge}`}>
                         {exp.period}
                       </span>
@@ -193,7 +193,7 @@ export function Experience({ lang }: ExperienceProps) {
                     </p>
 
                     <div className="space-y-2 pt-3 border-t border-black/10 dark:border-white/10">
-                      <span className="text-xs font-mono uppercase tracking-wider text-ink/50 dark:text-ink-lightDim block">
+                      <span className="text-xs font-sans font-semibold uppercase tracking-wider text-ink/50 dark:text-ink-lightDim block">
                         Key Deliverables:
                       </span>
                       {exp.deliverables.map((h, hi) => (

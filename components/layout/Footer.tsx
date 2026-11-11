@@ -19,8 +19,8 @@ export function Footer({ lang }: FooterProps) {
         {/* Top Grand Heading */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 pb-16">
           <div className="max-w-2xl space-y-6">
-            <span className="text-xs font-mono tracking-widest text-[#EBD59B] uppercase block">
-              [ {lang === "EN" ? "Open for Opportunities" : "Terbuka untuk Kolaborasi"} ]
+            <span className="text-xs font-sans font-semibold tracking-wider text-[#EBD59B] uppercase block">
+              {lang === "EN" ? "Open for Opportunities" : "Terbuka untuk Kolaborasi"}
             </span>
             <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl leading-[0.98] text-white font-normal">
               Let's build <br />
@@ -35,7 +35,7 @@ export function Footer({ lang }: FooterProps) {
             <div className="flex flex-wrap gap-4 pt-2">
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#FAF7F2] text-[#141412] hover:bg-[#EBD59B] transition-colors text-xs font-mono font-medium uppercase tracking-wider"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#FAF7F2] text-[#141412] hover:bg-[#EBD59B] transition-colors text-xs font-sans font-semibold uppercase tracking-wider"
               >
                 <Mail className="w-4 h-4" />
                 <span>{profile.email}</span>
@@ -43,7 +43,7 @@ export function Footer({ lang }: FooterProps) {
 
               <a
                 href={`tel:${profile.phone.replace(/[^0-9+]/g, '')}`}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/20 text-white font-mono text-xs font-medium uppercase tracking-wider hover:border-white transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/20 text-white font-sans text-xs font-semibold uppercase tracking-wider hover:border-white transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span>{profile.phone}</span>
@@ -54,7 +54,7 @@ export function Footer({ lang }: FooterProps) {
           {/* Social Channels & Location */}
           <div className="w-full lg:w-auto flex flex-col justify-between space-y-8 min-w-[280px]">
             <div>
-              <span className="text-xs font-mono tracking-wider text-white/50 uppercase block mb-3">
+              <span className="text-xs font-sans font-semibold tracking-wider text-white/50 uppercase block mb-3">
                 Verified Channels
               </span>
               <ul className="space-y-2 text-sm font-sans">
@@ -77,15 +77,15 @@ export function Footer({ lang }: FooterProps) {
             </div>
 
             <div className="p-5 rounded-2xl bg-[#1A1A17] border border-white/10 space-y-1 text-xs text-[#D5D1C5]">
-              <div className="text-white/50 uppercase tracking-wider text-[10px] font-mono">Location &amp; Institution</div>
-              <div className="text-white font-medium text-sm">Bogor, West Java, Indonesia</div>
-              <div className="text-[#EBD59B] text-xs pt-0.5 font-mono">IPB University · D4 TRPL (Semester 6)</div>
+              <div className="text-white/50 uppercase tracking-wider text-[10px] font-sans font-semibold">Location &amp; Institution</div>
+              <div className="text-white font-medium text-sm font-sans">Bogor, West Java, Indonesia</div>
+              <div className="text-[#EBD59B] text-xs pt-0.5 font-sans font-medium">IPB University · D4 TRPL (Semester 6)</div>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/50">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-white/50">
           <div>
             © {new Date().getFullYear()} Syaikhani Giffa Indrawan. All rights reserved.
           </div>

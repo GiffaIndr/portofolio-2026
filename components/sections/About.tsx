@@ -29,14 +29,14 @@ export function About({ lang }: AboutProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 border-b border-black/10 dark:border-white/10 gap-3">
           <div>
-            <span className="text-xs font-mono font-medium tracking-wider text-ink/60 dark:text-ink-lightDim uppercase block mb-2">
-              [ 01 // INTRODUCTION ]
+            <span className="text-xs font-sans font-semibold tracking-wider text-[#2D4A34] dark:text-[#A3E635] uppercase block mb-2">
+              01. Introduction
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
               About <span className="italic text-[#2D4A34] dark:text-[#A3E635]">Syaikhani.</span>
             </h2>
           </div>
-          <div className="text-xs font-mono text-ink/60 dark:text-ink-lightDim">
+          <div className="text-xs font-sans text-ink/60 dark:text-ink-lightDim">
             IPB University · D4 TRPL · Bogor
           </div>
         </div>
@@ -69,7 +69,7 @@ export function About({ lang }: AboutProps) {
                       Bogor, West Java, ID
                     </span>
                   </div>
-                  <span className="text-xs font-mono px-2.5 py-1 rounded bg-black/5 dark:bg-white/10 text-ink dark:text-ink-light">
+                  <span className="text-xs font-sans font-medium px-2.5 py-1 rounded bg-black/5 dark:bg-white/10 text-ink dark:text-ink-light">
                     D4 TRPL
                   </span>
                 </div>
@@ -77,7 +77,7 @@ export function About({ lang }: AboutProps) {
 
               {/* Engineering Values Statement */}
               <div className="mt-5 p-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
-                <span className="text-xs font-mono font-medium uppercase tracking-wider text-[#2D4A34] dark:text-[#A3E635] block">
+                <span className="text-xs font-sans font-semibold uppercase tracking-wider text-[#2D4A34] dark:text-[#A3E635] block">
                   {lang === "EN" ? "Engineering Philosophy" : "Prinsip Rekayasa"}
                 </span>
                 <p className="text-xs sm:text-sm text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans">

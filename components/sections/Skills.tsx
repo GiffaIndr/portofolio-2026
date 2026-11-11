@@ -47,14 +47,14 @@ export function Skills({ lang }: SkillsProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/10 dark:border-white/10 gap-3">
           <div>
-            <span className="text-xs font-mono font-medium tracking-wider text-ink/60 dark:text-ink-lightDim uppercase block mb-2">
-              [ 04 // CORE TOOLBOX ]
+            <span className="text-xs font-sans font-semibold tracking-wider text-[#EA580C] dark:text-[#FB923C] uppercase block mb-2">
+              04. Technical Capabilities
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
               Technical <span className="italic text-[#EA580C] dark:text-[#FB923C]">Stack.</span>
             </h2>
           </div>
-          <span className="text-xs font-mono text-ink/60 dark:text-ink-lightDim">
+          <span className="text-xs font-sans text-ink/60 dark:text-ink-lightDim">
             Production-Verified Protocols &amp; Frameworks
           </span>
         </div>
@@ -72,7 +72,7 @@ export function Skills({ lang }: SkillsProps) {
                   <h3 className="font-serif text-lg text-ink dark:text-white font-normal">
                     {group.category}
                   </h3>
-                  <span className={`text-xs font-mono font-bold ${style.numColor}`}>
+                  <span className={`text-xs font-sans font-bold ${style.numColor}`}>
                     0{gi + 1}
                   </span>
                 </div>
@@ -81,7 +81,7 @@ export function Skills({ lang }: SkillsProps) {
                   {group.items.map((it, ii) => (
                     <span
                       key={ii}
-                      className={`text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-mono text-ink/80 dark:text-ink-light ${style.tagHover} transition-colors cursor-default`}
+                      className={`text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-sans font-medium text-ink/80 dark:text-ink-light ${style.tagHover} transition-colors cursor-default`}
                     >
                       {it}
                     </span>

@@ -56,9 +56,9 @@ export function Preloader({ onComplete }: PreloaderProps) {
           className="fixed inset-0 z-[100000] bg-cream text-ink flex flex-col justify-between p-8 sm:p-14 select-none"
         >
           {/* Top header */}
-          <div className="flex justify-between items-center font-hud text-xs text-ink/60">
-            <span>SYAIKHANI GIFFA INDRAWAN</span>
-            <span>PORTFOLIO 2026 // FIELD LOG</span>
+          <div className="flex justify-between items-center font-sans text-xs text-ink/60 font-medium">
+            <span>Syaikhani Giffa Indrawan</span>
+            <span>Portfolio Archive · 2026</span>
           </div>
 
           {/* Center: Handwritten "hello." SVG Stroke Draw */}
@@ -86,13 +86,13 @@ export function Preloader({ onComplete }: PreloaderProps) {
           </div>
 
           {/* Bottom telemetry & percentage counter */}
-          <div className="flex justify-between items-end font-hud text-xs text-ink/70">
+          <div className="flex justify-between items-end font-sans text-xs text-ink/70">
             <div>
-              <span className="block opacity-50">LOCATION:</span>
-              <span className="font-semibold">BOGOR, INDONESIA</span>
+              <span className="block opacity-50 uppercase tracking-wider text-[10px]">Location:</span>
+              <span className="font-semibold">Bogor, Indonesia</span>
             </div>
             <div className="text-right">
-              <span className="font-mono text-3xl sm:text-4xl font-bold tabular-nums text-ink">
+              <span className="font-serif text-3xl sm:text-4xl font-normal tabular-nums text-ink">
                 {count}%
               </span>
             </div>

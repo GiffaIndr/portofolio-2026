@@ -39,29 +39,28 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 flex items-center justify-between">
-        {/* Clean Editorial Wordmark & Monogram */}
+        {/* Clean Editorial Wordmark & Monogram (Anti-Slop Redesign) */}
         <Link
           href="#hero"
           className="group flex items-center gap-3 select-none"
         >
-          <div className="flex items-center justify-center w-9 h-9 rounded-full bg-[#141412] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#141412] transition-transform group-hover:scale-105">
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-[#141412] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#141412] transition-transform group-hover:scale-105 shadow-xs">
             <span className="font-serif italic text-base font-normal">G</span>
+            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#059669] border border-white dark:border-[#141412]" />
           </div>
 
           <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-lg tracking-tight text-ink dark:text-white font-normal group-hover:text-[#2D4A34] dark:group-hover:text-[#A3E635] transition-colors">
-                Syaikhani Giffa
-              </span>
-              <span className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.2 rounded bg-black/5 dark:bg-white/10 text-ink/70 dark:text-ink-lightDim">
-                TRPL '26
-              </span>
-            </div>
+            <span className="font-serif text-lg tracking-tight text-ink dark:text-white font-normal group-hover:text-[#059669] dark:group-hover:text-[#34D399] transition-colors leading-tight">
+              Syaikhani Giffa
+            </span>
+            <span className="text-[11px] font-sans text-ink/60 dark:text-ink-lightDim font-normal tracking-normal">
+              Software Engineer · IPB University
+            </span>
           </div>
         </Link>
 
         {/* Center Nav Links (Desktop) */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-wider">
+        <nav className="hidden md:flex items-center gap-8 text-xs font-sans font-medium uppercase tracking-wider">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -79,7 +78,7 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
           <button
             onClick={() => setLang(lang === "EN" ? "ID" : "EN")}
             aria-label="Toggle language"
-            className="text-xs font-mono font-medium px-2.5 py-1.5 rounded-md border border-black/15 dark:border-white/20 text-ink dark:text-ink-light hover:border-black dark:hover:border-white transition-colors bg-white dark:bg-[#1E1E1B]"
+            className="text-xs font-sans font-medium px-2.5 py-1.5 rounded-md border border-black/15 dark:border-white/20 text-ink dark:text-ink-light hover:border-black dark:hover:border-white transition-colors bg-white dark:bg-[#1E1E1B]"
           >
             {lang}
           </button>
@@ -96,7 +95,7 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
           {/* Contact Button */}
           <a
             href="mailto:giffasyaikhani2005@gmail.com"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] hover:bg-[#2D4A34] dark:hover:bg-[#A3E635] dark:hover:text-[#141412] transition-colors text-xs font-mono font-medium uppercase tracking-wider"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#141412] text-[#FAF7F2] dark:bg-[#FAF7F2] dark:text-[#141412] hover:bg-[#059669] dark:hover:bg-[#34D399] dark:hover:text-[#141412] transition-colors text-xs font-sans font-medium uppercase tracking-wider"
           >
             <span>{lang === "EN" ? "Contact" : "Kontak"}</span>
             <ArrowUpRight className="w-3 h-3" />
@@ -116,7 +115,7 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
       {/* Mobile Slide-down Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-paper dark:bg-paper-dark border-b border-black/10 dark:border-white/10 px-6 py-6 space-y-4">
-          <nav className="flex flex-col space-y-3 font-mono text-sm uppercase">
+          <nav className="flex flex-col space-y-3 font-sans font-medium text-sm uppercase">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -131,7 +130,7 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
           <div className="pt-2 border-t border-black/10 dark:border-white/10">
             <a
               href="mailto:giffasyaikhani2005@gmail.com"
-              className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[#2D4A34] dark:text-[#A3E635]"
+              className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-[#059669] dark:text-[#34D399]"
             >
               <span>giffasyaikhani2005@gmail.com</span>
               <ArrowUpRight className="w-3.5 h-3.5" />

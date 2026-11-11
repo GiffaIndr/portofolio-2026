@@ -53,7 +53,7 @@ export function ScrollParallaxCanvas() {
             className="w-full bg-gradient-to-b from-[#2563EB] via-[#059669] to-[#EA580C] origin-top"
           />
         </div>
-        <span className="font-mono text-[9px] font-bold text-ink/60 dark:text-ink-lightDim uppercase tracking-widest rotate-90 mt-5 block">
+        <span className="font-sans text-[10px] font-semibold text-ink/60 dark:text-ink-lightDim uppercase tracking-wider rotate-90 mt-5 block">
           TRAJECTORY
         </span>
       </div>
@@ -69,7 +69,7 @@ export function ScrollParallaxCanvas() {
             style={{ rotate: starRot }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <span className="font-mono text-[9px] text-[#141412] font-black tracking-tight">
+            <span className="font-sans text-[10px] text-[#141412] font-black tracking-tight">
               2026
             </span>
           </motion.div>
@@ -111,7 +111,7 @@ export function ScrollParallaxCanvas() {
         style={{ y: rightBadgeY, rotate: rightBadgeRot }}
         className="hidden lg:flex absolute top-[74%] right-7 items-center justify-center pointer-events-auto"
       >
-        <div className="px-3.5 py-1.5 bg-[#2563EB] text-white font-mono text-[11px] font-bold rounded-sm shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)] border border-black/20 flex items-center gap-1.5 hover:scale-105 transition-transform cursor-pointer">
+        <div className="px-3.5 py-1.5 bg-[#2563EB] text-white font-sans text-[11px] font-semibold rounded-sm shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)] border border-black/20 flex items-center gap-1.5 hover:scale-105 transition-transform cursor-pointer">
           <FourPointStar className="w-3.5 h-3.5 text-white" />
           <span>IPB TRPL</span>
         </div>
