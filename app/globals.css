@@ -3,108 +3,108 @@
 @tailwind utilities;
 
 :root {
-  --cream: #F3EBDD;
-  --ink: #1B1A17;
-  --sky: #3F8FD2;
-  --sky-deep: #1F5E9E;
-  --meadow: #3E7D2F;
-  --meadow-deep: #1F3D1A;
+  --cream: #F6F2EB;
+  --ink: #141412;
+  --emerald: #1B3B2B;
+  --emerald-deep: #0F2319;
+  --ochre: #D9622B;
   --butter: #F2D13B;
-  --terracotta: #D9622B;
-  --paper-shadow: rgba(27, 26, 23, 0.08);
-  --selection-bg: #F2D13B;
-  --selection-color: #1B1A17;
+  --sage: #8DA697;
+  --card-bg: #EFE9DE;
+  --border-subtle: rgba(20, 20, 18, 0.08);
 }
 
 :root[data-theme="dark"] {
-  --cream: #12110E;
-  --ink: #F3EBDD;
-  --paper-shadow: rgba(0, 0, 0, 0.5);
-  --selection-bg: #D9622B;
-  --selection-color: #F3EBDD;
-}
-
-::selection {
-  background-color: var(--selection-bg);
-  color: var(--selection-color);
+  --cream: #121210;
+  --ink: #F6F2EB;
+  --emerald: #2D5A43;
+  --emerald-deep: #163023;
+  --ochre: #E0713E;
+  --butter: #F2D13B;
+  --sage: #A1B8AA;
+  --card-bg: #1A1A17;
+  --border-subtle: rgba(246, 242, 235, 0.1);
 }
 
 html {
   background-color: var(--cream);
   color: var(--ink);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  scroll-behavior: auto; /* Managed by Lenis */
-  transition: background-color 0.4s ease, color 0.4s ease;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  scroll-behavior: auto;
+  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  letter-spacing: -0.01em;
 }
 
-/* Editorial display typography utilities */
-.font-display-condensed {
-  font-family: var(--font-bodoni), "Playfair Display", serif;
-  letter-spacing: -0.02em;
-  line-height: 0.88;
+/* Luxury Editorial Typography */
+.font-display-hero {
+  font-family: var(--font-syne), var(--font-bodoni), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
   text-transform: uppercase;
 }
 
-.font-editorial-italic {
-  font-family: var(--font-instrument), "Playfair Display", serif;
-  font-style: italic;
-  font-weight: 400;
+.font-editorial-serif {
+  font-family: var(--font-bodoni), "Playfair Display", serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-.font-handwriting {
+.font-script-note {
   font-family: var(--font-caveat), cursive;
 }
 
-.font-hud {
-  font-family: var(--font-mono), monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.7rem;
+/* Washi tape visual accent (Daniel Gallego / Greta Mae reference) */
+.washi-tape-green {
+  background: rgba(142, 198, 65, 0.85);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: rotate(-3deg);
 }
 
-/* Highlighting marker effect (Serendipity aesthetic) */
-.marker-butter {
-  background: linear-gradient(104deg, rgba(242, 209, 59, 0) 0.9%, rgba(242, 209, 59, 0.85) 2.4%, rgba(242, 209, 59, 0.5) 5.8%, rgba(242, 209, 59, 0.1) 93%, rgba(242, 209, 59, 0.7) 96%, rgba(242, 209, 59, 0) 98%);
-  padding: 0.1em 0.35em;
-  border-radius: 4px;
+.washi-tape-yellow {
+  background: rgba(242, 209, 59, 0.85);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: rotate(2deg);
 }
 
-/* Vintage Rearview Mirror mask (Reference #4) */
-.mask-rearview {
-  clip-path: inset(0% 0% 0% 0% round 42% 42% 36% 36% / 46% 46% 38% 38%);
+/* Sticker badge (Tyler / Perrier / Greta reference) */
+.sticker-badge {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid rgba(20, 20, 18, 0.12);
 }
 
-.mask-polaroid {
-  box-shadow: 0 12px 36px rgba(27, 26, 23, 0.12), 0 2px 6px rgba(27, 26, 23, 0.06);
+/* Smooth selection */
+::selection {
+  background: #F2D13B;
+  color: #141412;
 }
 
-/* Custom Scrollbar */
+/* Custom minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: var(--cream);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--ink);
-  opacity: 0.2;
+  background: rgba(20, 20, 18, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--terracotta);
+  background: var(--ochre);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
 }

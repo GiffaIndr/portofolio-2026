@@ -1,167 +1,186 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { projects, Project } from "@/content/projects";
 import { CaseStudyModal } from "@/components/work/CaseStudyModal";
-import { ExternalLink, Github, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, Github, Sparkles } from "lucide-react";
 
 interface SelectedWorkProps {
   lang: "EN" | "ID";
 }
 
-export function SelectedWork({ lang }: SelectedWorkProps) {
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const featuredProjects = projects.filter((p) => p.featured);
+function ProjectCard({
+  project,
+  index,
+  lang,
+  onOpenModal,
+}: {
+  project: Project;
+  index: number;
+  lang: "EN" | "ID";
+  onOpenModal: (p: Project) => void;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Smooth scroll parallax for the inner project image
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <section id="work" className="relative w-full py-28 md:py-36 bg-[#ECE4D4] dark:bg-[#161511] text-ink transition-colors duration-700">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-12 border-b border-ink/15 gap-6">
-          <div>
-            <span className="font-hud text-xs text-terracotta tracking-hud block mb-3">
-              {lang === "EN" ? "02 // SELECTED CODE & SYSTEMS" : "02 // PROYEK & KARYA TERPILIH"}
-            </span>
-            <h2 className="font-display-condensed text-5xl sm:text-7xl md:text-8xl leading-none">
-              SELECTED <br />
-              <span className="font-editorial-italic lowercase text-terracotta">
-                works.
+    <div
+      ref={cardRef}
+      className="group grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-6 sm:p-10 md:p-12 rounded-3xl bg-card border border-ink/10 dark:border-cream/10 shadow-luxe hover:border-ink/20 dark:hover:border-cream/20 transition-all duration-500"
+    >
+      {/* Left Column: Editorial Info */}
+      <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
+        <div className="flex items-center justify-between">
+          <span className="font-display text-xs font-extrabold text-ochre tracking-wider uppercase">
+            Project 0{index + 1}
+          </span>
+          <div className="flex items-center gap-2">
+            {project.status === "live" && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald/15 text-emerald dark:text-[#52B788] text-[11px] font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse" />
+                Live Demo
               </span>
-            </h2>
-          </div>
-          <div className="max-w-md font-sans text-sm sm:text-base text-ink/75 leading-relaxed">
-            {lang === "EN"
-              ? "A curated index of engineered platforms across IoT hardware, spatial WebGIS, accessibility maps, and assistive tools."
-              : "Koleksi proyek rekayasa perangkat lunak meliputi hardware IoT, pemetaan aksesibilitas, WebGIS, dan teknologi asistif."}
+            )}
+            <span className="px-2.5 py-1 rounded-full bg-ink/5 dark:bg-cream/10 text-[11px] font-medium text-ink/70 dark:text-cream/70">
+              {project.category}
+            </span>
           </div>
         </div>
 
-        {/* Project Cards Exhibition */}
-        <div className="pt-16 space-y-20 md:space-y-28">
-          {featuredProjects.map((project, index) => (
-            <div
-              key={project.slug}
-              className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center p-6 sm:p-10 rounded-3xl bg-cream dark:bg-[#1E1C16] border border-ink/15 shadow-paper transition-all duration-500 hover:shadow-float"
+        <div>
+          <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-ink dark:text-cream leading-tight group-hover:text-ochre transition-colors">
+            {project.title}
+          </h3>
+          <p className="mt-2 text-base sm:text-lg text-ink/70 dark:text-cream/70 font-sans italic">
+            "{project.tagline}"
+          </p>
+        </div>
+
+        <p className="text-sm sm:text-base text-ink/75 dark:text-cream/75 leading-relaxed">
+          {project.problem}
+        </p>
+
+        {/* Tech Stack Pills */}
+        <div className="flex flex-wrap gap-2 pt-1">
+          {project.stack.slice(0, 5).map((tech) => (
+            <span
+              key={tech}
+              className="text-xs px-3 py-1 rounded-full bg-ink/5 dark:bg-cream/5 border border-ink/10 dark:border-cream/10 font-medium text-ink/80 dark:text-cream/80"
             >
-              {/* Left Column: Editorial Information */}
-              <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
-                {/* Number & Meta Header */}
-                <div className="flex items-center justify-between font-hud text-xs">
-                  <span className="font-mono text-terracotta font-extrabold text-base">
-                    0{index + 1}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    {project.status === "live" && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-meadow/15 text-meadow font-semibold border border-meadow/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-meadow animate-pulse" />
-                        LIVE DEMO
-                      </span>
-                    )}
-                    <span className="px-3 py-1 rounded-full bg-ink/5 dark:bg-cream/10 border border-ink/10 font-medium">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
+              {tech}
+            </span>
+          ))}
+        </div>
 
-                {/* Title & Tagline */}
-                <div>
-                  <h3 className="font-display-condensed text-3xl sm:text-4xl md:text-5xl text-ink dark:text-cream leading-[0.95] group-hover:text-terracotta transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 text-base sm:text-lg font-editorial-italic text-ink/80 dark:text-cream/80">
-                    "{project.tagline}"
-                  </p>
-                </div>
+        {/* Action Controls */}
+        <div className="flex flex-wrap items-center gap-4 pt-4">
+          <button
+            onClick={() => onOpenModal(project)}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink hover:bg-ochre dark:hover:bg-butter transition-colors text-xs font-bold uppercase tracking-wider"
+            data-cursor="CASE STUDY"
+          >
+            <span>{lang === "EN" ? "View Case Study" : "Buka Studi Kasus"}</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
 
-                {/* Brief Summary */}
-                <p className="text-sm sm:text-base text-ink/75 dark:text-cream/75 leading-relaxed line-clamp-3">
-                  {project.problem}
-                </p>
+          {project.links.live && (
+            <a
+              href={project.links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ochre hover:text-ochre transition-colors text-xs font-bold"
+            >
+              <span>Visit Live</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+            </a>
+          )}
 
-                {/* Tech Pills */}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.stack.slice(0, 5).map((tech) => (
-                    <span
-                      key={tech}
-                      className="font-hud text-[11px] px-2.5 py-1 rounded-md bg-ink/5 dark:bg-cream/5 border border-ink/10"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.stack.length > 5 && (
-                    <span className="font-hud text-[11px] px-2 py-1 opacity-60">
-                      +{project.stack.length - 5} more
-                    </span>
-                  )}
-                </div>
+          <a
+            href={project.links.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`GitHub repo for ${project.title}`}
+            className="p-3 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ink dark:hover:border-cream text-ink dark:text-cream transition-colors"
+          >
+            <Github className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
 
-                {/* Interactive Action Buttons */}
-                <div className="flex flex-wrap items-center gap-3 pt-4">
-                  <button
-                    onClick={() => setActiveProject(project)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-cream hover:bg-terracotta transition-colors font-hud text-xs font-semibold"
-                    data-cursor="VIEW"
-                  >
-                    <span>{lang === "EN" ? "CASE STUDY" : "STUDI KASUS"}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+      {/* Right Column: Visual Frame with Inner Scroll Parallax */}
+      <div
+        className="lg:col-span-7 order-1 lg:order-2 cursor-pointer"
+        onClick={() => onOpenModal(project)}
+      >
+        <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-ink/10 dark:border-cream/10 shadow-polaroid bg-ink/5">
+          <motion.div
+            style={{ y: imgY, scale: 1.12 }}
+            className="relative w-full h-full"
+          >
+            <Image
+              src={project.cover}
+              alt={project.title}
+              fill
+              className="object-cover object-top"
+            />
+          </motion.div>
 
-                  {project.links.live && (
-                    <a
-                      href={project.links.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink/30 dark:border-cream/30 hover:border-terracotta hover:text-terracotta transition-colors font-hud text-xs"
-                      data-cursor="LIVE"
-                    >
-                      <span>VISIT LIVE</span>
-                      <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-                    </a>
-                  )}
+          <div className="absolute bottom-4 right-4 bg-cream/90 dark:bg-ink/90 backdrop-blur-md px-4 py-2 rounded-full border border-ink/15 dark:border-cream/15 text-xs font-bold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Sparkles className="w-3.5 h-3.5 text-ochre" />
+            <span>Open Case Study</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-                  <a
-                    href={project.links.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ink dark:hover:border-cream transition-colors text-ink dark:text-cream"
-                    aria-label={`GitHub repo for ${project.title}`}
-                    data-cursor="REPO"
-                  >
-                    <Github className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
+export function SelectedWork({ lang }: SelectedWorkProps) {
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const featured = projects.filter((p) => p.featured);
 
-              {/* Right Column: Visual Mockup Plate with Hover Depth */}
-              <div
-                className="lg:col-span-7 order-1 lg:order-2 cursor-pointer"
-                onClick={() => setActiveProject(project)}
-                data-cursor="VIEW"
-              >
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-ink/20 shadow-card bg-ink/5 group-hover:scale-[1.015] transition-transform duration-500">
-                  <Image
-                    src={project.cover}
-                    alt={project.title}
-                    fill
-                    className="object-cover object-top"
-                  />
-                  {/* Subtle editorial photo vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent opacity-60" />
-                  
-                  {/* Floating click prompt pill */}
-                  <div className="absolute bottom-4 right-4 bg-cream/90 dark:bg-ink/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-ink/20 font-hud text-[10px] flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Sparkles className="w-3 h-3 text-terracotta" />
-                    <span>CLICK TO OPEN CASE STUDY</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+  return (
+    <section id="work" className="relative w-full py-28 sm:py-36 bg-cream text-ink dark:text-cream transition-colors duration-700">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-10 border-b border-ink/10 dark:border-cream/10 gap-6">
+          <div>
+            <span className="font-script-note text-2xl text-ochre block -rotate-1">
+              {lang === "EN" ? "Portfolio Showcase" : "Eksibisi Proyek"}
+            </span>
+            <h2 className="font-display text-4xl sm:text-6xl text-ink dark:text-cream tracking-tight">
+              SELECTED <span className="text-emerald dark:text-[#52B788]">WORKS.</span>
+            </h2>
+          </div>
+          <p className="max-w-md text-sm sm:text-base text-ink/70 dark:text-cream/70 leading-relaxed">
+            {lang === "EN"
+              ? "Engineered applications spanning IoT card verification, municipal accessibility mapping, and spatial WebGIS."
+              : "Koleksi proyek rekayasa perangkat lunak meliputi sistem IoT, pemetaan aksesibilitas kota, dan analisis WebGIS."}
+          </p>
+        </div>
+
+        {/* Project List with Continuous Scroll Parallax */}
+        <div className="pt-16 space-y-16 sm:space-y-24">
+          {featured.map((project, idx) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={idx}
+              lang={lang}
+              onOpenModal={setActiveProject}
+            />
           ))}
         </div>
       </div>
 
-      {/* Case Study Detail Modal */}
       <CaseStudyModal
         project={activeProject}
         onClose={() => setActiveProject(null)}

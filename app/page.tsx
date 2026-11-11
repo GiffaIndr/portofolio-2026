@@ -10,6 +10,7 @@ import { SelectedWork } from "@/components/sections/SelectedWork";
 import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
 import { MoreWorks } from "@/components/sections/MoreWorks";
+import { ScrollParallaxCanvas } from "@/components/layout/ScrollParallaxCanvas";
 
 export default function Home() {
   const [lang, setLang] = useState<"EN" | "ID">("EN");
@@ -17,7 +18,6 @@ export default function Home() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Check saved theme
     const savedTheme = localStorage.getItem("giffa_theme") as "light" | "dark" | null;
     if (savedTheme) {
       setTheme(savedTheme);
@@ -41,6 +41,7 @@ export default function Home() {
         theme={theme}
         toggleTheme={toggleTheme}
       />
+      <ScrollParallaxCanvas />
       <main className="relative min-h-screen">
         <Hero lang={lang} />
         <About lang={lang} />

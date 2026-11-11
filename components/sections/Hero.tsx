@@ -1,212 +1,143 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { Scribble } from "@/components/ui/Scribble";
-import { profile } from "@/content/profile";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, Sparkles } from "lucide-react";
 
 interface HeroProps {
   lang: "EN" | "ID";
 }
 
 export function Hero({ lang }: HeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [distanceKm, setDistanceKm] = useState("0.0");
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      // Convert scroll pixels to simulated journey kilometers (0.0 to 12.4 km)
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll > 0) {
-        const km = (scrollY / maxScroll) * 12.4;
-        setDistanceKm(km.toFixed(1));
-      }
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // Normalize between -1 and 1
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      setMousePos({ x, y });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  // Smooth scroll parallax values
+  const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.1]);
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="relative w-full h-[100vh] min-h-[700px] max-h-[1100px] overflow-hidden flex flex-col justify-between pt-24 pb-8 select-none bg-[#3484C8]"
+      className="relative min-h-[92vh] flex flex-col justify-between pt-32 sm:pt-40 pb-12 px-6 sm:px-10 md:px-14 overflow-hidden"
     >
-      {/* ================= PARALLAX BACKGROUND LAYERS ================= */}
-
-      {/* Layer 1: Sky & Atmosphere */}
-      <div
-        className="absolute inset-0 w-full h-full pointer-events-none will-change-transform"
-        style={{
-          transform: `translate3d(${mousePos.x * 4}px, ${mousePos.y * 2}px, 0)`,
-        }}
+      {/* Top Tagline */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-ink/10 dark:border-cream/10"
       >
-        <Image
-          src="/illustrations/layer-sky.svg"
-          alt="Sky Horizon"
-          fill
-          priority
-          className="object-cover object-bottom"
-        />
-      </div>
+        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-ink/70 dark:text-cream/70">
+          <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
+          <span>{lang === "EN" ? "Front-end & Web Systems" : "Pengembang Web & Front-end"}</span>
+        </div>
+        <div className="text-xs font-medium text-ink/50 dark:text-cream/50">
+          IPB University · D4 TRPL · Semester 6
+        </div>
+      </motion.div>
 
-      {/* Layer 2: Mountain Peaks */}
-      <div
-        className="absolute bottom-[22%] sm:bottom-[24%] left-0 w-full h-[45%] pointer-events-none will-change-transform"
-        style={{
-          transform: `translate3d(${mousePos.x * 8}px, ${mousePos.y * 4}px, 0)`,
-        }}
-      >
-        <Image
-          src="/illustrations/layer-mountains.svg"
-          alt="Distant Mountains"
-          fill
-          priority
-          className="object-cover object-bottom"
-        />
-      </div>
-
-      {/* ================= LAYER 2.5: GIANT EDITORIAL DISPLAY TITLE (Sandwiched) ================= */}
-      <div className="absolute top-[18%] sm:top-[16%] left-0 w-full z-10 pointer-events-none text-center px-4">
-        <div className="max-w-6xl mx-auto flex flex-col items-center">
-          <h1 className="font-display-condensed text-cream text-[13vw] sm:text-[11vw] md:text-[9.5rem] leading-[0.82] tracking-[-0.03em] drop-shadow-[0_4px_24px_rgba(27,26,23,0.3)]">
-            SYAIKHANI
-          </h1>
-          <div className="flex items-center justify-center gap-3 sm:gap-6 flex-wrap mt-[-1vw] sm:mt-[-1.5vw]">
-            <span className="font-editorial-italic text-butter text-[7vw] sm:text-[5.5vw] md:text-[5rem] leading-none drop-shadow-md">
-              crafting
+      {/* Main Hero Spread */}
+      <div className="max-w-7xl mx-auto w-full my-auto py-10 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* Left Column: Bold Editorial Typography */}
+        <motion.div
+          style={{ y: titleY, opacity }}
+          className="lg:col-span-7 space-y-6 sm:space-y-8"
+        >
+          <div className="space-y-1">
+            <span className="font-script-note text-2xl sm:text-3xl text-ochre block -rotate-2">
+              {lang === "EN" ? "Hello there, I'm" : "Halo semua, saya"}
             </span>
-            <span className="font-display-condensed text-cream text-[11vw] sm:text-[9.5vw] md:text-[8rem] leading-[0.82] tracking-[-0.03em] drop-shadow-[0_4px_24px_rgba(27,26,23,0.3)]">
-              FOR THE WEB
-            </span>
+            <h1 className="font-display-hero text-[13vw] sm:text-[9vw] lg:text-[6.5rem] leading-[0.88] text-ink dark:text-cream">
+              SYAIKHANI <br />
+              <span className="text-emerald dark:text-[#52B788]">GIFFA.</span>
+            </h1>
           </div>
 
-          {/* Yellow handwriting annotation with animated scribble */}
-          <div className="relative mt-2 sm:mt-4 inline-block">
-            <span className="font-handwriting text-butter text-xl sm:text-2xl md:text-3xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-              {lang === "EN"
-                ? "front-end developer from Bogor, Indonesia"
-                : "pengembang front-end asal Bogor, Indonesia"}
-            </span>
-            <div className="absolute -bottom-2 left-0 w-full">
-              <Scribble type="underline" color="#F2D13B" className="w-full h-4" />
+          <p className="max-w-xl text-lg sm:text-xl text-ink/80 dark:text-cream/80 leading-relaxed font-sans font-normal">
+            {lang === "EN"
+              ? "Undergraduate engineer crafting high-fidelity web experiences, geospatial visualizations, and IoT systems where clean aesthetic meets rigorous architecture."
+              : "Mahasiswa rekayasa perangkat lunak IPB University yang merancang website berkinerja tinggi, visualisasi WebGIS, dan sistem IoT dengan estetika bersih dan presisi."}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            <a
+              href="#work"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink font-bold text-xs uppercase tracking-wider hover:bg-ochre dark:hover:bg-butter transition-colors duration-300 shadow-luxe"
+              data-cursor="EXPLORE"
+            >
+              <span>{lang === "EN" ? "Explore Selected Work" : "Jelajahi Karya"}</span>
+              <ArrowDown className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="#about"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ink dark:hover:border-cream font-semibold text-xs tracking-wide uppercase transition-colors"
+            >
+              <span>{lang === "EN" ? "Read Biography" : "Tentang Saya"}</span>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Right Column: Editorial Portrait Cutout with Taped Paper Accent (Daniel Gallego & Tyler style) */}
+        <motion.div
+          style={{ y: portraitY }}
+          className="lg:col-span-5 flex justify-center lg:justify-end"
+        >
+          <div className="relative w-full max-w-sm sm:max-w-md">
+            {/* Taped photo card */}
+            <div className="relative p-4 sm:p-5 pb-8 sm:pb-10 rounded-3xl bg-card border border-ink/10 dark:border-cream/10 shadow-polaroid rotate-1 hover:rotate-0 transition-transform duration-500">
+              {/* Green washi tape top-center */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-28 h-7 washi-tape-green z-20" />
+
+              {/* Portrait image container */}
+              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-ink/5">
+                <Image
+                  src="/profile/portrait-main.webp"
+                  alt="Syaikhani Giffa Indrawan portrait in creative studio"
+                  fill
+                  priority
+                  className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+
+              {/* Handwritten note caption */}
+              <div className="mt-4 flex items-center justify-between px-1">
+                <div>
+                  <span className="font-script-note text-xl sm:text-2xl text-ink font-bold block">
+                    Syaikhani Giffa
+                  </span>
+                  <span className="text-[11px] text-ink/60 font-medium">
+                    Software Engineering Tech · Bogor
+                  </span>
+                </div>
+                <div className="w-9 h-9 rounded-full bg-butter text-ink flex items-center justify-center font-bold text-xs shadow-sm rotate-6">
+                  2026
+                </div>
+              </div>
+            </div>
+
+            {/* Floating yellow pill sticker */}
+            <div className="absolute -bottom-5 -left-4 sm:-left-6 px-4 py-2 bg-butter text-ink rounded-full font-display font-extrabold text-xs shadow-luxe -rotate-3 border border-ink/20 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-ochre" />
+              <span>FRONT-END CRAFT</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Layer 3: Rolling Green Hills (Back) */}
-      <div
-        className="absolute bottom-[16%] sm:bottom-[18%] left-0 w-full h-[38%] pointer-events-none will-change-transform z-10"
-        style={{
-          transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * 3}px, 0)`,
-        }}
-      >
-        <Image
-          src="/illustrations/layer-hills-back.svg"
-          alt="Rolling Back Hills"
-          fill
-          priority
-          className="object-cover object-bottom"
-        />
-      </div>
-
-      {/* Layer 4: Traditional Windmill & Country Homes */}
-      <div
-        className="absolute bottom-[10%] sm:bottom-[12%] left-0 w-full h-[42%] pointer-events-none will-change-transform z-15"
-        style={{
-          transform: `translate3d(${mousePos.x * -12}px, ${mousePos.y * 5}px, 0)`,
-        }}
-      >
-        <Image
-          src="/illustrations/layer-windmill.svg"
-          alt="Windmill & Village"
-          fill
-          priority
-          className="object-cover object-bottom"
-        />
-      </div>
-
-      {/* Layer 5: Layered Flower Bands */}
-      <div
-        className="absolute bottom-[3%] sm:bottom-[4%] left-0 w-full h-[32%] pointer-events-none will-change-transform z-20"
-        style={{
-          transform: `translate3d(${mousePos.x * -18}px, ${mousePos.y * 6}px, 0)`,
-        }}
-      >
-        <Image
-          src="/illustrations/layer-flowers.svg"
-          alt="Wildflower Tulip Fields"
-          fill
-          priority
-          className="object-cover object-bottom"
-        />
-      </div>
-
-      {/* Layer 6: Foreground Road & Traveling Cyclist with HUD */}
-      <div
-        className="absolute bottom-0 left-0 w-full h-[24%] pointer-events-none will-change-transform z-25"
-        style={{
-          transform: `translate3d(${mousePos.x * -26}px, ${mousePos.y * 8}px, 0)`,
-        }}
-      >
-        <Image
-          src="/illustrations/layer-foreground.svg"
-          alt="Foreground Path & Cyclist"
-          fill
-          priority
-          className="object-cover object-bottom"
-        />
-      </div>
-
-      {/* ================= HUD MICROTEXT & TELEMETRY (Reference #1) ================= */}
-
-      {/* Top Left HUD */}
-      <div className="relative z-30 max-w-7xl mx-auto w-full px-6 md:px-12 flex justify-between items-start font-hud text-[11px] text-cream drop-shadow-md">
-        <div className="space-y-1">
-          <div className="opacity-75">COORDINATES</div>
-          <div className="font-mono font-bold tracking-widest">{profile.coordinates}</div>
-          <div className="opacity-60 pt-1">WEATHER · 24°C SUNNY</div>
-        </div>
-
-        {/* Top Right HUD */}
-        <div className="text-right space-y-1">
-          <div className="opacity-75">STATION LOG // BOGOR</div>
-          <div className="font-semibold text-butter">SEMESTER 6 · IPB UNIVERSITY</div>
-          <div className="opacity-60 pt-1">BIOME: HIGHLAND URBAN</div>
-        </div>
-      </div>
-
-      {/* Bottom HUD: Trip Progress & Scroll Invitation */}
-      <div className="relative z-30 max-w-7xl mx-auto w-full px-6 md:px-12 flex justify-between items-end font-hud text-[11px] text-cream drop-shadow-md">
-        <div className="flex items-center gap-4">
-          <span className="w-2.5 h-2.5 rounded-full bg-butter animate-pulse" />
-          <div>
-            <div className="text-butter font-bold">FIELD NOTES 2026</div>
-            <div className="opacity-75 text-[10px]">SCROLL TO EXPLORE WORK</div>
-          </div>
-        </div>
-
-        <div className="text-right">
-          <div className="opacity-75">EXPEDITION DISTANCE</div>
-          <div className="font-mono font-bold text-sm tracking-widest text-butter">
-            {distanceKm} KM
-          </div>
+      {/* Bottom Bar: Quiet Scroll Indicator */}
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between pt-6 border-t border-ink/10 dark:border-cream/10 text-xs text-ink/50 dark:text-cream/50">
+        <div>SCROLL TO DISCOVER</div>
+        <div className="flex items-center gap-2">
+          <span>6.59° S, 106.80° E</span>
+          <span>·</span>
+          <span>BOGOR HIGHLANDS</span>
         </div>
       </div>
     </section>

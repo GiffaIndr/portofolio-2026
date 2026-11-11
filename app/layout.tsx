@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Instrument_Serif, Caveat, JetBrains_Mono, Inter } from "next/font/google";
+import { Syne, Bodoni_Moda, Plus_Jakarta_Sans, Caveat } from "next/font/google";
 import "./globals.css";
 import { FilmGrain } from "@/components/layout/FilmGrain";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  display: "swap",
+  weight: ["500", "700", "800"],
+});
 
 const bodoni = Bodoni_Moda({
   subsets: ["latin"],
@@ -11,12 +18,11 @@ const bodoni = Bodoni_Moda({
   display: "swap",
 });
 
-const instrument = Instrument_Serif({
+const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
+  variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const caveat = Caveat({
@@ -25,48 +31,26 @@ const caveat = Caveat({
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const sans = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Syaikhani Giffa Indrawan — Web Developer & Front-end Specialist",
+  title: "Syaikhani Giffa Indrawan — Front-end & Systems Developer",
   description:
-    "Portfolio of Syaikhani Giffa Indrawan (GiffaIndr). Front-end & Web Developer based in Bogor, Indonesia. Featuring RFID Absence IoT System, AksesKota Accessibility Map, Railuma Braille Workspace, and WebGIS.",
+    "Creative portfolio of Syaikhani Giffa Indrawan (GiffaIndr), Front-end & Software Engineering undergraduate based in Bogor, Indonesia. Featuring RFID Absence IoT System, AksesKota, Railuma, and WebGIS.",
   keywords: [
     "Syaikhani Giffa Indrawan",
     "GiffaIndr",
     "Web Developer Bogor",
-    "Front-end Developer Indonesia",
+    "Front-end Developer",
+    "Creative Portfolio 2026",
     "IPB University TRPL",
-    "RFID Absence System",
-    "AksesKota",
-    "Railuma",
-    "Portfolio 2026",
   ],
   authors: [{ name: "Syaikhani Giffa Indrawan", url: "https://github.com/GiffaIndr" }],
-  creator: "Syaikhani Giffa Indrawan",
   openGraph: {
-    title: "Syaikhani Giffa Indrawan — Web Developer Portfolio",
-    description:
-      "Editorial travel journal & engineering portfolio of Syaikhani Giffa Indrawan. Crafting intentional digital experiences from Bogor.",
+    title: "Syaikhani Giffa Indrawan — Portfolio",
+    description: "Front-end & Software Engineering portfolio. Minimal, deliberate, and high-performance.",
     url: "https://giffaindr.vercel.app",
     siteName: "Syaikhani Giffa Indrawan",
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Syaikhani Giffa Indrawan — Web Developer Portfolio",
-    description: "Front-end developer & software engineering undergraduate at IPB University, Bogor.",
   },
 };
 
@@ -80,16 +64,10 @@ export default function RootLayout({
     "@type": "Person",
     name: "Syaikhani Giffa Indrawan",
     alternateName: "GiffaIndr",
-    jobTitle: "Web Developer & Front-end Engineer",
+    jobTitle: "Front-end Developer",
     alumniOf: [
-      {
-        "@type": "CollegeOrUniversity",
-        name: "IPB University",
-      },
-      {
-        "@type": "EducationalOrganization",
-        name: "SMK Wikrama Bogor",
-      },
+      { "@type": "CollegeOrUniversity", name: "IPB University" },
+      { "@type": "EducationalOrganization", name: "SMK Wikrama Bogor" },
     ],
     address: {
       "@type": "PostalAddress",
@@ -108,7 +86,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      className={`${bodoni.variable} ${instrument.variable} ${caveat.variable} ${mono.variable} ${sans.variable}`}
+      className={`${syne.variable} ${bodoni.variable} ${sans.variable} ${caveat.variable}`}
     >
       <head>
         <script

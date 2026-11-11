@@ -2,8 +2,8 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { profile } from "@/content/profile";
-import { Scribble } from "@/components/ui/Scribble";
 import { ArrowUpRight, FileText, Github, Linkedin } from "lucide-react";
 
 interface AboutProps {
@@ -11,68 +11,87 @@ interface AboutProps {
 }
 
 export function About({ lang }: AboutProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Continuous parallax drift for imagery and badges
+  const photoY = useTransform(scrollYProgress, [0, 1], [-40, 50]);
+  const tapeRotate = useTransform(scrollYProgress, [0, 1], [-4, 6]);
 
   return (
     <section
       id="about"
-      ref={containerRef}
-      className="relative w-full py-28 md:py-36 bg-cream text-ink transition-colors duration-700"
+      ref={sectionRef}
+      className="relative w-full py-28 sm:py-36 bg-card text-ink dark:text-cream transition-colors duration-700 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header with Field Tag */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-12 border-b border-ink/15 gap-4">
-          <span className="font-hud text-xs text-terracotta tracking-hud">
-            {lang === "EN" ? "01 // THE TRAILHEAD & BACKGROUND" : "01 // PROFIL & LATAR BELAKANG"}
-          </span>
-          <span className="font-hud text-xs opacity-60">
-            TRPL IPB UNIVERSITY · CLASS OF 2026
-          </span>
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14">
+        {/* Clean section header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-ink/10 dark:border-cream/10 gap-4">
+          <div>
+            <span className="font-script-note text-2xl text-ochre block -rotate-1">
+              {lang === "EN" ? "Meet the Developer" : "Perkenalan Singkat"}
+            </span>
+            <h2 className="font-display text-4xl sm:text-6xl text-ink dark:text-cream tracking-tight">
+              BACKGROUND &amp; <span className="text-emerald dark:text-[#52B788]">APPROACH.</span>
+            </h2>
+          </div>
+          <div className="text-xs uppercase tracking-wider text-ink/60 dark:text-cream/60">
+            IPB University · SMK Wikrama Bogor
+          </div>
         </div>
 
+        {/* Content Spread */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pt-16 items-start">
-          {/* Left Column: Organic Rearview Mirror Mask & Polaroid Aesthetic (Reference #4 & #5) */}
-          <div className="lg:col-span-5 flex flex-col items-center sm:items-start">
-            <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5] p-3 rounded-3xl bg-[#EFE4D2] dark:bg-[#1C1A14] border border-ink/15 shadow-paper">
-              {/* Retro Car Rearview Mirror Oval Frame */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden mask-rearview bg-ink/10">
-                <Image
-                  src="/experience/placeholder.webp"
-                  alt="Syaikhani Giffa Indrawan workspace and field notes"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-700"
+          {/* Left Column: Parallax Taped Polaroid (Daniel Gallego & Kyoto style) */}
+          <motion.div
+            style={{ y: photoY }}
+            className="lg:col-span-5 flex justify-center lg:justify-start"
+          >
+            <div className="relative w-full max-w-sm sm:max-w-md">
+              <div className="p-4 sm:p-5 pb-8 rounded-3xl bg-cream dark:bg-[#121210] border border-ink/10 dark:border-cream/10 shadow-polaroid">
+                {/* Yellow washi tape top */}
+                <motion.div
+                  style={{ rotate: tapeRotate }}
+                  className="absolute -top-3.5 left-12 w-24 h-6 washi-tape-yellow z-20"
                 />
-                {/* Warm painter studio sunlight glaze (Reference #5) */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-terracotta/20 via-butter/10 to-transparent mix-blend-overlay pointer-events-none" />
-              </div>
 
-              {/* Handwritten Yellow Marker Note (Reference #2 & #3) */}
-              <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-butter text-ink px-4 py-2 rounded-xl shadow-card rotate-3 border border-ink/10 select-none">
-                <span className="font-handwriting text-lg sm:text-xl font-bold">
-                  IPB University x SMK Wikrama
-                </span>
+                <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-ink/5">
+                  <Image
+                    src="/profile/portrait-casual.webp"
+                    alt="Syaikhani Giffa Indrawan workspace overview"
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+
+                <div className="mt-4 px-1 flex justify-between items-center">
+                  <div>
+                    <span className="font-script-note text-xl text-ink dark:text-cream font-bold block">
+                      Field Notes &amp; Engineering
+                    </span>
+                    <span className="text-xs text-ink/60 dark:text-cream/60">
+                      Bogor, West Java, Indonesia
+                    </span>
+                  </div>
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald/15 text-emerald dark:text-[#52B788]">
+                    D4 TRPL
+                  </span>
+                </div>
               </div>
             </div>
+          </motion.div>
 
-            {/* Micro Caption */}
-            <div className="mt-10 font-hud text-[11px] opacity-70 space-y-1">
-              <div>FIELD EXPEDITION: BOGOR HIGHLANDS</div>
-              <div>SOFTWARE ENGINEERING TECHNOLOGY · D4 TRPL</div>
-            </div>
-          </div>
-
-          {/* Right Column: Editorial Bio & Scannable Paragraphs */}
+          {/* Right Column: Clean Editorial Typography & Verified Metrics */}
           <div className="lg:col-span-7 space-y-8">
-            <h2 className="font-display-condensed text-4xl sm:text-6xl md:text-7xl leading-[0.92] text-ink">
-              BRIDGING SENSITIVE <br />
-              <span className="font-editorial-italic lowercase text-terracotta">
-                front-end craft
-              </span>{" "}
-              WITH ROBUST LOGIC.
-            </h2>
+            <h3 className="font-display text-3xl sm:text-5xl text-ink dark:text-cream leading-tight">
+              Designing interfaces with emotional warmth and structural rigor.
+            </h3>
 
-            <div className="space-y-6 text-base sm:text-lg text-ink/80 leading-relaxed font-sans font-normal">
-              <p className="font-medium text-ink text-lg sm:text-xl leading-snug">
+            <div className="space-y-6 text-base sm:text-lg text-ink/75 dark:text-cream/75 leading-relaxed font-sans">
+              <p className="font-medium text-ink dark:text-cream text-lg sm:text-xl leading-snug">
                 {profile.about.lead}
               </p>
               {profile.about.paragraphs.map((para, i) => (
@@ -80,55 +99,52 @@ export function About({ lang }: AboutProps) {
               ))}
             </div>
 
-            {/* Verified Fact Metrics (Anti-Slop: Zero fabricated numbers) */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-8 pb-8 border-y border-ink/15">
+            {/* Verified Metrics Strip (Clean, Luxurious, Non-Robotic) */}
+            <div className="grid grid-cols-3 gap-6 pt-6 pb-6 border-y border-ink/10 dark:border-cream/10">
               {profile.about.stats.map((stat, idx) => (
                 <div key={idx} className="space-y-1">
-                  <div className="font-mono text-3xl sm:text-4xl font-extrabold text-terracotta">
+                  <div className="font-display text-3xl sm:text-5xl font-extrabold text-emerald dark:text-[#52B788]">
                     {stat.value}
                   </div>
-                  <div className="font-hud text-[10px] sm:text-xs text-ink/70">
+                  <div className="text-xs text-ink/60 dark:text-cream/60 font-medium">
                     {stat.label}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* CTAs and Verified Social Profiles */}
-            <div className="flex flex-wrap gap-4 items-center pt-2">
+            {/* Clean CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="/cv.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-ink text-cream hover:bg-terracotta transition-colors font-hud text-xs font-semibold"
-                data-cursor="VIEW"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink hover:bg-ochre dark:hover:bg-butter transition-colors text-xs font-bold uppercase tracking-wider"
               >
                 <FileText className="w-4 h-4" />
-                <span>{lang === "EN" ? "DOWNLOAD RESUME" : "UNDUH RESUME"}</span>
+                <span>{lang === "EN" ? "Download Curriculum Vitae" : "Unduh CV Resmi"}</span>
               </a>
 
               <a
                 href="https://github.com/GiffaIndr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-ink/30 hover:border-ink transition-colors font-hud text-xs"
-                data-cursor="GITHUB"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ink dark:hover:border-cream transition-colors text-xs font-bold"
               >
                 <Github className="w-4 h-4" />
-                <span>GITHUB</span>
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                <span>GitHub</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-50" />
               </a>
 
               <a
                 href="https://www.linkedin.com/in/syaikhanigiffa/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-ink/30 hover:border-ink transition-colors font-hud text-xs"
-                data-cursor="LINKEDIN"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ink dark:hover:border-cream transition-colors text-xs font-bold"
               >
                 <Linkedin className="w-4 h-4" />
-                <span>LINKEDIN</span>
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                <span>LinkedIn</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-50" />
               </a>
             </div>
           </div>

@@ -30,7 +30,7 @@ async function verify() {
     });
 
     console.log(`Testing viewport ${vp.name}...`);
-    await page.goto("http://localhost:3000", { waitUntil: "networkidle2" });
+    await page.goto("http://localhost:3005", { waitUntil: "networkidle2" });
     await new Promise((r) => setTimeout(r, 2200));
 
     // Check horizontal overflow
@@ -51,14 +51,14 @@ async function verify() {
   // Also verify Case Study page
   const csPage = await browser.newPage();
   await csPage.setViewport({ width: 1440, height: 900 });
-  await csPage.goto("http://localhost:3000/work/rfid-absence-system", { waitUntil: "networkidle2" });
+  await csPage.goto("http://localhost:3005/work/rfid-absence-system", { waitUntil: "networkidle2" });
   await new Promise((r) => setTimeout(r, 1500));
   await csPage.screenshot({ path: path.join(outDir, "case-study-rfid.png") });
   console.log("Saved screenshot: case-study-rfid.png");
   await csPage.close();
 
   await browser.close();
-  console.log("All verifications passed!");
+  console.log("All verifications on port 3005 passed!");
 }
 
 verify().catch(console.error);
