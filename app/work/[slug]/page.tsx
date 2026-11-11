@@ -33,18 +33,18 @@ export default async function ProjectCaseStudyPage({
   }
 
   return (
-    <div className="min-h-screen bg-cream text-ink">
+    <div className="min-h-screen bg-paper dark:bg-paper-dark text-ink dark:text-ink-light">
       {/* Top Navigation */}
-      <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur-md border-b border-ink/10 py-5 px-6 sm:px-10 md:px-14">
+      <header className="sticky top-0 z-30 bg-paper dark:bg-paper-dark border-b border-black/15 dark:border-white/15 py-5 px-6 sm:px-10 md:px-14">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-ink/75 hover:text-ochre transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-ink/75 dark:text-ink-light hover:text-[#65A30D] dark:hover:text-[#A3E635] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Works</span>
           </Link>
-          <div className="text-xs font-semibold text-ink/50 uppercase tracking-wider">
+          <div className="text-xs font-semibold text-ink/70 dark:text-ink-lightDim uppercase tracking-wider">
             Case Study // {project.category}
           </div>
         </div>
@@ -54,17 +54,17 @@ export default async function ProjectCaseStudyPage({
         {/* Hero Section */}
         <div className="space-y-6">
           <div className="flex items-center gap-3 text-xs">
-            <span className="px-3.5 py-1 rounded-full bg-emerald text-cream font-bold uppercase tracking-wider text-[11px]">
+            <span className="px-3.5 py-1 rounded-full bg-[#84CC16]/25 text-[#4D7C0F] dark:text-[#A3E635] font-bold uppercase tracking-wider text-[11px]">
               {project.category}
             </span>
-            <span className="text-ink/60 font-medium">{project.year}</span>
+            <span className="text-ink/70 dark:text-ink-lightDim font-semibold">{project.year}</span>
           </div>
 
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[0.92] text-ink">
+          <h1 className="font-cutout text-4xl sm:text-6xl md:text-7xl leading-tight text-ink dark:text-white">
             {project.title}
           </h1>
 
-          <p className="text-2xl sm:text-3xl text-ochre font-sans italic max-w-3xl">
+          <p className="text-xl sm:text-2xl text-terracotta dark:text-[#FDE047] font-sans italic max-w-3xl">
             "{project.tagline}"
           </p>
 
@@ -74,7 +74,7 @@ export default async function ProjectCaseStudyPage({
                 href={project.links.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-emerald text-cream text-xs font-bold uppercase tracking-wider hover:bg-emerald/90 transition-colors shadow-luxe"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink text-xs font-bold uppercase tracking-wider hover:bg-grass dark:hover:bg-butter transition-colors shadow-paper"
               >
                 <span>Launch Live Demo</span>
                 <ExternalLink className="w-4 h-4" />
@@ -84,7 +84,7 @@ export default async function ProjectCaseStudyPage({
               href={project.links.repo}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-ink/20 hover:border-ink text-xs font-bold uppercase tracking-wider transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-black/25 dark:border-white/25 text-ink dark:text-ink-light hover:border-black dark:hover:border-white text-xs font-bold uppercase tracking-wider transition-colors"
             >
               <Github className="w-4 h-4" />
               <span>Source Repository</span>
@@ -93,150 +93,74 @@ export default async function ProjectCaseStudyPage({
         </div>
 
         {/* Cover Mockup */}
-        <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden border border-ink/10 shadow-float bg-card">
+        <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden border border-black/15 dark:border-white/20 shadow-float bg-surface dark:bg-[#22221E]">
           <Image
             src={project.cover}
             alt={project.title}
             fill
             priority
             className="object-cover object-top"
+            sizes="(max-width: 1024px) 100vw, 1024px"
           />
         </div>
 
-        {/* Project Meta Metrics */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-7 rounded-3xl bg-card border border-ink/10 text-xs">
-          <div>
-            <span className="block text-ink/50 text-[11px] uppercase tracking-wider mb-1">Role</span>
-            <span className="font-bold text-sm text-ink">{project.role}</span>
-          </div>
-          <div>
-            <span className="block text-ink/50 text-[11px] uppercase tracking-wider mb-1">Year</span>
-            <span className="font-bold text-sm text-ink">{project.year}</span>
-          </div>
-          <div>
-            <span className="block text-ink/50 text-[11px] uppercase tracking-wider mb-1">Status</span>
-            <span className="font-bold text-sm text-ink uppercase">{project.status}</span>
-          </div>
-          <div>
-            <span className="block text-ink/50 text-[11px] uppercase tracking-wider mb-1">Location</span>
-            <span className="font-bold text-sm text-ink">Bogor, ID</span>
-          </div>
-        </div>
-
-        {/* Problem and Solution */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="p-8 sm:p-10 rounded-3xl bg-card border border-ink/10 space-y-3 shadow-luxe">
-            <span className="text-xs font-bold uppercase tracking-wider text-ochre block">
-              01 // The Challenge &amp; Context
+        {/* Engineering Challenge & Solution */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="p-8 rounded-3xl bg-surface/70 dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-terracotta dark:text-[#FB923C] block">
+              The Engineering Challenge
             </span>
-            <p className="text-base sm:text-lg leading-relaxed text-ink/80 font-sans">
+            <h2 className="font-cutout text-2xl text-ink dark:text-white">
+              Problem Context
+            </h2>
+            <p className="text-base text-ink/80 dark:text-[#E2DEC9] leading-relaxed">
               {project.problem}
             </p>
           </div>
 
-          <div className="p-8 sm:p-10 rounded-3xl bg-card border border-ink/10 space-y-3 shadow-luxe">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald block">
-              02 // The Architectural Solution
+          <div className="p-8 rounded-3xl bg-surface/70 dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#4D7C0F] dark:text-[#A3E635] block">
+              The Technical Architecture
             </span>
-            <p className="text-base sm:text-lg leading-relaxed text-ink/80 font-sans">
+            <h2 className="font-cutout text-2xl text-ink dark:text-white">
+              Engineered Solution
+            </h2>
+            <p className="text-base text-ink/80 dark:text-[#E2DEC9] leading-relaxed">
               {project.solution}
             </p>
           </div>
         </div>
 
-        {/* Architecture Diagram if RFID */}
-        {project.architecture && (
-          <div className="space-y-6 pt-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-ochre block">
-              03 // Hardware &amp; Logic Topology
-            </span>
-            <div className="rounded-3xl overflow-hidden border border-ink/10 shadow-luxe bg-cream">
-              <Image
-                src="/projects/rfid-absence-system/arch-diagram.svg"
-                alt="System Architecture Diagram"
-                width={1200}
-                height={680}
-                className="w-full h-auto"
-              />
-            </div>
-
-            <div className="p-8 sm:p-10 rounded-3xl bg-card border border-ink/10 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider block">
-                Execution Flow Protocols:
-              </span>
-              <ol className="space-y-3 font-sans text-sm sm:text-base">
-                {project.architecture.flow.map((step, idx) => (
-                  <li key={idx} className="flex items-start gap-4">
-                    <span className="text-xs font-bold px-2.5 py-1 rounded bg-emerald text-cream flex-shrink-0 mt-0.5">
-                      0{idx + 1}
-                    </span>
-                    <span className="leading-relaxed">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        )}
-
         {/* Key Features */}
         <div className="space-y-6">
-          <span className="text-xs font-bold uppercase tracking-wider text-ink/60 block">
-            04 // System Deliverables &amp; Code Highlights
-          </span>
+          <h2 className="font-cutout text-2xl sm:text-3xl text-ink dark:text-white">
+            Key Technical Deliverables
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {project.features.map((feat, i) => (
+            {project.features.map((feature, idx) => (
               <div
-                key={i}
-                className="flex items-start gap-3.5 p-6 rounded-2xl bg-card border border-ink/10 shadow-luxe text-sm sm:text-base leading-snug"
+                key={idx}
+                className="flex items-start gap-3.5 p-5 rounded-2xl bg-surface/50 dark:bg-[#1E1E1B] border border-black/10 dark:border-white/15"
               >
-                <CheckCircle2 className="w-5 h-5 text-emerald flex-shrink-0 mt-0.5" />
-                <span>{feat}</span>
+                <CheckCircle2 className="w-5 h-5 text-[#84CC16] dark:text-[#A3E635] shrink-0 mt-0.5" />
+                <span className="text-sm text-ink/85 dark:text-[#E2DEC9] leading-relaxed">
+                  {feature}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Gallery */}
-        {project.gallery.length > 0 && (
-          <div className="space-y-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-ink/60 block">
-              05 // Screenshot Artifacts
-            </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {project.gallery.map((img, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-3xl overflow-hidden border border-ink/10 bg-card shadow-polaroid space-y-3 p-4"
-                >
-                  <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden">
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  {img.caption && (
-                    <p className="text-xs text-ink/70 px-2 font-medium">
-                      {img.caption}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Tech Ecosystem */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-card border border-ink/10 space-y-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-ink/50 block">
-            Core Technology Stack:
-          </span>
+        {/* Tech Stack */}
+        <div className="p-8 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper space-y-4">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-ink/70 dark:text-ink-lightDim">
+            Verified Stack &amp; Libraries
+          </h2>
           <div className="flex flex-wrap gap-2.5">
             {project.stack.map((t) => (
               <span
                 key={t}
-                className="text-xs px-4 py-2 rounded-full bg-cream border border-ink/10 font-medium"
+                className="px-4 py-1.5 rounded-full bg-surface dark:bg-[#2C2C27] border border-black/10 dark:border-white/15 text-xs font-semibold text-ink dark:text-[#FAF7F2]"
               >
                 {t}
               </span>
@@ -245,15 +169,8 @@ export default async function ProjectCaseStudyPage({
         </div>
       </main>
 
-      {/* Footer Navigation */}
-      <footer className="border-t border-ink/10 py-12 px-6 sm:px-10 md:px-14 bg-card text-center">
-        <Link
-          href="/#work"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full bg-ink text-cream hover:bg-ochre transition-colors shadow-luxe"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Return to Portfolio</span>
-        </Link>
+      <footer className="mt-20 py-10 border-t border-black/15 dark:border-white/15 text-center text-xs text-ink/65 dark:text-ink-lightDim">
+        Syaikhani Giffa Indrawan · D4 TRPL IPB University · 2026
       </footer>
     </div>
   );

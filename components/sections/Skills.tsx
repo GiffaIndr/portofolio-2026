@@ -15,52 +15,51 @@ export function Skills({ lang }: SkillsProps) {
     offset: ["start end", "end start"],
   });
 
-  // Parallax horizontal shifts tied to scroll progress
-  const track1X = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
-  const track2X = useTransform(scrollYProgress, [0, 1], ["-18%", "0%"]);
+  const track1X = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const track2X = useTransform(scrollYProgress, [0, 1], ["-20%", "0%"]);
 
   const skillsRow1 = [
+    "Angular",
     "React",
     "Next.js",
     "Laravel 10",
+    "PHP 8",
     "TypeScript",
     "Tailwind CSS",
     "ESP8266 IoT",
-    "Deck.gl WebGIS",
-    "Mapbox GL",
-    "PHP 8",
+    "MySQL",
   ];
 
   const skillsRow2 = [
-    "Android Java",
-    "MySQL",
-    "Vite",
-    "Framer Motion",
+    "Spring Boot",
+    "Java",
+    "Flutter",
     "RESTful API",
-    "Git",
-    "Vercel",
+    "Git & GitHub",
     "Postman",
-    "Linux",
+    "Figma",
+    "Vercel",
+    "Bootstrap",
   ];
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="relative w-full py-28 bg-cream text-ink dark:text-cream transition-colors duration-700 overflow-hidden"
+      className="relative w-full py-24 sm:py-32 bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-ink/10 dark:border-cream/10 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-black/15 dark:border-white/15 gap-4">
           <div>
-            <span className="font-script-note text-2xl text-ochre block -rotate-1">
-              {lang === "EN" ? "Tools & Languages" : "Alat & Bahasa"}
-            </span>
-            <h2 className="font-display text-4xl sm:text-6xl text-ink dark:text-cream tracking-tight">
-              CORE <span className="text-emerald dark:text-[#52B788]">TOOLBOX.</span>
+            <div className="inline-block px-3 py-1 rounded bg-[#D9622B]/20 dark:bg-[#D9622B]/30 text-terracotta dark:text-[#FB923C] font-bold text-xs uppercase mb-2">
+              {lang === "EN" ? "CAPABILITIES" : "KEAHLIAN TEKNIS"}
+            </div>
+            <h2 className="font-cutout text-3xl sm:text-5xl text-ink dark:text-ink-light tracking-tight">
+              CORE <span className="text-terracotta dark:text-[#FB923C]">TOOLBOX.</span>
             </h2>
           </div>
-          <span className="text-xs uppercase tracking-wider text-ink/60 dark:text-cream/60">
-            Validated Competencies
+          <span className="text-xs uppercase font-bold tracking-wider text-ink/70 dark:text-ink-lightDim">
+            Verified Stack &amp; Frameworks
           </span>
         </div>
       </div>
@@ -68,15 +67,15 @@ export function Skills({ lang }: SkillsProps) {
       {/* Parallax Ribbon Row 1 */}
       <motion.div
         style={{ x: track1X }}
-        className="flex gap-8 whitespace-nowrap select-none py-2"
+        className="flex gap-8 whitespace-nowrap select-none py-3"
       >
         {[...skillsRow1, ...skillsRow1, ...skillsRow1].map((skill, idx) => (
           <div
             key={idx}
-            className="inline-flex items-center gap-6 font-display text-3xl sm:text-5xl text-ink/80 dark:text-cream/80 hover:text-ochre transition-colors"
+            className="inline-flex items-center gap-6 font-cutout text-2xl sm:text-4xl text-ink/85 dark:text-white hover:text-[#65A30D] dark:hover:text-[#A3E635] transition-colors"
           >
             <span>{skill}</span>
-            <span className="font-script-note text-3xl text-emerald dark:text-[#52B788]">
+            <span className="font-script-brush text-3xl text-butter">
               ✦
             </span>
           </div>
@@ -86,40 +85,42 @@ export function Skills({ lang }: SkillsProps) {
       {/* Parallax Ribbon Row 2 */}
       <motion.div
         style={{ x: track2X }}
-        className="flex gap-8 whitespace-nowrap select-none py-2 mt-4"
+        className="flex gap-8 whitespace-nowrap select-none py-3 mt-3"
       >
         {[...skillsRow2, ...skillsRow2, ...skillsRow2].map((skill, idx) => (
           <div
             key={idx}
-            className="inline-flex items-center gap-6 font-display text-3xl sm:text-5xl text-ink/80 dark:text-cream/80 hover:text-emerald transition-colors"
+            className="inline-flex items-center gap-6 font-cutout text-2xl sm:text-4xl text-ink/85 dark:text-white hover:text-terracotta dark:hover:text-[#FB923C] transition-colors"
           >
             <span>{skill}</span>
-            <span className="font-script-note text-3xl text-ochre">
+            <span className="font-script-brush text-3xl text-sky dark:text-[#38BDF8]">
               ✦
             </span>
           </div>
         ))}
       </motion.div>
 
-      {/* Categorized Clean Matrix */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 mt-16">
+      {/* Categorized Detailed Matrix */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 pt-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {profile.skills.map((group, idx) => (
+          {profile.skills.map((group, gi) => (
             <div
-              key={idx}
-              className="p-7 rounded-3xl bg-card border border-ink/10 dark:border-cream/10 shadow-luxe space-y-4"
+              key={gi}
+              className="p-6 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-[#3E3D36] shadow-paper dark:shadow-[3px_3px_0px_rgba(255,255,255,0.1)] space-y-4"
             >
-              <h3 className="text-xs font-bold uppercase tracking-wider text-ochre">
+              <h3 className="font-cutout text-base text-ink dark:text-white uppercase tracking-wider pb-2 border-b border-black/10 dark:border-white/10">
                 {group.category}
               </h3>
-              <ul className="space-y-2.5 text-sm text-ink/80 dark:text-cream/80">
-                {group.items.map((item, itemIdx) => (
-                  <li key={itemIdx} className="flex items-center gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald" />
-                    <span>{item}</span>
-                  </li>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((it, ii) => (
+                  <span
+                    key={ii}
+                    className="text-xs px-3 py-1 rounded-full bg-surface/70 dark:bg-[#2C2C27] border border-black/10 dark:border-white/15 text-ink dark:text-[#FAF7F2] font-medium"
+                  >
+                    {it}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>

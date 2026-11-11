@@ -11,6 +11,7 @@ import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
 import { MoreWorks } from "@/components/sections/MoreWorks";
 import { ScrollParallaxCanvas } from "@/components/layout/ScrollParallaxCanvas";
+import { SerendipityBanner } from "@/components/ui/SerendipityBanner";
 
 export default function Home() {
   const [lang, setLang] = useState<"EN" | "ID">("EN");
@@ -44,6 +45,7 @@ export default function Home() {
       <ScrollParallaxCanvas />
       <main className="relative min-h-screen">
         <Hero lang={lang} />
+        <SerendipityBanner lang={lang} />
         <About lang={lang} />
         <SelectedWork lang={lang} />
         <Experience lang={lang} />

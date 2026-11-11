@@ -10,26 +10,52 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "var(--cream)",
-        ink: "var(--ink)",
-        emerald: {
-          DEFAULT: "var(--emerald)",
-          deep: "var(--emerald-deep)",
+        paper: {
+          DEFAULT: "#F7F4EE",
+          dark: "#141412",
         },
-        ochre: "var(--ochre)",
-        butter: "var(--butter)",
-        sage: "var(--sage)",
-        card: "var(--card-bg)",
+        surface: {
+          DEFAULT: "#EDE7DA",
+          dark: "#1E1E1A",
+          cardDark: "#22221E",
+        },
+        ink: {
+          DEFAULT: "#141412",
+          muted: "#4A4843",
+          light: "#FAF7F2",
+          lightMuted: "#DCD7C9",
+          lightDim: "#B8B3A4",
+        },
+        butter: {
+          DEFAULT: "#F2D13B",
+          hover: "#E5C42B",
+          light: "#FDE047",
+        },
+        grass: {
+          DEFAULT: "#2B6E3F",
+          light: "#84CC16",
+          lime: "#A3E635",
+        },
+        terracotta: {
+          DEFAULT: "#D9622B",
+          light: "#FB923C",
+        },
+        sky: {
+          DEFAULT: "#1F75B8",
+          light: "#38BDF8",
+        },
       },
       fontFamily: {
-        display: ["var(--font-syne)", "var(--font-bodoni)", "serif"],
+        cutout: ["var(--font-dela)", "var(--font-syne)", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         script: ["var(--font-caveat)", "cursive"],
       },
       boxShadow: {
-        luxe: "0 24px 60px -12px rgba(20, 20, 18, 0.08), 0 8px 24px -8px rgba(20, 20, 18, 0.04)",
-        float: "0 32px 80px -16px rgba(20, 20, 18, 0.14)",
-        polaroid: "0 16px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04)",
+        paper: "3px 3px 0px rgba(20, 20, 18, 0.9)",
+        paperDark: "3px 3px 0px rgba(250, 247, 242, 0.2)",
+        polaroid: "4px 4px 0px rgba(20, 20, 18, 0.85)",
+        polaroidDark: "4px 4px 0px rgba(250, 247, 242, 0.25)",
+        float: "0 20px 40px rgba(0, 0, 0, 0.35)",
       },
     },
   },

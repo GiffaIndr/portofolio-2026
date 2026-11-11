@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Sparkles } from "lucide-react";
+import { SwirlDoodle } from "@/components/ui/PaperCutDoodles";
 
 interface HeroProps {
   lang: "EN" | "ID";
@@ -16,103 +17,107 @@ export function Hero({ lang }: HeroProps) {
     offset: ["start start", "end start"],
   });
 
-  // Smooth scroll parallax values
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.1]);
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
+  const photoRotate = useTransform(scrollYProgress, [0, 1], [1.5, -4]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-[92vh] flex flex-col justify-between pt-32 sm:pt-40 pb-12 px-6 sm:px-10 md:px-14 overflow-hidden"
+      className="relative min-h-[92vh] flex flex-col justify-between pt-28 sm:pt-32 pb-10 px-6 sm:px-10 md:px-14 overflow-hidden bg-paper dark:bg-paper-dark text-ink dark:text-ink-light"
     >
-      {/* Top Tagline */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-ink/10 dark:border-cream/10"
-      >
-        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-ink/70 dark:text-cream/70">
-          <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-          <span>{lang === "EN" ? "Front-end & Web Systems" : "Pengembang Web & Front-end"}</span>
+      {/* Top Editorial Field Bar (Beyond The Horizon style) */}
+      <div className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-black/15 dark:border-white/15">
+        <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-grass dark:text-grass-lime">
+          <span className="w-2.5 h-2.5 rounded-full bg-grass dark:bg-grass-lime animate-pulse" />
+          <span>{lang === "EN" ? "Front-end & Software Engineering" : "Pengembang Front-end & Sistem"}</span>
         </div>
-        <div className="text-xs font-medium text-ink/50 dark:text-cream/50">
-          IPB University · D4 TRPL · Semester 6
+        <div className="text-xs text-ink/70 dark:text-ink-lightMuted font-semibold">
+          IPB University · D4 TRPL · Bogor, West Java, ID
         </div>
-      </motion.div>
+      </div>
 
-      {/* Main Hero Spread */}
-      <div className="max-w-7xl mx-auto w-full my-auto py-10 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-        {/* Left Column: Bold Editorial Typography */}
+      {/* Main Hero Spread (Greta Mae & Daniel Gallego inspired) */}
+      <div className="max-w-7xl mx-auto w-full my-auto py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* Left Column: Bold Cutout Typography */}
         <motion.div
           style={{ y: titleY, opacity }}
-          className="lg:col-span-7 space-y-6 sm:space-y-8"
+          className="lg:col-span-7 space-y-6"
         >
+          {/* Tagline / Subtitle Badge */}
+          <div className="inline-block px-3.5 py-1.5 rounded-lg bg-[#84CC16]/20 dark:bg-[#84CC16]/25 text-[#4D7C0F] dark:text-[#A3E635] font-bold text-xs uppercase tracking-wide border border-[#84CC16]/40">
+            {lang === "EN" ? "CREATIVE DEVELOPER PORTFOLIO" : "PORTOFOLIO PENGEMBANG KREATIF"}
+          </div>
+
+          {/* Giant Cutout Title */}
           <div className="space-y-1">
-            <span className="font-script-note text-2xl sm:text-3xl text-ochre block -rotate-2">
-              {lang === "EN" ? "Hello there, I'm" : "Halo semua, saya"}
-            </span>
-            <h1 className="font-display-hero text-[13vw] sm:text-[9vw] lg:text-[6.5rem] leading-[0.88] text-ink dark:text-cream">
-              SYAIKHANI <br />
-              <span className="text-emerald dark:text-[#52B788]">GIFFA.</span>
+            <h1 className="font-cutout text-[12vw] sm:text-[8vw] lg:text-[5.4rem] leading-[0.98] text-ink dark:text-ink-light tracking-tight">
+              HELLO, <br />
+              I'M <span className="text-[#65A30D] dark:text-[#A3E635]">GIFFA.</span>
             </h1>
           </div>
 
-          <p className="max-w-xl text-lg sm:text-xl text-ink/80 dark:text-cream/80 leading-relaxed font-sans font-normal">
+          <p className="max-w-xl text-base sm:text-lg text-ink/80 dark:text-ink-lightMuted leading-relaxed font-sans">
             {lang === "EN"
-              ? "Undergraduate engineer crafting high-fidelity web experiences, geospatial visualizations, and IoT systems where clean aesthetic meets rigorous architecture."
-              : "Mahasiswa rekayasa perangkat lunak IPB University yang merancang website berkinerja tinggi, visualisasi WebGIS, dan sistem IoT dengan estetika bersih dan presisi."}
+              ? "Undergraduate software engineer at IPB University with 6-month industry internship experience at PT Hexaon. Dedicated to building tactile, responsive interfaces, WebGIS geospatial tools, and industrial IoT systems."
+              : "Mahasiswa rekayasa perangkat lunak IPB University dengan pengalaman magang industri 6 bulan di PT Hexaon. Merancang antarmuka web tactile, visualisasi WebGIS, dan arsitektur IoT terverifikasi."}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center gap-4 pt-3">
             <a
               href="#work"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink font-bold text-xs uppercase tracking-wider hover:bg-ochre dark:hover:bg-butter transition-colors duration-300 shadow-luxe"
-              data-cursor="EXPLORE"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-bold text-xs uppercase tracking-wider hover:bg-terracotta dark:hover:bg-butter transition-colors shadow-paper"
+              data-cursor="DISCOVER"
             >
               <span>{lang === "EN" ? "Explore Selected Work" : "Jelajahi Karya"}</span>
-              <ArrowDown className="w-3.5 h-3.5" />
+              <ArrowDown className="w-4 h-4" />
             </a>
             <a
               href="#about"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-ink/20 dark:border-cream/20 hover:border-ink dark:hover:border-cream font-semibold text-xs tracking-wide uppercase transition-colors"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-black/20 dark:border-white/25 text-ink dark:text-ink-light hover:border-black dark:hover:border-white font-bold text-xs uppercase tracking-wider transition-colors"
             >
-              <span>{lang === "EN" ? "Read Biography" : "Tentang Saya"}</span>
+              <span>{lang === "EN" ? "About Me" : "Tentang Saya"}</span>
             </a>
           </div>
         </motion.div>
 
-        {/* Right Column: Editorial Portrait Cutout with Taped Paper Accent (Daniel Gallego & Tyler style) */}
+        {/* Right Column: Taped Polaroid & Cutout Portrait of Giffa */}
         <motion.div
-          style={{ y: portraitY }}
+          style={{ y: photoY, rotate: photoRotate }}
           className="lg:col-span-5 flex justify-center lg:justify-end"
         >
           <div className="relative w-full max-w-sm sm:max-w-md">
-            {/* Taped photo card */}
-            <div className="relative p-4 sm:p-5 pb-8 sm:pb-10 rounded-3xl bg-card border border-ink/10 dark:border-cream/10 shadow-polaroid rotate-1 hover:rotate-0 transition-transform duration-500">
-              {/* Green washi tape top-center */}
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-28 h-7 washi-tape-green z-20" />
+            {/* Yellow swirl doodle floating on top right */}
+            <div className="absolute -top-10 -right-6 hidden sm:block z-30">
+              <SwirlDoodle className="w-20 h-16" color="#FACC15" />
+            </div>
 
-              {/* Portrait image container */}
-              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-ink/5">
+            {/* Taped photo card (Solid paper, no glassmorphism) */}
+            <div className="relative p-4 sm:p-5 pb-8 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/15 dark:border-white/20 shadow-polaroid dark:shadow-polaroidDark transition-transform duration-500">
+              {/* Green washi tape */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-28 h-7 tape-green z-20" />
+
+              {/* Real Giffa portrait image */}
+              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5">
                 <Image
-                  src="/profile/portrait-main.webp"
-                  alt="Syaikhani Giffa Indrawan portrait in creative studio"
+                  src="/profile/giffa-selfie-cool.jpg"
+                  alt="Syaikhani Giffa Indrawan authentic portrait with glasses"
                   fill
                   priority
-                  className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                  className="object-cover object-center hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 640px) 90vw, 420px"
                 />
               </div>
 
-              {/* Handwritten note caption */}
+              {/* Caption */}
               <div className="mt-4 flex items-center justify-between px-1">
                 <div>
-                  <span className="font-script-note text-xl sm:text-2xl text-ink font-bold block">
+                  <span className="font-script-brush text-2xl text-ink dark:text-ink-light block">
                     Syaikhani Giffa
                   </span>
-                  <span className="text-[11px] text-ink/60 font-medium">
+                  <span className="text-xs text-ink/70 dark:text-ink-lightDim font-medium">
                     Software Engineering Tech · Bogor
                   </span>
                 </div>
@@ -122,23 +127,19 @@ export function Hero({ lang }: HeroProps) {
               </div>
             </div>
 
-            {/* Floating yellow pill sticker */}
-            <div className="absolute -bottom-5 -left-4 sm:-left-6 px-4 py-2 bg-butter text-ink rounded-full font-display font-extrabold text-xs shadow-luxe -rotate-3 border border-ink/20 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-ochre" />
-              <span>FRONT-END CRAFT</span>
+            {/* Yellow pill sticker at bottom */}
+            <div className="absolute -bottom-4 -left-4 sm:-left-6 px-4 py-2 bg-butter text-ink rounded-full font-cutout text-xs shadow-paper -rotate-2 border border-black/20 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-terracotta" />
+              <span>CRAFT &amp; CODE</span>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Bottom Bar: Quiet Scroll Indicator */}
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between pt-6 border-t border-ink/10 dark:border-cream/10 text-xs text-ink/50 dark:text-cream/50">
-        <div>SCROLL TO DISCOVER</div>
-        <div className="flex items-center gap-2">
-          <span>6.59° S, 106.80° E</span>
-          <span>·</span>
-          <span>BOGOR HIGHLANDS</span>
-        </div>
+      {/* Bottom Editorial Masthead Bar */}
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between pt-6 border-t border-black/15 dark:border-white/15 text-xs text-ink/65 dark:text-ink-lightDim font-medium">
+        <div>COORDINATES: 6.5971° S, 106.8060° E</div>
+        <div>BOGOR · ELEVATION 265 M · IPB TRPL</div>
       </div>
     </section>
   );

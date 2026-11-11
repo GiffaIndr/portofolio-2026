@@ -17,7 +17,7 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
 
   useEffect(() => {
     const onScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 25);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -32,38 +32,38 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ${
         isScrolled
-          ? "bg-cream/90 dark:bg-[#121210]/90 backdrop-blur-md py-4 border-b border-ink/5 dark:border-cream/5 shadow-sm"
-          : "bg-transparent py-7"
+          ? "bg-paper dark:bg-paper-dark py-3.5 border-b border-black/10 dark:border-white/15 shadow-sm"
+          : "bg-paper/90 dark:bg-paper-dark/95 py-5 border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 flex items-center justify-between">
         {/* Monogram Brand */}
         <Link
           href="#hero"
-          className="group flex items-center gap-3 text-ink dark:text-cream"
+          className="group flex items-center gap-3 text-ink dark:text-ink-light"
         >
-          <span className="w-10 h-10 rounded-full border border-ink/20 dark:border-cream/20 flex items-center justify-center font-display text-sm font-extrabold transition-all duration-300 group-hover:bg-ink group-hover:text-cream dark:group-hover:bg-cream dark:group-hover:text-ink">
+          <span className="w-10 h-10 rounded-xl bg-ink text-paper dark:bg-paper dark:text-ink flex items-center justify-center font-cutout text-base font-bold transition-transform group-hover:scale-105 shadow-sm">
             GI
           </span>
           <div className="flex flex-col">
-            <span className="font-display text-sm font-extrabold tracking-tight leading-none">
+            <span className="font-cutout text-sm tracking-tight leading-none text-ink dark:text-ink-light">
               SYAIKHANI GIFFA
             </span>
-            <span className="text-[11px] text-ink/50 dark:text-cream/50 mt-0.5 font-medium">
-              Bogor, ID
+            <span className="text-[11px] text-ink-muted dark:text-ink-lightDim font-medium">
+              Bogor, West Java · 2026
             </span>
           </div>
         </Link>
 
         {/* Center Nav Links (Desktop) */}
-        <nav className="hidden md:flex items-center gap-10 text-xs font-semibold tracking-wide uppercase">
+        <nav className="hidden md:flex items-center gap-8 text-xs font-bold tracking-wide uppercase">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-ink/70 dark:text-cream/70 hover:text-ochre dark:hover:text-butter transition-colors relative py-1"
+              className="text-ink/75 hover:text-ink dark:text-ink-lightMuted dark:hover:text-ink-light transition-colors relative py-1"
             >
               {item.label}
             </Link>
@@ -76,7 +76,7 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
           <button
             onClick={() => setLang(lang === "EN" ? "ID" : "EN")}
             aria-label="Toggle language"
-            className="text-xs font-bold px-3 py-1.5 rounded-full border border-ink/15 dark:border-cream/15 hover:border-ink dark:hover:border-cream transition-colors"
+            className="text-xs font-bold px-3 py-1.5 rounded-full border border-black/15 dark:border-white/25 text-ink dark:text-ink-light hover:border-black dark:hover:border-white transition-colors bg-surface/50 dark:bg-surface-dark"
           >
             {lang}
           </button>
@@ -85,25 +85,29 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
           <button
             onClick={toggleTheme}
             aria-label="Toggle dark mode"
-            className="p-2 rounded-full border border-ink/15 dark:border-cream/15 hover:border-ink dark:hover:border-cream transition-colors text-ink dark:text-cream"
+            className="p-2 rounded-full border border-black/15 dark:border-white/25 text-ink dark:text-ink-light hover:border-black dark:hover:border-white transition-colors bg-surface/50 dark:bg-surface-dark"
           >
-            {theme === "light" ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
+            {theme === "light" ? (
+              <Moon className="w-4 h-4 text-ink" />
+            ) : (
+              <Sun className="w-4 h-4 text-butter" />
+            )}
           </button>
 
           {/* CTA Button */}
           <a
             href="#contact"
-            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink text-xs font-bold hover:bg-ochre dark:hover:bg-butter transition-colors ml-2"
+            className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink hover:bg-grass dark:hover:bg-butter text-xs font-bold uppercase tracking-wider transition-colors ml-2 shadow-sm"
           >
-            <span>{lang === "EN" ? "Get in Touch" : "Hubungi"}</span>
+            <span>{lang === "EN" ? "Let's Talk" : "Kontak"}</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-            className="md:hidden p-2 text-ink dark:text-cream"
+            aria-label="Toggle menu"
+            className="md:hidden p-2 rounded-lg text-ink dark:text-ink-light border border-black/15 dark:border-white/25"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -112,26 +116,27 @@ export function Navigation({ lang, setLang, theme, toggleTheme }: NavProps) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[68px] bg-cream dark:bg-[#121210] z-40 p-8 flex flex-col justify-between border-t border-ink/10">
-          <nav className="flex flex-col gap-6 mt-6">
+        <div className="md:hidden bg-paper dark:bg-paper-dark border-b border-black/10 dark:border-white/15 px-6 py-6 space-y-4">
+          <nav className="flex flex-col gap-4 text-sm font-bold uppercase tracking-wider">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-display text-4xl text-ink dark:text-cream hover:text-ochre transition-colors"
+                className="text-ink dark:text-ink-light py-1 border-b border-black/5 dark:border-white/5"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="pt-8 border-t border-ink/10 space-y-4">
+          <div className="pt-2">
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-4 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink font-bold text-sm block"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-bold text-xs uppercase"
             >
-              {lang === "EN" ? "Get in Touch" : "Hubungi Sekarang"}
+              <span>{lang === "EN" ? "Let's Talk" : "Kontak"}</span>
+              <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
         </div>

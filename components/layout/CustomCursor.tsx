@@ -5,21 +5,18 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function CustomCursor() {
   const [cursorText, setCursorText] = useState("");
-  const [cursorVariant, setCursorVariant] = useState<"default" | "hover" | "text">("default");
+  const [cursorVariant, setCursorVariant] = useState<"default" | "hover">("default");
   const [isVisible, setIsVisible] = useState(false);
 
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const springConfig = { damping: 28, stiffness: 350, mass: 0.5 };
+  const springConfig = { damping: 25, stiffness: 350, mass: 0.3 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // Only enable for fine pointers (mouse), disable on touch
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      return;
-    }
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -33,8 +30,7 @@ export function CustomCursor() {
     const onOver = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("[data-cursor]");
       if (target) {
-        const text = target.getAttribute("data-cursor") || "";
-        setCursorText(text);
+        setCursorText(target.getAttribute("data-cursor") || "");
         setCursorVariant("hover");
       } else {
         const isClickable = (e.target as HTMLElement).closest("a, button, input, [role='button']");
@@ -65,37 +61,30 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Precision small dot */}
+      {/* Precision center dot */}
       <motion.div
         aria-hidden="true"
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-ink dark:bg-cream pointer-events-none z-[10000] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          x: mouseX,
-          y: mouseY,
-          opacity: cursorVariant === "hover" && cursorText ? 0 : 1,
-        }}
+        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full bg-ink dark:bg-ink-light pointer-events-none z-[10000] -translate-x-1/2 -translate-y-1/2"
+        style={{ x: mouseX, y: mouseY, opacity: cursorText ? 0 : 1 }}
       />
 
-      {/* Lag follower circle */}
+      {/* Outer Follower Ring - NO glassmorphism / NO backdrop-blur for instant snappy speed */}
       <motion.div
         aria-hidden="true"
-        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center font-hud transition-colors ${
+        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition-colors ${
           cursorVariant === "hover"
-            ? "border border-ink/40 dark:border-cream/40 bg-butter/85 text-ink backdrop-blur-sm"
-            : "border border-ink/30 dark:border-cream/30 bg-transparent"
+            ? "border-2 border-ink dark:border-ink-light bg-butter text-ink"
+            : "border border-ink/40 dark:border-ink-light/40 bg-transparent"
         }`}
         animate={{
-          width: cursorText ? 72 : cursorVariant === "hover" ? 44 : 28,
-          height: cursorText ? 72 : cursorVariant === "hover" ? 44 : 28,
+          width: cursorText ? 68 : cursorVariant === "hover" ? 38 : 24,
+          height: cursorText ? 68 : cursorVariant === "hover" ? 38 : 24,
         }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        style={{
-          x: smoothX,
-          y: smoothY,
-        }}
+        transition={{ type: "spring", damping: 25, stiffness: 350 }}
+        style={{ x: smoothX, y: smoothY }}
       >
         {cursorText && (
-          <span className="text-[10px] font-bold tracking-widest uppercase select-none px-1 text-center">
+          <span className="text-[10px] font-extrabold uppercase select-none px-1 text-center font-sans tracking-tight">
             {cursorText}
           </span>
         )}

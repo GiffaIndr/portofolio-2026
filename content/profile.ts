@@ -5,6 +5,8 @@ export type Profile = {
   location: string;
   coordinates: string;
   elevation: string;
+  email: string;
+  phone: string;
   about: {
     lead: string;
     paragraphs: string[];
@@ -26,6 +28,11 @@ export type Profile = {
     deliverables: string[];
     verified: boolean;
   }[];
+  certifications: {
+    title: string;
+    issuer: string;
+    date: string;
+  }[];
   skills: {
     category: string;
     items: string[];
@@ -39,48 +46,66 @@ export type Profile = {
 
 export const profile: Profile = {
   name: "Syaikhani Giffa Indrawan",
-  headline: "Web Developer & Front-end Specialist crafting intentional digital experiences",
+  headline: "Software Engineering Undergraduate & Front-end Developer crafting tactile, resilient web systems",
   role: "Front-end & Web Developer",
-  location: "Bogor, Indonesia",
+  location: "Bogor, West Java, Indonesia",
   coordinates: "6.5971° S, 106.8060° E",
   elevation: "265 m",
+  email: "giffasyaikhani2005@gmail.com",
+  phone: "+62 877-8104-5812",
   about: {
-    lead: "A software engineering undergraduate from Bogor dedicated to building tactile, responsive, and resilient interfaces where design sensitivity meets pragmatic engineering.",
+    lead: "Software Engineering Technology undergraduate at IPB University with practical front-end and web development experience using Laravel, Angular, and Next.js.",
     paragraphs: [
-      "Currently in my 6th semester pursuing a Bachelor of Applied Technology in Software Engineering Technology (Teknologi Rekayasa Perangkat Lunak) at Sekolah Vokasi IPB University, building upon a strong technical foundation cultivated at SMK Wikrama Bogor in Software & Game Development (PPLG).",
-      "My development approach centers on clarity and craft: whether translating complex spatial data with Deck.gl and WebGIS, designing accessibility maps for wheelchair users in Bogor, or bridging physical microcontrollers with Laravel API gateways for industrial attendance and automated KPI validation.",
-      "I prioritize semantic markup, high-framerate fluid choreography, and rock-solid systems that respect both user intent and hardware constraints.",
+      "I'm an undergraduate student at Sekolah Vokasi IPB University in Software Engineering Technology (TRPL), building upon a rigorous vocational foundation in Software & Game Development (PPLG) from SMK Wikrama Bogor.",
+      "During my six-month developer internship at PT Hexaon Business Mitrasindo, I engineered front-end modules for internal fraud detection systems using Angular and developed ticketing/CRM web portals with Laravel and MySQL. I bridge complex client-side logic with backend REST APIs and translate design mockups into pixel-precise, responsive interfaces.",
+      "From crafting geospatial accessibility directories for wheelchair users in AksesKota to building physical ESP8266 IoT attendance gates with strict automated KPI verification, I strive to make software that is tactile, performant, and purposeful.",
     ],
     stats: [
       { value: "69", label: "Public Repositories", verified: true },
       { value: "6th", label: "Semester at IPB University", verified: true },
-      { value: "7+", label: "Verified Production & Academic Projects", verified: true },
+      { value: "6 Mo", label: "Industry Internship at PT Hexaon", verified: true },
     ],
   },
   education: [
     {
-      school: "IPB University (Sekolah Vokasi)",
-      program: "Bachelor of Applied Technology (D4) - Software Engineering Technology (TRPL)",
-      period: "2022 - Present",
+      school: "IPB University (College of Vocational Studies)",
+      program: "Bachelor of Applied Science (D4) - Software Engineering Technology (TRPL)",
+      period: "Aug 2024 - Present",
       status: "Semester 6 Undergraduate",
       location: "Bogor, Indonesia",
     },
     {
       school: "SMK Wikrama Bogor",
-      program: "Software and Game Development (Pengembangan Perangkat Lunak & Gim - PPLG)",
-      period: "2019 - 2022",
+      program: "Vocational High School Diploma - Software & Game Development (PPLG)",
+      period: "2021 - 2024",
       status: "Graduated",
       location: "Bogor, Indonesia",
     },
   ],
   experience: [
     {
-      org: "AksesKota Collaborative Project",
+      org: "PT Hexaon Business Mitrasindo",
+      role: "Front-end Developer Intern",
+      period: "Jan 2023 - Jul 2023",
+      type: "Work",
+      summary:
+        "Built internal fraud detection web modules using Angular, HTML, and CSS, and engineered full-stack ticketing & CRM web portals using Laravel and MySQL.",
+      deliverables: [
+        "Built front-end modules for internal enterprise fraud detection system using Angular, HTML, and CSS",
+        "Developed ticketing and CRM web portals utilizing Laravel MVC architecture and MySQL relational databases",
+        "Implemented client-side reactive logic with JavaScript and integrated with backend REST APIs",
+        "Converted Figma design mockups into responsive, cross-browser web pages",
+        "Participated in daily agile standups, task coordination, and technical code reviews with senior developers",
+      ],
+      verified: true,
+    },
+    {
+      org: "AksesKota Collaborative Initiative",
       role: "Front-end Developer & UI Contributor",
       period: "2024",
       type: "Work",
       summary:
-        "Contributed to front-end redesign and geospatial map visualization to deliver an accessible urban facility directory for Bogor residents with disabilities.",
+        "Contributed to front-end development and geospatial map visualization to deliver an accessible urban facility directory for Bogor residents with disabilities.",
       deliverables: [
         "Redesigned the accessibility facility inspection map and interactive filter drawers",
         "Streamlined mobile interaction flow for wheelchair and pedestrian field reviews",
@@ -99,36 +124,40 @@ export const profile: Profile = {
       ],
       verified: true,
     },
+  ],
+  certifications: [
     {
-      org: "[ISI: dari LinkedIn - Organisasi / Magang]",
-      role: "[ISI: Peran / Posisi]",
-      period: "2023 - 2024",
-      type: "Organization",
-      summary:
-        "Placeholder: Isi dengan pengalaman organisasi kampus (HIMATETA, BEM, panitia dies natalis) atau magang industri yang tercantum di LinkedIn.",
-      deliverables: [
-        "[ISI: Deliverable atau pencapaian kunci]",
-        "[ISI: Tanggung jawab utama]",
-      ],
-      verified: false,
+      title: "Information Technology Specialist in HTML and CSS",
+      issuer: "Certiport (Pearson VUE)",
+      date: "Dec 2023",
+    },
+    {
+      title: "Cyber Security Training 2022 Sub-Batch 2",
+      issuer: "ADINUSA",
+      date: "Oct 2022",
+    },
+    {
+      title: "Industry Training in UI/UX & Mobile Development with Flutter",
+      issuer: "SMK Wikrama Bogor",
+      date: "2021 - 2024",
     },
   ],
   skills: [
     {
       category: "Front-end & UI",
-      items: ["React", "Next.js", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "Vite", "HTML5 & Semantic Web", "Deck.gl", "Mapbox GL"],
+      items: ["Angular", "React", "Next.js", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "Bootstrap", "HTML5 & CSS3"],
     },
     {
-      category: "Back-end & Systems",
-      items: ["Laravel 10", "PHP 8.1+", "MySQL", "REST API Design", "Spring Boot", "Laravel Sanctum"],
+      category: "Back-end & Databases",
+      items: ["Laravel", "PHP 8.1+", "Spring Boot (Java)", "MySQL", "RESTful APIs", "Blade Templates"],
     },
     {
-      category: "Mobile & Hardware",
-      items: ["Android SDK (Java)", "ESP8266 NodeMCU", "MFRC522 RFID", "I2C Peripherals", "Retrofit 2"],
+      category: "Mobile, IoT & Hardware",
+      items: ["ESP8266 NodeMCU", "MFRC522 RFID", "Flutter (Dart)", "Android SDK (Java)", "I2C Sensor Interfacing"],
     },
     {
-      category: "Engineering Tools",
-      items: ["Git & GitHub", "Vercel", "Postman", "Linux/Bash", "VS Code", "Composer", "npm"],
+      category: "Developer Tools",
+      items: ["Git & GitHub", "Postman", "Figma", "VS Code", "Vercel", "Adobe Photoshop"],
     },
   ],
   socials: [
@@ -139,8 +168,13 @@ export const profile: Profile = {
     },
     {
       label: "LinkedIn",
-      url: "https://www.linkedin.com/in/syaikhanigiffa/",
+      url: "https://www.linkedin.com/in/syaikhanigiffa",
       username: "syaikhanigiffa",
+    },
+    {
+      label: "Email",
+      url: "mailto:giffasyaikhani2005@gmail.com",
+      username: "giffasyaikhani2005@gmail.com",
     },
     {
       label: "Instagram",
