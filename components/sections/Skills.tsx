@@ -41,13 +41,29 @@ const DOMAIN_STYLES = [
 ];
 
 const MARQUEE_ITEMS_1 = [
-  "Next.js", "React 19", "TypeScript", "Laravel 10", "Tailwind CSS",
-  "ESP8266 IoT", "RFID Hardware", "Spring Boot", "MySQL", "REST APIs",
+  { text: "Next.js 15", isItalic: true },
+  { text: "REACT 19", isItalic: false },
+  { text: "TypeScript", isItalic: true },
+  { text: "LARAVEL 10", isItalic: false },
+  { text: "Tailwind CSS", isItalic: true },
+  { text: "ESP8266 IOT", isItalic: false },
+  { text: "Hardware RFID", isItalic: true },
+  { text: "SPRING BOOT", isItalic: false },
+  { text: "MySQL Database", isItalic: true },
+  { text: "REST APIS", isItalic: false },
 ];
 
 const MARQUEE_ITEMS_2 = [
-  "WebGIS Spatial", "Computer Vision OCR", "Figma Design", "Postman",
-  "Git & GitHub", "Vercel Fluid", "Clean Architecture", "Responsive UI",
+  { text: "WebGIS Spatial", isItalic: true },
+  { text: "COMPUTER VISION", isItalic: false },
+  { text: "Braille OCR", isItalic: true },
+  { text: "FIGMA SYSTEMS", isItalic: false },
+  { text: "Clean Architecture", isItalic: true },
+  { text: "POSTMAN SUITE", isItalic: false },
+  { text: "Responsive UI", isItalic: true },
+  { text: "GIT & GITHUB", isItalic: false },
+  { text: "Vercel Edge", isItalic: true },
+  { text: "HIGH PERFORMANCE", isItalic: false },
 ];
 
 export function Skills({ lang }: SkillsProps) {
@@ -155,18 +171,23 @@ export function Skills({ lang }: SkillsProps) {
         </div>
       </div>
 
-      {/* Section 5.7: Velocity-Linked Dual Marquee Tape */}
-      <div className="mt-14 sm:mt-18 pt-6 border-t border-black/5 dark:border-white/5 space-y-3 pointer-events-none select-none opacity-85">
+      {/* Section 5.7: Velocity-Linked Editorial Typographic Ribbon (Anti-Slop Redesign) */}
+      <div className="mt-16 sm:mt-20 py-6 sm:py-8 border-y border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] space-y-4 sm:space-y-5 pointer-events-none select-none overflow-hidden">
         {/* Row 1 */}
         <div className="w-full overflow-hidden whitespace-nowrap">
-          <div ref={row1Ref} className="inline-flex gap-4 will-change-transform">
+          <div ref={row1Ref} className="inline-flex items-center gap-8 sm:gap-12 will-change-transform">
             {[...MARQUEE_ITEMS_1, ...MARQUEE_ITEMS_1, ...MARQUEE_ITEMS_1].map((item, idx) => (
-              <span
-                key={idx}
-                className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-[#1E1E1B]/70 text-xs font-sans font-semibold text-ink/75 dark:text-ink-light"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
-                {item}
+              <span key={idx} className="inline-flex items-center gap-8 sm:gap-12">
+                <span
+                  className={
+                    item.isItalic
+                      ? "font-serif text-2xl sm:text-4xl italic text-ink/75 dark:text-[#E2DEC9] font-normal tracking-tight"
+                      : "font-sans text-xl sm:text-3xl font-extrabold uppercase tracking-tight text-ink dark:text-white"
+                  }
+                >
+                  {item.text}
+                </span>
+                <span className="text-[#EA580C] dark:text-[#FB923C] text-sm sm:text-base opacity-60">✦</span>
               </span>
             ))}
           </div>
@@ -174,14 +195,19 @@ export function Skills({ lang }: SkillsProps) {
 
         {/* Row 2 */}
         <div className="w-full overflow-hidden whitespace-nowrap">
-          <div ref={row2Ref} className="inline-flex gap-4 will-change-transform">
+          <div ref={row2Ref} className="inline-flex items-center gap-8 sm:gap-12 will-change-transform">
             {[...MARQUEE_ITEMS_2, ...MARQUEE_ITEMS_2, ...MARQUEE_ITEMS_2].map((item, idx) => (
-              <span
-                key={idx}
-                className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-[#1E1E1B]/70 text-xs font-sans font-semibold text-ink/75 dark:text-ink-light"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                {item}
+              <span key={idx} className="inline-flex items-center gap-8 sm:gap-12">
+                <span
+                  className={
+                    item.isItalic
+                      ? "font-serif text-2xl sm:text-4xl italic text-ink/75 dark:text-[#E2DEC9] font-normal tracking-tight"
+                      : "font-sans text-xl sm:text-3xl font-extrabold uppercase tracking-tight text-ink dark:text-white"
+                  }
+                >
+                  {item.text}
+                </span>
+                <span className="text-[#2563EB] dark:text-[#60A5FA] text-sm sm:text-base opacity-60">✳</span>
               </span>
             ))}
           </div>
