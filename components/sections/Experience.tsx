@@ -29,7 +29,9 @@ export function Experience({ lang }: ExperienceProps) {
     offset: ["start end", "end start"],
   });
 
-  const photoParallax = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const photoParallax = useTransform(scrollYProgress, [0, 1], [-25, 25]);
+  const photoRot = useTransform(scrollYProgress, [0.1, 0.6], [-3, 0]);
+  const timelineHeight = useTransform(scrollYProgress, [0.15, 0.85], ["0%", "100%"]);
 
   return (
     <section
@@ -129,10 +131,10 @@ export function Experience({ lang }: ExperienceProps) {
               </div>
             </div>
 
-            {/* 3. Authentic Laboratory Photo with Subtle Parallax */}
+            {/* 3. Authentic Laboratory Photo with Subtle Parallax & Straightening (Section 5.6) */}
             <motion.div
-              style={{ y: photoParallax }}
-              className="p-4 pb-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm w-full max-w-sm mx-auto"
+              style={{ y: photoParallax, rotate: photoRot }}
+              className="p-4 pb-5 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm w-full max-w-sm mx-auto will-change-transform"
             >
               <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-black/5 dark:bg-white/5">
                 <Image

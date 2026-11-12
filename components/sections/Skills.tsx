@@ -1,7 +1,13 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { profile } from "@/content/profile";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface SkillsProps {
   lang: "EN" | "ID";
@@ -34,14 +40,70 @@ const DOMAIN_STYLES = [
   },
 ];
 
+const MARQUEE_ITEMS_1 = [
+  "Next.js", "React 19", "TypeScript", "Laravel 10", "Tailwind CSS",
+  "ESP8266 IoT", "RFID Hardware", "Spring Boot", "MySQL", "REST APIs",
+];
+
+const MARQUEE_ITEMS_2 = [
+  "WebGIS Spatial", "Computer Vision OCR", "Figma Design", "Postman",
+  "Git & GitHub", "Vercel Fluid", "Clean Architecture", "Responsive UI",
+];
+
 export function Skills({ lang }: SkillsProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const row1Ref = useRef<HTMLDivElement>(null);
+  const row2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!row1Ref.current || !row2Ref.current) return;
+
+    let progress1 = 0;
+    let progress2 = 0;
+    let velocityMultiplier = 1;
+
+    // Section 5.7: Velocity-linked marquee speed
+    const st = ScrollTrigger.create({
+      onUpdate: (self) => {
+        const vel = Math.abs(self.getVelocity() / 350);
+        velocityMultiplier = 1 + Math.min(vel, 3.5);
+      },
+    });
+
+    let rafId: number;
+    const animate = () => {
+      progress1 -= 0.04 * velocityMultiplier;
+      progress2 += 0.04 * velocityMultiplier;
+
+      // Smooth decay back to base speed
+      if (velocityMultiplier > 1.01) {
+        velocityMultiplier += (1 - velocityMultiplier) * 0.06;
+      }
+
+      if (row1Ref.current) {
+        row1Ref.current.style.transform = `translate3d(${progress1 % 50}%, 0, 0)`;
+      }
+      if (row2Ref.current) {
+        row2Ref.current.style.transform = `translate3d(${-progress2 % 50}%, 0, 0)`;
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      st.kill();
+    };
+  }, []);
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="relative w-full py-20 sm:py-28 bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300"
+      className="relative w-full py-20 sm:py-28 bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16">
         {/* Section Header */}
@@ -92,6 +154,40 @@ export function Skills({ lang }: SkillsProps) {
           })}
         </div>
       </div>
+
+      {/* Section 5.7: Velocity-Linked Dual Marquee Tape */}
+      <div className="mt-14 sm:mt-18 pt-6 border-t border-black/5 dark:border-white/5 space-y-3 pointer-events-none select-none opacity-85">
+        {/* Row 1 */}
+        <div className="w-full overflow-hidden whitespace-nowrap">
+          <div ref={row1Ref} className="inline-flex gap-4 will-change-transform">
+            {[...MARQUEE_ITEMS_1, ...MARQUEE_ITEMS_1, ...MARQUEE_ITEMS_1].map((item, idx) => (
+              <span
+                key={idx}
+                className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-[#1E1E1B]/70 text-xs font-sans font-semibold text-ink/75 dark:text-ink-light"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 */}
+        <div className="w-full overflow-hidden whitespace-nowrap">
+          <div ref={row2Ref} className="inline-flex gap-4 will-change-transform">
+            {[...MARQUEE_ITEMS_2, ...MARQUEE_ITEMS_2, ...MARQUEE_ITEMS_2].map((item, idx) => (
+              <span
+                key={idx}
+                className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-[#1E1E1B]/70 text-xs font-sans font-semibold text-ink/75 dark:text-ink-light"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
+

@@ -17,7 +17,10 @@ export function About({ lang }: AboutProps) {
     offset: ["start end", "end start"],
   });
 
-  const photoY = useTransform(scrollYProgress, [0, 1], [-15, 20]);
+  // Section 5.3: Organic frame parallax + inner image parallax
+  const frameY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const innerImageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const doodleDraw = useTransform(scrollYProgress, [0.15, 0.45], [0, 1]);
 
   return (
     <section
@@ -43,21 +46,27 @@ export function About({ lang }: AboutProps) {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pt-10 sm:pt-14 items-start">
-          {/* Left Column: Authentic Portrait */}
+          {/* Left Column: Organic Frame Portrait with Internal Parallax */}
           <motion.div
-            style={{ y: photoY }}
+            style={{ y: frameY }}
             className="lg:col-span-5 flex flex-col items-center lg:items-start"
           >
             <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <div className="p-3.5 sm:p-4 pb-6 rounded-2xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm">
-                <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-black/5 dark:bg-white/5">
-                  <Image
-                    src="/profile/giffa-suit-formal.jpg"
-                    alt="Syaikhani Giffa Indrawan in formal suit"
-                    fill
-                    className="object-cover object-top hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 640px) 85vw, 400px"
-                  />
+              <div className="p-3.5 sm:p-4 pb-6 rounded-[2rem] bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm">
+                {/* Organic Mask Frame (Section 5.3) */}
+                <div className="relative aspect-[4/5] w-full rounded-[1.6rem] overflow-hidden bg-black/5 dark:bg-white/5">
+                  <motion.div
+                    style={{ y: innerImageY, scale: 1.2 }}
+                    className="relative w-full h-full will-change-transform"
+                  >
+                    <Image
+                      src="/profile/giffa-suit-formal.jpg"
+                      alt="Syaikhani Giffa Indrawan in formal suit"
+                      fill
+                      className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                      sizes="(max-width: 640px) 85vw, 400px"
+                    />
+                  </motion.div>
                 </div>
 
                 <div className="mt-4 px-1.5 flex justify-between items-center">
@@ -91,9 +100,25 @@ export function About({ lang }: AboutProps) {
 
           {/* Right Column: Narrative & Metrics */}
           <div className="lg:col-span-7 space-y-7">
-            <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink dark:text-ink-light font-normal leading-snug">
-              Building software that balances functional rigor with human character.
-            </h3>
+            <div className="relative">
+              <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink dark:text-ink-light font-normal leading-snug">
+                Building software that balances functional rigor with human character.
+              </h3>
+              {/* Organic Hand-drawn SVG Accent */}
+              <svg
+                className="w-48 h-4 mt-2 text-[#059669] dark:text-[#34D399]"
+                viewBox="0 0 200 16"
+                fill="none"
+              >
+                <motion.path
+                  d="M 5 10 Q 50 3, 100 8 T 195 9"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  style={{ pathLength: doodleDraw }}
+                />
+              </svg>
+            </div>
 
             <div className="space-y-4 text-base sm:text-lg text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
               <p className="font-medium text-ink dark:text-ink-light text-lg sm:text-xl leading-snug">
@@ -142,3 +167,4 @@ export function About({ lang }: AboutProps) {
     </section>
   );
 }
+

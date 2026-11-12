@@ -3,7 +3,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, MapPin, Compass } from "lucide-react";
+import { HeroLandscapeScenery } from "@/components/ui/HeroLandscapeScenery";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface HeroProps {
   lang: "EN" | "ID";
@@ -11,10 +18,24 @@ interface HeroProps {
 
 export function Hero({ lang }: HeroProps) {
   const containerRef = useRef<HTMLElement>(null);
+  const distRef = useRef<HTMLSpanElement>(null);
   const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+
+    // Section 5.2: HUD Distance counter (0.0 km -> 12.4 km) tracking whole page scroll
+    const st = ScrollTrigger.create({
+      start: 0,
+      end: "max",
+      onUpdate: (self) => {
+        if (distRef.current) {
+          distRef.current.textContent = (self.progress * 12.4).toFixed(1);
+        }
+      },
+    });
+
+    return () => st.kill();
   }, []);
 
   // 1. Scroll-driven vertical parallax transforms
@@ -24,6 +45,7 @@ export function Hero({ lang }: HeroProps) {
   });
 
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "24%"]);
+  const italicX = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
   const cardsY = useTransform(scrollYProgress, [0, 1], ["0%", "-16%"]);
   const cardLeftY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const cardCenterY = useTransform(scrollYProgress, [0, 1], [0, -30]);
@@ -56,20 +78,30 @@ export function Hero({ lang }: HeroProps) {
       onMouseMove={handleMouseMove}
       className="relative min-h-[96vh] flex flex-col justify-between pt-32 sm:pt-36 pb-14 px-6 sm:px-10 md:px-16 overflow-hidden bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300 select-none"
     >
+      {/* Multi-depth landscape background scenery (Reference 1 & 2 inspired) */}
+      <HeroLandscapeScenery />
+
       {/* Top Bar: Clean & Breathless (NO hairline divider line, NO robot font, NO // slashes) */}
-      <div className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
+      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
         <div className="flex items-center gap-2 text-xs font-sans font-medium text-ink/75 dark:text-ink-lightDim">
           <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
           <span>{lang === "EN" ? "Portfolio Archive 2026" : "Arsip Portofolio 2026"}</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs font-sans text-ink/65 dark:text-ink-lightDim">
-          <MapPin className="w-3.5 h-3.5 text-[#059669] dark:text-[#34D399]" />
-          <span>IPB University · D4 TRPL · Bogor, Indonesia</span>
+
+        <div className="flex items-center gap-4 text-xs font-sans text-ink/65 dark:text-ink-lightDim">
+          <div className="flex items-center gap-1.5">
+            <Compass className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
+            <span>Trailhead: <span ref={distRef} className="font-semibold text-ink dark:text-white">0.0</span> km</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-[#059669] dark:text-[#34D399]" />
+            <span>IPB University · Bogor, ID</span>
+          </div>
         </div>
       </div>
 
       {/* Main Centered Typographic Stage */}
-      <div className="relative max-w-5xl mx-auto w-full my-auto py-8 sm:py-12 text-center flex flex-col items-center justify-center">
+      <div className="relative z-10 max-w-5xl mx-auto w-full my-auto py-8 sm:py-12 text-center flex flex-col items-center justify-center">
         <motion.div
           style={{ y: titleY, opacity }}
           className="space-y-6 sm:space-y-7 max-w-4xl"
@@ -78,7 +110,12 @@ export function Hero({ lang }: HeroProps) {
           <h1 className="font-serif text-5xl sm:text-7xl lg:text-[6.2rem] font-normal leading-[1.02] tracking-tight text-ink dark:text-ink-light">
             Crafting tactile, <br />
             purposeful software, <br />
-            <span className="italic text-[#059669] dark:text-[#34D399]">really.</span>
+            <motion.span
+              style={{ x: italicX, display: "inline-block" }}
+              className="italic text-[#059669] dark:text-[#34D399] will-change-transform"
+            >
+              really.
+            </motion.span>
           </h1>
 
           {/* Authentic Human Narrative */}
@@ -195,10 +232,11 @@ export function Hero({ lang }: HeroProps) {
       </div>
 
       {/* Bottom Bar: Quiet & Human */}
-      <div className="max-w-7xl mx-auto w-full pt-4 flex justify-between items-center text-xs font-sans text-ink/50 dark:text-ink-lightDim">
-        <span>Scroll for continuous parallax experience</span>
+      <div className="relative z-10 max-w-7xl mx-auto w-full pt-4 flex justify-between items-center text-xs font-sans text-ink/50 dark:text-ink-lightDim">
+        <span>Scroll for continuous parallax depth</span>
         <span>Syaikhani Giffa Indrawan · 2026</span>
       </div>
     </section>
   );
 }
+

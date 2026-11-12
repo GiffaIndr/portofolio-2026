@@ -77,7 +77,9 @@ function ProjectCard({
   });
 
   // Deep internal image scroll parallax
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+  // Background watermark number parallax (Section 5.4)
+  const numY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   const theme = PROJECT_THEMES[project.slug] || {
     primary: "#141412",
@@ -90,15 +92,24 @@ function ProjectCard({
   return (
     <div
       ref={cardRef}
-      className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-8 sm:p-10 md:p-12 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm transition-all duration-300"
+      className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-8 sm:p-10 md:p-12 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-lg dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-300 overflow-hidden"
     >
+      {/* Parallax Background Watermark Number (Section 5.4) */}
+      <motion.span
+        style={{ y: numY }}
+        aria-hidden="true"
+        className="absolute -bottom-8 right-6 font-serif font-bold text-8xl sm:text-9xl text-black/[0.03] dark:text-white/[0.04] pointer-events-none select-none"
+      >
+        0{index + 1}
+      </motion.span>
+
       {/* Signature Colorful Washi Tape */}
       <div
         className={`absolute -top-3 left-8 sm:left-14 w-24 sm:w-28 h-5 sm:h-6 ${theme.tapeBg} z-20 pointer-events-none rounded-xs opacity-90 shadow-xs rotate-[-1deg]`}
       />
 
       {/* Left Column: Editorial Information */}
-      <div className="lg:col-span-5 space-y-5 order-2 lg:order-1">
+      <div className="relative z-10 lg:col-span-5 space-y-5 order-2 lg:order-1">
         <div className="flex items-center justify-between text-xs font-sans">
           <span className={`font-semibold tracking-wider ${theme.accentBadge}`}>
             0{index + 1}. {theme.categoryLabel}
