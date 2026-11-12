@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Github, CheckCircle2 } from "lucide-react";
 import { Project } from "@/content/projects";
+import { RfidSignalArchitectureFlow } from "./RfidSignalArchitectureFlow";
 
 interface CaseStudyModalProps {
   project: Project | null;
@@ -136,6 +137,11 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                 </p>
               </div>
             </div>
+
+            {/* Live Interactive Signal Architecture Flow for RFID (Section 6, Idea 8) */}
+            {project.slug === "rfid-absence-system" && (
+              <RfidSignalArchitectureFlow />
+            )}
 
             {/* Key Features */}
             <div className="space-y-4 pt-4">

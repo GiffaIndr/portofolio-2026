@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/content/projects";
 import { ArrowLeft, ExternalLink, Github, CheckCircle2 } from "lucide-react";
+import { RfidSignalArchitectureFlow } from "@/components/work/RfidSignalArchitectureFlow";
+import { BrushStrokeDivider } from "@/components/ui/BrushStrokeDivider";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -14,7 +16,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
     const project = projects.find((p) => p.slug === slug);
     if (!project) return { title: "Project Not Found" };
     return {
-      title: `${project.title} — Case Study // Syaikhani Giffa Indrawan`,
+      title: `${project.title} — Case Study · Syaikhani Giffa Indrawan`,
       description: project.tagline,
     };
   });
@@ -45,7 +47,7 @@ export default async function ProjectCaseStudyPage({
             <span>Back to Works</span>
           </Link>
           <div className="text-xs font-semibold text-ink/70 dark:text-ink-lightDim uppercase tracking-wider">
-            Case Study // {project.category}
+            Case Study · {project.category}
           </div>
         </div>
       </header>
@@ -130,6 +132,14 @@ export default async function ProjectCaseStudyPage({
             </p>
           </div>
         </div>
+
+        {/* Section 6, Idea 8: Live Signal Architecture Flow for RFID */}
+        {project.slug === "rfid-absence-system" && (
+          <div className="space-y-4">
+            <RfidSignalArchitectureFlow />
+            <BrushStrokeDivider variant="terracotta" />
+          </div>
+        )}
 
         {/* Key Features */}
         <div className="space-y-6">

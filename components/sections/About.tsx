@@ -46,30 +46,32 @@ export function About({ lang }: AboutProps) {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pt-10 sm:pt-14 items-start">
-          {/* Left Column: Organic Frame Portrait with Internal Parallax */}
+          {/* Left Column: Rearview Mirror Portal with Internal Parallax (Idea 5, Ref 4) */}
           <motion.div
             style={{ y: frameY }}
             className="lg:col-span-5 flex flex-col items-center lg:items-start"
           >
             <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <div className="p-3.5 sm:p-4 pb-6 rounded-[2rem] bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-sm">
-                {/* Organic Mask Frame (Section 5.3) */}
-                <div className="relative aspect-[4/5] w-full rounded-[1.6rem] overflow-hidden bg-black/5 dark:bg-white/5">
+              <div className="p-4 sm:p-5 pb-7 rounded-[2.5rem] bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-lg">
+                {/* Rearview Mirror Portal Mask (Section 6, Idea 5) */}
+                <div className="relative aspect-[3/4] w-full overflow-hidden [clip-path:ellipse(47%_49%_at_50%_50%)] ring-1 ring-black/20 dark:ring-white/20 bg-black/10 shadow-inner">
                   <motion.div
-                    style={{ y: innerImageY, scale: 1.2 }}
+                    style={{ y: innerImageY, scale: 1.25 }}
                     className="relative w-full h-full will-change-transform"
                   >
                     <Image
                       src="/profile/giffa-suit-formal.jpg"
-                      alt="Syaikhani Giffa Indrawan in formal suit"
+                      alt="Syaikhani Giffa Indrawan in formal suit seen through rearview mirror portal"
                       fill
-                      className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                      className="object-cover object-top hover:scale-105 transition-transform duration-700 filter contrast-[1.03]"
                       sizes="(max-width: 640px) 85vw, 400px"
                     />
                   </motion.div>
+                  {/* Subtle analog vignette sheen */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
                 </div>
 
-                <div className="mt-4 px-1.5 flex justify-between items-center">
+                <div className="mt-4 px-2 flex justify-between items-center">
                   <div>
                     <span className="font-serif text-base text-ink dark:text-ink-light block">
                       Formal &amp; Academic

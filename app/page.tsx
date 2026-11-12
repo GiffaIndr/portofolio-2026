@@ -11,6 +11,7 @@ import { Skills } from "@/components/sections/Skills";
 import { MoreWorks } from "@/components/sections/MoreWorks";
 import { ScrollParallaxCanvas } from "@/components/layout/ScrollParallaxCanvas";
 import { SerendipityBanner } from "@/components/ui/SerendipityBanner";
+import { BrushStrokeDivider } from "@/components/ui/BrushStrokeDivider";
 
 export default function Home() {
   const [lang, setLang] = useState<"EN" | "ID">("EN");
@@ -44,8 +45,10 @@ export default function Home() {
         <Hero lang={lang} />
         <SerendipityBanner lang={lang} />
         <About lang={lang} />
+        <BrushStrokeDivider variant="terracotta" />
         <SelectedWork lang={lang} />
         <Experience lang={lang} />
+        <BrushStrokeDivider variant="butter" />
         <Skills lang={lang} />
         <MoreWorks lang={lang} />
       </main>

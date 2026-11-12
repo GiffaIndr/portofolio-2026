@@ -20,9 +20,24 @@ export function Hero({ lang }: HeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const distRef = useRef<HTMLSpanElement>(null);
   const [isTouch, setIsTouch] = useState(false);
+  const [timeStr, setTimeStr] = useState("17:00 WIB");
 
   useEffect(() => {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+
+    // Live WIB clock for HUD expedition telemetry
+    const updateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Jakarta",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      };
+      setTimeStr(`${now.toLocaleTimeString("id-ID", options)} WIB`);
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 30000);
 
     // Section 5.2: HUD Distance counter (0.0 km -> 12.4 km) tracking whole page scroll
     const st = ScrollTrigger.create({
@@ -35,7 +50,10 @@ export function Hero({ lang }: HeroProps) {
       },
     });
 
-    return () => st.kill();
+    return () => {
+      clearInterval(timer);
+      st.kill();
+    };
   }, []);
 
   // 1. Scroll-driven vertical parallax transforms
@@ -45,7 +63,11 @@ export function Hero({ lang }: HeroProps) {
   });
 
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "24%"]);
-  const italicX = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+  // Section 6, Idea 2: Split title counter-glide revealing scenery
+  const titleLeftX = useTransform(scrollYProgress, [0, 0.7], ["0%", "-5%"]);
+  const titleRightX = useTransform(scrollYProgress, [0, 0.7], ["0%", "5%"]);
+  const italicX = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+
   const cardsY = useTransform(scrollYProgress, [0, 1], ["0%", "-16%"]);
   const cardLeftY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const cardCenterY = useTransform(scrollYProgress, [0, 1], [0, -30]);
@@ -91,11 +113,11 @@ export function Hero({ lang }: HeroProps) {
         <div className="flex items-center gap-4 text-xs font-sans text-ink/65 dark:text-ink-lightDim">
           <div className="flex items-center gap-1.5">
             <Compass className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
-            <span>Trailhead: <span ref={distRef} className="font-semibold text-ink dark:text-white">0.0</span> km</span>
+            <span>{timeStr} · <span ref={distRef} className="font-semibold text-ink dark:text-white">0.0</span> km</span>
           </div>
           <div className="flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5 text-[#059669] dark:text-[#34D399]" />
-            <span>IPB University · Bogor, ID</span>
+            <span>Bogor · 6.5971° S, 106.8060° E</span>
           </div>
         </div>
       </div>
@@ -106,10 +128,14 @@ export function Hero({ lang }: HeroProps) {
           style={{ y: titleY, opacity }}
           className="space-y-6 sm:space-y-7 max-w-4xl"
         >
-          {/* Headline in Timeless Serif with Italic Accent */}
+          {/* Headline in Timeless Serif with Split Counter-Glide (Idea 2 & 3) */}
           <h1 className="font-serif text-5xl sm:text-7xl lg:text-[6.2rem] font-normal leading-[1.02] tracking-tight text-ink dark:text-ink-light">
-            Crafting tactile, <br />
-            purposeful software, <br />
+            <motion.span style={{ x: titleLeftX, display: "inline-block" }} className="will-change-transform">
+              Crafting tactile,
+            </motion.span> <br />
+            <motion.span style={{ x: titleRightX, display: "inline-block" }} className="will-change-transform">
+              purposeful software,
+            </motion.span> <br />
             <motion.span
               style={{ x: italicX, display: "inline-block" }}
               className="italic text-[#059669] dark:text-[#34D399] will-change-transform"
