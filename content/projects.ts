@@ -5,9 +5,13 @@ export type Project = {
   role: string;
   category: "Web" | "Mobile" | "IoT" | "Fullstack";
   tagline: string;
+  taglineId?: string;
   problem: string;
+  problemId?: string;
   solution: string;
+  solutionId?: string;
   features: string[];
+  featuresId?: string[];
   stack: string[];
   status: "live" | "repo-only";
   links: { live?: string; repo: string };
@@ -29,16 +33,28 @@ export const projects: Project[] = [
     role: "Fullstack & IoT Engineer",
     category: "IoT",
     tagline: "Smart hardware attendance verification coupled with strict task completion KPI gates.",
+    taglineId: "Verifikasi presensi hardware RFID terintegrasi gerbang KPI penyelesaian tugas harian.",
     problem:
       "Traditional office attendance systems only track physical clock-in/clock-out timestamps without verifying daily deliverables or output, allowing clock-outs even when critical assignments remain unaddressed.",
+    problemId:
+      "Sistem presensi kantor konvensional hanya mencatat waktu tap tanpa memvalidasi ketercapaian tugas harian karyawan, membuka celah tap pulang meski pekerjaan inti belum selesai.",
     solution:
       "Engineered an integrated IoT and web platform where ESP8266 hardware verifies physical RFID cards, communicates over a secured REST API with Laravel 10, and strictly gates tap-out privileges behind a $\\ge 70\\%$ daily task completion threshold with automated monthly KPI scoring.",
+    solutionId:
+      "Merancang platform terintegrasi IoT dan web di mana modul ESP8266 memvalidasi kartu fisik RFID melalui REST API aman ke Laravel 10, mengunci hak tap pulang bila progres tugas harian di bawah 70%, serta mengalkulasi skor KPI bulanan secara otomatis.",
     features: [
       "Hardware tap-in & tap-out with ESP8266 NodeMCU, MFRC522 RFID reader, and 16x2 I2C LCD",
       "Strict tap-out verification gate: staff cannot tap-out unless daily task progress reaches at least 70%",
       "Automated monthly KPI score calculation with dynamic configurable thresholds for HRD managers",
       "Smart task carry-over: incomplete Friday tasks automatically roll over to Monday skipping weekends",
       "Dual authenticated portal (HRD Executive & Employee) with automated Maatwebsite Excel reporting",
+    ],
+    featuresId: [
+      "Tap-in & tap-out hardware dengan ESP8266 NodeMCU, modul reader RFID MFRC522, dan display LCD I2C 16x2",
+      "Gerbang verifikasi kepulangan ketat: karyawan ditolak tap-out jika progres tugas harian di bawah 70%",
+      "Kalkulasi skor KPI bulanan otomatis dengan ambang batas dinamis yang dapat dikonfigurasi manajer HRD",
+      "Penerusan tugas pintar: tugas hari Jumat yang belum selesai otomatis dialihkan ke hari Senin",
+      "Portal ganda terotentikasi (Eksekutif HRD & Karyawan) dengan fitur ekspor laporan Excel otomatis",
     ],
     stack: [
       "Laravel 10",
@@ -55,7 +71,7 @@ export const projects: Project[] = [
     links: {
       repo: "https://github.com/GiffaIndr/RFID_absence_system_v2",
     },
-    cover: "/projects/rfid-absence-system/cover.webp",
+    cover: "/projects/rfid-absence-system/cover-temp.jpg",
     gallery: [
       {
         src: "/projects/rfid-absence-system/arch-diagram.svg",
@@ -71,6 +87,11 @@ export const projects: Project[] = [
         src: "/projects/rfid-absence-system/dashboard-mockup.webp",
         alt: "HRD Management Portal and KPI Analysis",
         caption: "Employee attendance and automated KPI scoring dashboard",
+      },
+      {
+        src: "/docs/rfid-client.jpg",
+        alt: "Client alignment meeting for RFID Absence System",
+        caption: "Direct requirement review and handover sync with the RFID project client team",
       },
     ],
     featured: true,
@@ -100,15 +121,26 @@ export const projects: Project[] = [
     role: "Front-end Developer & UI Redesign (Team Project)",
     category: "Web",
     tagline: "Interactive accessibility map enabling mobility transparency for public facilities in Bogor.",
+    taglineId: "Peta aksesibilitas interaktif untuk transparansi mobilitas fasilitas publik di Kota Bogor.",
     problem:
       "Persons with disabilities, wheelchair users, and senior citizens frequently arrive at public spaces only to encounter insurmountable physical barriers such as steep steps and lack of ramps.",
+    problemId:
+      "Penyandang disabilitas fisik, pengguna kursi roda, dan lansia kerap menjumpai kendala aksesibilitas seperti tangga terjal tanpa ramp saat mengunjungi fasilitas umum di Bogor.",
     solution:
       "Collaborated on AksesKota to overhaul the front-end interface, creating an intuitive geo-spatial explorer that categorizes ramp availability, tactile paving, wheelchair accessibility, and accessible restrooms across Bogor.",
+    solutionId:
+      "Berkolaborasi mendesain ulang antarmuka front-end AksesKota menjadi penjelajah geospasial intuitif yang memetakan ketersediaan ramp, guiding block tunanetra, toilet aksesibel, dan akses kursi roda di Kota Bogor.",
     features: [
       "Interactive map visualizer detailing ramp grades, accessible entrances, and accessible restrooms",
       "Crowdsourced accessibility condition reporting and community verification workflow",
       "Redesigned intuitive 'Jelajahi' (Explore) and 'Cara Kerja' (Methodology) informational tabs",
       "Fully responsive, mobile-first design optimized for on-the-go navigation in Bogor city",
+    ],
+    featuresId: [
+      "Visualisasi peta interaktif detail kelayakan ramp, pintu masuk ramah disabilitas, dan toilet aksesibel",
+      "Alur pelaporan kondisi aksesibilitas partisipatif dari komunitas dan verifikasi data",
+      "Desain ulang tab navigasi 'Jelajahi' dan 'Cara Kerja' yang lebih informatif dan bersih",
+      "Tata letak responsif mobile-first untuk memudahkan navigasi langsung di lapangan",
     ],
     stack: [
       "React",
@@ -146,15 +178,26 @@ export const projects: Project[] = [
     role: "Front-end & Integration Engineer",
     category: "Web",
     tagline: "AI-powered Braille reader and workspace translating tactile patterns into natural language.",
+    taglineId: "Pembaca Braille berbasis AI dan ruang kerja penerjemah pola taktil ke bahasa Indonesia.",
     problem:
       "Educators, families, and sighted peers assisting visually impaired students often cannot read embossed Braille notation without specialized slow manual translation.",
+    problemId:
+      "Pendidik, keluarga, dan teman sebaya tunanetra kesulitan membaca notasi cetak timbul Braille secara cepat tanpa bantuan ahli penerjemah.",
     solution:
       "Built a modern web workspace backed by a custom YOLO object detection model (`best.pt`) that recognizes Braille dot cell structures from uploaded camera frames and converts them into validated Indonesian text with KBBI dictionary checking.",
+    solutionId:
+      "Membangun ruang kerja web modern didukung model visi komputer YOLO kustom (`best.pt`) yang mendeteksi pola titik sel Braille dari kamera dan mengonversinya menjadi teks digital bahasa Indonesia tervalidasi KBBI.",
     features: [
       "Automated optical Braille recognition from photo input via computer vision inference",
       "Indonesian linguistic validation with integrated KBBI dictionary reference engine",
       "Dual transcription workspace with editable text output and audio synthesis capability",
       "High-contrast, accessible UI tuned for visually impaired and low-vision accessibility",
+    ],
+    featuresId: [
+      "Pengenalan optik Braille otomatis dari tangkapan foto menggunakan inferensi computer vision",
+      "Validasi linguistik bahasa Indonesia terintegrasi dengan mesin kamus KBBI",
+      "Ruang kerja transkripsi ganda dengan hasil teks yang dapat diedit dan sintesis audio",
+      "Antarmuka kontras tinggi yang ramah aksesibilitas tunanetra dan low-vision",
     ],
     stack: [
       "React",
@@ -188,15 +231,26 @@ export const projects: Project[] = [
     role: "Front-end & WebGIS Developer",
     category: "Web",
     tagline: "High-performance WebGIS spatial analytics platform for environmental and educational awareness.",
+    taglineId: "Platform analitik spasial WebGIS untuk kesadaran lingkungan dan edukasi interaktif.",
     problem:
       "Spatial environmental datasets are often locked inside cumbersome desktop GIS software that everyday students and public stakeholders cannot readily visualize or comprehend.",
+    problemId:
+      "Data geospasial lingkungan kerap tersimpan dalam software desktop rumit yang sulit diakses atau dipahami oleh pelajar dan publik umum.",
     solution:
       "Crafted an interactive WebGIS dashboard utilizing Deck.gl and Mapbox GL with React 19, enabling seamless 60fps rendering of multi-layered geographic data, thematic overlays, and educational modules.",
+    solutionId:
+      "Membangun dasbor WebGIS interaktif memanfaatkan Deck.gl dan Mapbox GL dengan React 19, menghasilkan rendering 60fps mulus pada visualisasi data geografis berlapis dan modul edukasi.",
     features: [
       "Interactive 3D geospatial layer visualization rendered via WebGL and Deck.gl",
       "Dynamic data layer toggling: regional boundaries, environmental zones, and school catchment areas",
       "Framer Motion fluid transitions and responsive spatial query sidebars",
       "Modern React 19 and Vite architecture for optimal client-side load performance",
+    ],
+    featuresId: [
+      "Visualisasi layer geospasial 3D interaktif yang dirender melalui WebGL dan Deck.gl",
+      "Pilihan layer data dinamis: batas wilayah, zona lingkungan, dan cakupan sekolah",
+      "Transisi fluida Framer Motion dan sidebar kueri spasial yang responsif",
+      "Arsitektur modern React 19 dan Vite untuk performa pemuatan sisi klien optimal",
     ],
     stack: [
       "React 19",
@@ -212,7 +266,7 @@ export const projects: Project[] = [
       live: "https://sadar-edu-v1.vercel.app",
       repo: "https://github.com/GiffaIndr/SADAR-EDU-V1",
     },
-    cover: "/projects/sadar-edu/cover.webp",
+    cover: "/projects/sadar-edu/cover-temp.jpg",
     gallery: [
       {
         src: "/projects/sadar-edu/desktop-home.webp",
@@ -230,15 +284,26 @@ export const projects: Project[] = [
     role: "Android Developer",
     category: "Mobile",
     tagline: "Native Android habit self-improvement app built on incremental daily compound growth.",
+    taglineId: "Aplikasi Android native pelacak kebiasaan berbasis prinsip perbaikan bertahap 1% setiap hari.",
     problem:
       "Users struggling to build lasting habits frequently lose momentum without visual streak accountability, peer support, and verifiable progress documentation.",
+    problemId:
+      "Membangun kebiasaan positif sering kali gagal karena ketiadaan pencatatan beruntun yang memotivasi dan minimnya verifikasi progres yang nyata.",
     solution:
       "Developed a native Android app in Java implementing atomic habit loops, photo proof verification for completed tasks, friend search, social 'pokes', and competitive leaderboards.",
+    solutionId:
+      "Mengembangkan aplikasi Android native dengan Java yang menerapkan siklus habit atomik, verifikasi foto bukti tugas, fitur pertemanan, dan papan peringkat kompetitif.",
     features: [
       "Daily habit challenge cards with streak tracking and dynamic celebration milestones",
       "Camera photo upload system allowing users to submit verifiable proof for completed tasks",
       "Social accountability hub: friend following, leaderboard rankings, and reminder 'pokes'",
       "Secure Google OAuth sign-in and session persistence with Retrofit REST client",
+    ],
+    featuresId: [
+      "Kartu tantangan habit harian dengan pelacakan streak dan selebrasi pencapaian dinamis",
+      "Sistem unggah foto kamera untuk mengirimkan bukti verifikasi penyelesaian tugas",
+      "Pusat akuntabilitas sosial: pertemanan, peringkat leaderboard, dan notifikasi pengingat",
+      "Autentikasi Google OAuth aman dan persistensi sesi dengan REST client Retrofit",
     ],
     stack: [
       "Android SDK",
@@ -248,12 +313,18 @@ export const projects: Project[] = [
       "Google Auth",
       "RESTful API",
     ],
-    status: "repo-only",
+    status: "live",
     links: {
+      live: "https://onepercent-be.vercel.app/",
       repo: "https://github.com/GiffaIndr/one-Percent-mobile-V1",
     },
     cover: "/projects/one-percent-mobile/cover.webp",
     gallery: [
+      {
+        src: "/projects/one-percent-mobile/web-leaderboard.png",
+        alt: "OnePercent Web Dashboard & Leaderboard",
+        caption: "Web leaderboard rankings, streak tracking, and player standing",
+      },
       {
         src: "/projects/one-percent-mobile/mockup.webp",
         alt: "1% Mobile Android app screens",

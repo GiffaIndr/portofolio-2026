@@ -30,6 +30,15 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
 
   if (!project) return null;
 
+  const tagline =
+    lang === "ID" && project.taglineId ? project.taglineId : project.tagline;
+  const problem =
+    lang === "ID" && project.problemId ? project.problemId : project.problem;
+  const solution =
+    lang === "ID" && project.solutionId ? project.solutionId : project.solution;
+  const features =
+    lang === "ID" && project.featuresId ? project.featuresId : project.features;
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-8 md:p-12 overflow-y-auto">
@@ -57,7 +66,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                 {project.category}
               </span>
               <span className="text-ink/60 dark:text-ink-lightDim">
-                {project.year} · Verified Project
+                {project.year} · {lang === "EN" ? "Verified Project" : "Proyek Terverifikasi"}
               </span>
             </div>
 
@@ -78,7 +87,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                 {project.title}
               </h2>
               <p className="text-xl sm:text-2xl text-[#2D4A34] dark:text-[#A3E635] font-serif italic">
-                "{project.tagline}"
+                "{tagline}"
               </p>
 
               {/* Action Buttons */}
@@ -121,19 +130,19 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
               <div className="p-7 rounded-2xl bg-black/5 dark:bg-white/5 space-y-3">
                 <span className="font-sans font-semibold text-xs uppercase tracking-wider text-ink/60 dark:text-ink-lightDim block">
-                  01. The Problem
+                  {lang === "EN" ? "01. The Problem" : "01. Masalah & Tantangan"}
                 </span>
                 <p className="text-sm sm:text-base text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
-                  {project.problem}
+                  {problem}
                 </p>
               </div>
 
               <div className="p-7 rounded-2xl bg-black/5 dark:bg-white/5 space-y-3">
                 <span className="font-sans font-semibold text-xs uppercase tracking-wider text-[#2563EB] dark:text-[#60A5FA] block">
-                  02. Engineering Solution
+                  {lang === "EN" ? "02. Engineering Solution" : "02. Solusi Rekayasa"}
                 </span>
                 <p className="text-sm sm:text-base text-ink/80 dark:text-[#E2DEC9] leading-relaxed font-sans">
-                  {project.solution}
+                  {solution}
                 </p>
               </div>
             </div>
@@ -146,10 +155,10 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
             {/* Key Features */}
             <div className="space-y-4 pt-4">
               <h3 className="font-serif text-2xl text-ink dark:text-white font-normal">
-                Key Technical Features
+                {lang === "EN" ? "Key Technical Features" : "Fitur Teknis Utama"}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {project.features.map((feature, idx) => (
+                {features.map((feature, idx) => (
                   <div
                     key={idx}
                     className="flex items-start gap-3 p-4 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#1E1E1B]"
@@ -166,7 +175,7 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
             {/* Technology Stack */}
             <div className="space-y-3 pt-4">
               <h3 className="font-serif text-xl text-ink dark:text-white font-normal">
-                Verified Technology Stack
+                {lang === "EN" ? "Verified Technology Stack" : "Teknologi Teruji"}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.stack.map((t) => (
@@ -179,6 +188,38 @@ export function CaseStudyModal({ project, onClose, lang }: CaseStudyModalProps) 
                 ))}
               </div>
             </div>
+
+            {/* Project Documentation & Gallery */}
+            {project.gallery && project.gallery.length > 0 && (
+              <div className="space-y-4 pt-4">
+                <h3 className="font-serif text-xl text-ink dark:text-white font-normal">
+                  {lang === "EN" ? "Architecture & Field Documentation" : "Dokumentasi & Arsitektur"}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {project.gallery.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]"
+                    >
+                      <div className="relative aspect-[16/10] w-full bg-black/5">
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          fill
+                          className="object-cover object-center"
+                          sizes="(max-width: 768px) 100vw, 420px"
+                        />
+                      </div>
+                      {item.caption && (
+                        <p className="px-4 py-3 text-xs text-ink/70 dark:text-[#E2DEC9] font-sans">
+                          {item.caption}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

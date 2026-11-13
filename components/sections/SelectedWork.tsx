@@ -11,55 +11,54 @@ interface SelectedWorkProps {
   lang: "EN" | "ID";
 }
 
-// UIMaven-inspired chromatic signatures for each project
 const PROJECT_THEMES: Record<
   string,
   {
     primary: string;
-    tapeBg: string;
-    categoryLabel: string;
+    softBg: string;
+    categoryLabelEn: string;
+    categoryLabelId: string;
     accentBadge: string;
-    shadowColor: string;
   }
 > = {
   "rfid-absence-system": {
-    primary: "#2563EB", // Electric Cobalt
-    tapeBg: "bg-[#2563EB]",
-    categoryLabel: "IOT & RFID SECURITY GATE",
+    primary: "#2563EB",
+    softBg: "bg-[#EFF6FF]/70 dark:bg-[#172033]/50",
+    categoryLabelEn: "IoT & RFID Security Gate",
+    categoryLabelId: "Gerbang IoT & Presensi RFID",
     accentBadge: "text-[#2563EB] dark:text-[#60A5FA]",
-    shadowColor: "#2563EB",
   },
   "akseskota": {
-    primary: "#059669", // Transit Emerald
-    tapeBg: "bg-[#10B981]",
-    categoryLabel: "WEBGIS & ACCESSIBILITY DIRECTORY",
+    primary: "#059669",
+    softBg: "bg-[#ECFDF5]/70 dark:bg-[#12261F]/50",
+    categoryLabelEn: "WebGIS & Accessibility Directory",
+    categoryLabelId: "Direktori WebGIS & Aksesibilitas",
     accentBadge: "text-[#059669] dark:text-[#34D399]",
-    shadowColor: "#10B981",
   },
   "railuma": {
-    primary: "#EA580C", // Locomotive Terracotta
-    tapeBg: "bg-[#F97316]",
-    categoryLabel: "AI COMPUTER VISION & BRAILLE OCR",
+    primary: "#EA580C",
+    softBg: "bg-[#FFF7ED]/70 dark:bg-[#291811]/50",
+    categoryLabelEn: "AI Computer Vision & Braille OCR",
+    categoryLabelId: "AI Visi Komputer & OCR Braille",
     accentBadge: "text-[#EA580C] dark:text-[#FB923C]",
-    shadowColor: "#EA580C",
   },
   "sadar-edu": {
-    primary: "#0891B2", // Digital Cyan
-    tapeBg: "bg-[#06B6D4]",
-    categoryLabel: "3D SPATIAL GEO-ANALYTICS",
+    primary: "#0891B2",
+    softBg: "bg-[#ECFEFF]/70 dark:bg-[#11242B]/50",
+    categoryLabelEn: "3D Spatial Geo-Analytics",
+    categoryLabelId: "Geo-Analitik Spasial 3D",
     accentBadge: "text-[#0891B2] dark:text-[#38BDF8]",
-    shadowColor: "#0891B2",
   },
   "one-percent-mobile": {
-    primary: "#7C3AED", // Royal Orchid Violet
-    tapeBg: "bg-[#A855F7]",
-    categoryLabel: "NATIVE ANDROID HABIT SYSTEM",
+    primary: "#7C3AED",
+    softBg: "bg-[#F5F3FF]/70 dark:bg-[#211733]/50",
+    categoryLabelEn: "Native Android Habit System",
+    categoryLabelId: "Sistem Habit Android Native",
     accentBadge: "text-[#7C3AED] dark:text-[#C084FC]",
-    shadowColor: "#7C3AED",
   },
 };
 
-function ProjectCard({
+function ProjectShowcaseRow({
   project,
   index,
   lang,
@@ -70,64 +69,62 @@ function ProjectCard({
   lang: "EN" | "ID";
   onOpenModal: (p: Project) => void;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: cardRef,
+    target: rowRef,
     offset: ["start end", "end start"],
   });
 
-  // Deep internal image scroll parallax
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  // Background watermark number parallax (Section 5.4)
-  const numY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], [24, -24]);
 
   const theme = PROJECT_THEMES[project.slug] || {
     primary: "#141412",
-    tapeBg: "bg-[#2563EB]",
-    categoryLabel: project.category,
+    softBg: "bg-white dark:bg-[#1E1E1B]",
+    categoryLabelEn: project.category,
+    categoryLabelId: project.category,
     accentBadge: "text-[#2563EB]",
-    shadowColor: "#2563EB",
   };
+
+  const categoryLabel =
+    lang === "ID" ? theme.categoryLabelId : theme.categoryLabelEn;
+  const tagline =
+    lang === "ID" && project.taglineId ? project.taglineId : project.tagline;
+  const problem =
+    lang === "ID" && project.problemId ? project.problemId : project.problem;
+
+  const isReversed = index % 2 === 1;
 
   return (
     <div
-      ref={cardRef}
-      className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-8 sm:p-10 md:p-12 rounded-3xl bg-white dark:bg-[#1E1E1B] border border-black/10 dark:border-white/10 shadow-lg dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-300 overflow-hidden"
+      ref={rowRef}
+      className={`group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-6 sm:p-10 md:p-12 rounded-[2rem] ${theme.softBg} border border-black/8 dark:border-white/10 shadow-[0_18px_45px_-18px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden`}
     >
-      {/* Parallax Background Watermark Number (Section 5.4) */}
-      <motion.span
-        style={{ y: numY }}
-        aria-hidden="true"
-        className="absolute -bottom-8 right-6 font-serif font-bold text-8xl sm:text-9xl text-black/[0.03] dark:text-white/[0.04] pointer-events-none select-none"
+      {/* Editorial Details Column */}
+      <motion.div
+        style={{ y: textY }}
+        className={`relative z-10 lg:col-span-5 space-y-5 will-change-transform ${
+          isReversed ? "lg:order-2" : "lg:order-1"
+        }`}
       >
-        0{index + 1}
-      </motion.span>
-
-      {/* Signature Colorful Washi Tape */}
-      <div
-        className={`absolute -top-3 left-8 sm:left-14 w-24 sm:w-28 h-5 sm:h-6 ${theme.tapeBg} z-20 pointer-events-none rounded-xs opacity-90 shadow-xs rotate-[-1deg]`}
-      />
-
-      {/* Left Column: Editorial Information */}
-      <div className="relative z-10 lg:col-span-5 space-y-5 order-2 lg:order-1">
         <div className="flex items-center justify-between text-xs font-sans">
-          <span className={`font-semibold tracking-wider ${theme.accentBadge}`}>
-            0{index + 1}. {theme.categoryLabel}
+          <span className={`font-semibold tracking-wider uppercase ${theme.accentBadge}`}>
+            {categoryLabel}
           </span>
-          <span className="text-ink/60 dark:text-ink-lightDim">{project.year}</span>
+          <span className="text-ink/55 dark:text-ink-lightDim">{project.year}</span>
         </div>
 
         <div>
-          <h3 className="font-serif text-3xl sm:text-4xl text-ink dark:text-white font-normal leading-snug group-hover:text-[#2563EB] dark:group-hover:text-[#60A5FA] transition-colors">
+          <h3 className="font-serif text-3xl sm:text-4xl text-ink dark:text-white font-normal leading-snug">
             {project.title}
           </h3>
           <p className="mt-2 text-base font-serif italic text-ink/75 dark:text-ink-lightMuted">
-            "{project.tagline}"
+            "{tagline}"
           </p>
         </div>
 
         <p className="text-sm sm:text-base text-ink/75 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
-          {project.problem}
+          {problem}
         </p>
 
         {/* Tech Stack Chips */}
@@ -135,7 +132,7 @@ function ProjectCard({
           {project.stack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="text-xs px-2.5 py-1 rounded bg-black/5 dark:bg-white/5 font-sans font-medium text-ink/80 dark:text-ink-light hover:border-black dark:hover:border-white transition-colors"
+              className="text-xs px-3 py-1 rounded-full bg-white/80 dark:bg-white/10 font-sans font-medium text-ink/80 dark:text-ink-light border border-black/5 dark:border-white/5"
             >
               {tech}
             </span>
@@ -147,7 +144,7 @@ function ProjectCard({
           <button
             onClick={() => onOpenModal(project)}
             style={{ backgroundColor: theme.primary }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-xs font-sans font-semibold uppercase tracking-wider hover:opacity-90 transition-all shadow-[2px_2px_0px_#141412] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-xs font-sans font-semibold uppercase tracking-wider hover:opacity-90 transition-all shadow-[0_10px_24px_-6px_rgba(0,0,0,0.28)] hover:-translate-y-0.5"
           >
             <span>{lang === "EN" ? "View Case Study" : "Buka Studi Kasus"}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -160,7 +157,7 @@ function ProjectCard({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-3 text-xs font-sans font-semibold uppercase tracking-wider text-ink/80 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors"
             >
-              <span>Visit Live</span>
+              <span>{lang === "EN" ? "Visit Live" : "Kunjungi Situs"}</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
             </a>
           )}
@@ -170,28 +167,30 @@ function ProjectCard({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`GitHub repo for ${project.title}`}
-            className="p-3 rounded-full border border-black/15 dark:border-white/15 text-ink/70 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors"
+            className="p-3 rounded-full border border-black/15 dark:border-white/15 text-ink/70 dark:text-ink-light hover:text-black dark:hover:text-white transition-colors bg-white/60 dark:bg-white/5"
           >
             <Github className="w-4 h-4" />
           </a>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Right Column: Visual Frame with Deep Scroll Parallax */}
+      {/* Parallax Visual Stage */}
       <div
-        className="lg:col-span-7 order-1 lg:order-2 cursor-pointer"
+        className={`lg:col-span-7 cursor-pointer ${
+          isReversed ? "lg:order-1" : "lg:order-2"
+        }`}
         onClick={() => onOpenModal(project)}
       >
-        <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 shadow-sm">
+        <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.16)]">
           <motion.div
-            style={{ y: imgY, scale: 1.12 }}
+            style={{ y: imgY, scale: 1.14 }}
             className="relative w-full h-full will-change-transform"
           >
             <Image
               src={project.cover}
               alt={project.title}
               fill
-              className="object-cover object-top hover:scale-105 transition-transform duration-700"
+              className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
               sizes="(max-width: 1024px) 100vw, 700px"
             />
           </motion.div>
@@ -222,19 +221,17 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
   return (
     <section
       id="work"
-      className="relative w-full py-20 sm:py-28 bg-paper dark:bg-paper-dark text-ink dark:text-ink-light transition-colors duration-300"
+      className="relative w-full py-24 sm:py-32 bg-[#F3EFE6] dark:bg-[#141412] text-ink dark:text-ink-light transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16">
-        {/* Section Header */}
+        {/* Section Header (No kicker/eyebrow) */}
         <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 border-b border-black/10 dark:border-white/10 gap-4">
-          <div>
-            <span className="text-xs font-sans font-semibold tracking-wider text-[#2563EB] dark:text-[#60A5FA] uppercase block mb-2">
-              02. Selected Works
+          <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
+            {lang === "EN" ? "Selected " : "Karya "}
+            <span className="italic text-[#2563EB] dark:text-[#60A5FA]">
+              {lang === "EN" ? "Projects." : "Unggulan."}
             </span>
-            <h2 className="font-serif text-4xl sm:text-6xl text-ink dark:text-ink-light font-normal tracking-tight">
-              Selected <span className="italic text-[#2563EB] dark:text-[#60A5FA]">Projects.</span>
-            </h2>
-          </div>
+          </h2>
           <p className="max-w-md text-sm sm:text-base text-ink/70 dark:text-[#E2DEC9] leading-relaxed font-sans font-normal">
             {lang === "EN"
               ? "Verified production software systems spanning IoT RFID card verification, municipal WebGIS, and AI vision."
@@ -259,9 +256,8 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
                 <span>{lang === "EN" ? filter.labelEn : filter.labelId}</span>
                 {isActive && (
                   <motion.div
-                    layoutId="editorialTabUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2563EB] dark:bg-[#60A5FA]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    layoutId="activeFilterUnderline"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#2563EB] dark:bg-[#60A5FA]"
                   />
                 )}
               </button>
@@ -269,8 +265,8 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
           })}
         </div>
 
-        {/* Project List with Smooth Animations */}
-        <motion.div layout className="space-y-12 sm:space-y-16">
+        {/* Alternating Showcase Rows */}
+        <div className="space-y-12 sm:space-y-16">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => (
               <motion.div
@@ -278,10 +274,10 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
                 layout
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
-                <ProjectCard
+                <ProjectShowcaseRow
                   project={project}
                   index={idx}
                   lang={lang}
@@ -290,7 +286,7 @@ export function SelectedWork({ lang }: SelectedWorkProps) {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
 
       <CaseStudyModal
