@@ -318,7 +318,7 @@ export const projects: Project[] = [
       live: "https://onepercent-be.vercel.app/",
       repo: "https://github.com/GiffaIndr/one-Percent-mobile-V1",
     },
-    cover: "/projects/one-percent-mobile/cover.webp",
+    cover: "/projects/one-percent-mobile/web-leaderboard.png",
     gallery: [
       {
         src: "/projects/one-percent-mobile/web-leaderboard.png",
@@ -331,7 +331,7 @@ export const projects: Project[] = [
         caption: "Habit challenges, streaks, and proof upload workflows",
       },
     ],
-    featured: false,
+    featured: true,
     accent: "butter",
   },
   {
